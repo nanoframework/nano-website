@@ -12,7 +12,7 @@ npm install
 npm run dev        # http://localhost:4321, live reload
 npm run build      # static site in ./dist
 npm run preview    # serve ./dist
-npm run check      # type + content validation (also runs in CI)
+npm run check      # type + content validation (also runs on every pull request)
 ```
 
 ## Project layout
@@ -77,6 +77,29 @@ Re-running overwrites the generated post folders, so do it before editing posts 
 
 Create `src/content/pages/<path>/index.md` with a `title:` (and optionally `description:`) header.
 `src/content/pages/partner-program/acme/index.md` is served at `/partner-program/acme/`.
+
+## Hosting (Azure Static Web Apps)
+
+The site is static and hosted on Azure Static Web Apps, deployed by
+`.github/workflows/azure-static-web-apps.yml`:
+
+- **push to `main`** → production
+- **pull request** → its own preview URL, posted on the PR (removed when the PR closes).
+  PRs from forks are built and checked, but don't get a preview (forks can't use repo secrets).
+- **daily at 05:00 UTC** → rebuild, so posts with a future `date:` publish on their day
+
+Each build writes `dist/staticwebapp.config.json` (see `src/integrations/azure-static-web-apps.mjs`):
+the old WordPress URLs from `src/data/redirects.mjs` as 301 redirects, the 404 page, caching and
+security headers.
+
+### One-time setup
+
+1. In the Azure portal, create a **Static Web App** (Free plan is enough to start), deployment source **Other**.
+2. Copy its **deployment token** (Overview → Manage deployment token) into the repository secret
+   `AZURE_STATIC_WEB_APPS_API_TOKEN`.
+3. Push to `main`; the site appears on its `*.azurestaticapps.net` address.
+4. Custom domains → add `www.nanoframework.net` (CNAME) and `nanoframework.net` (TXT validation, then an
+   ALIAS/ANAME record, or Azure DNS). Azure issues and renews the HTTPS certificates.
 
 ## Brand
 
