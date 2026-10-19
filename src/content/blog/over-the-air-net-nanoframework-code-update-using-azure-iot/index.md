@@ -4,6 +4,8 @@ description: "Over the Air (OTA) is the equivalent of a Windows Update or packag
 date: 2022-02-28T11:03:28Z
 author: laurent-ellerbach
 tags: [engineering]
+cover: ./architecture.png
+coverAlt: ""
 wordpressId: 1177
 ---
 
@@ -23,7 +25,7 @@ The code can be accessed in the [.NET **nanoFramework** samples](https://github.
 
 In short, the pattern I’ll describe more in details later on is to be able to download new code from a blob storage using the advantages of Azure IoT with the twins as a mechanism to distribute the information. Add to that the magic of .NET with reflection and dynamic assembly loading and you get the main key points. Now, enough theory, let’s dig into the code.
 
-![Architecture](https://nanoframework.net/wp-content/uploads/architecture.png)
+![Architecture](./architecture.png)
 
 [.](https://github.com/nanoframework)[NET **nanoFramework**](https://github.com/nanoframework) offers .NET support on small MCU like ESP32, STM32, TI and NXP. As the memory footprint is very limited, the storage as well, you can imagine it’s not a full .NET you can run but rather an optimized version, with some compatibility from the code point of view with the large .NET versions.
 

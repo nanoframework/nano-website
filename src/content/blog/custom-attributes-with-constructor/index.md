@@ -4,6 +4,8 @@ description: "nanoFramework just got support for these. You can now have custom 
 date: 2020-03-13T15:30:10Z
 author: jose-simoes
 tags: [engineering]
+cover: ./custom-attributes-constructor-scaled.jpg
+coverAlt: ""
 wordpressId: 828
 ---
 

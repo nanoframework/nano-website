@@ -4,6 +4,8 @@ description: "We are expanding (again) the list of hardware platforms on which .
 date: 2023-02-06T16:02:42Z
 author: jose-simoes
 tags: [releases, hardware]
+cover: ./silabs-giant-gecko-s1.webp
+coverAlt: ""
 wordpressId: 1276
 ---
 

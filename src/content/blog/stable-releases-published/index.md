@@ -4,6 +4,8 @@ description: "Today is a great day: we’ve just published stable releases for a
 date: 2019-10-15T14:22:17Z
 author: nanoframework-team
 tags: [releases]
+cover: ./nanoframework-package-feed-cartoon.jpg
+coverAlt: ""
 wordpressId: 798
 ---
 

@@ -4,6 +4,8 @@ description: "nanoFramework class libraries are composed of a managed part (writ
 date: 2019-04-23T16:20:26Z
 author: jose-simoes
 tags: [tooling]
+cover: ./hamler-circuit.jpg
+coverAlt: ""
 wordpressId: 628
 ---
 

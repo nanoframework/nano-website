@@ -4,6 +4,8 @@ description: "Network connections are a key feature for use case scenarios that 
 date: 2021-03-22T18:16:32Z
 author: jose-simoes
 tags: [networking]
+cover: ./nano-network-improvements.png
+coverAlt: ""
 wordpressId: 988
 ---
 
@@ -23,7 +25,7 @@ Up until now, to use device certificates, one would have to store them in a remo
 
 To upload a device certificate, you need to go to Device Explorer in Visual Studio, open the Network Configuration dialog and move to the last tab.
 
-![](https://nanoframework.net/wp-content/uploads/nano-certificate-management.png)
+![](./nano-certificate-management.png)
 
 We are looking into improving the nanoff CLI to allow automated uploading of these in production scenarios.
 

@@ -4,6 +4,8 @@ description: "Network connectivity has been given a high priority since the earl
 date: 2022-01-06T14:13:43Z
 author: jose-simoes
 tags: [networking]
+cover: ./network-helper.png
+coverAlt: ""
 wordpressId: 1163
 ---
 

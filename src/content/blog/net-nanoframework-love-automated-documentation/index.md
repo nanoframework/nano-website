@@ -23,7 +23,7 @@ The static html site is generated using [DocFX](https://dotnet.github.io/docfx/)
 
 The result for the Markdown page transformation looks like this:
 
-![](https://nanoframework.net/wp-content/uploads/docfx1.png)
+![](./docfx1.png)
 
 A table of content (TOC) is used to navigate the articles generated from the Markdown files. A dynamic TOC is as well available on the right allowing to go directly from one section to another. And you can notice a direct link to “Improve this Doc” is available allowing any developer to easily create a PR to improve it. Clicking on the link will bring you directly to the GitHub page.
 
@@ -31,7 +31,7 @@ This does involve to have clean and properly formed Markdown. Efforts have been 
 
 Looking at the source code generation, you’ll get all the code documentation extracted. You know, the /// comments. We do make sure that they are as clear and as good as possible to have those docs as useful as possible.
 
-![](https://nanoframework.net/wp-content/uploads/docfx2.png)
+![](./docfx2.png)
 
 That’s for the basic part. Now, all this creates some challenges: we all want everything to be as automated as possible. .NET nanoFramework has more than 80 repositories. They all contains one or multiple classes and namespaces.
 
@@ -84,11 +84,11 @@ Another task will commit and push the changes back to GitHub.
 
 The result looks like this:
 
-![](https://nanoframework.net/wp-content/uploads/docfx3.png)
+![](./docfx3.png)
 
 The same principle has been used for the [Samples](https://github.com/nanoframework/Samples). Here the idea was to tag the samples with different categories, generate all this automatically as well. The developer just have to focus on its sample, a good readme and add a category.txt file. Leave the rest to the pipeline.
 
-![](https://nanoframework.net/wp-content/uploads/docfx4.png)
+![](./docfx4.png)
 
 ## Let’s reuse the IoT.Device readmes
 
@@ -118,7 +118,7 @@ So now we have all the tools we need, it’s time to put everything together.
 
 And looking at the nanoFramework.github.io one, it’s a consequent one.
 
-![](https://nanoframework.net/wp-content/uploads/docfx5.png)
+![](./docfx5.png)
 
 Feels long and complicated like this. Right? Well, it’s not. As stated initially .NET nanoFramework is using more than 80 repositories. So if you want to extract the code documentation, you’ll need to clone, restore the nugets, build every project. A large part of the pipeline is dedicated for this. For the rest, it’s about running our tools to generate the TOC, putting everything together, building the static website, pushing it to the artifact, that’s handy to debug and check all is correct, and of course committing and pushing the code to the nanoFramework.github.io static web site.
 

@@ -4,6 +4,8 @@ description: "The MCU family is growing larger by the day and it is time to cele
 date: 2019-05-06T09:43:04Z
 author: jose-simoes
 tags: [releases, hardware]
+cover: ./cc3220sf-launchxl-e1557135752799.jpg
+coverAlt: ""
 wordpressId: 631
 ---
 

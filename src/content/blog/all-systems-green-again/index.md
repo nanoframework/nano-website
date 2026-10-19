@@ -4,6 +4,8 @@ description: "After the release of v1.0 we turned a page and that is true on wha
 date: 2018-11-07T19:35:25Z
 author: jose-simoes
 tags: [tooling, engineering]
+cover: ./nanoframework-all-systems-green.jpg
+coverAlt: ""
 wordpressId: 532
 ---
 

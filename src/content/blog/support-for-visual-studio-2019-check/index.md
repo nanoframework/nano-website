@@ -4,6 +4,8 @@ description: "Last week we’ve published nanoFramework extension for Visual Stu
 date: 2019-04-02T06:00:32Z
 author: jose-simoes
 tags: [tooling, engineering]
+cover: ./vs2019-launch-1.jpg
+coverAlt: ""
 legacyComments:
   - id: "5"
     author: "Kaare Wehn"

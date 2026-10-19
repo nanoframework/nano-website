@@ -4,6 +4,8 @@ description: "Code quality is something that is high in our priority list at nan
 date: 2019-06-12T17:38:39Z
 author: jose-simoes
 tags: [tooling, engineering]
+cover: ./sonarcloud.png
+coverAlt: ""
 wordpressId: 662
 ---
 

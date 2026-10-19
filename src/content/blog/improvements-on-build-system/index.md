@@ -4,6 +4,8 @@ description: "The build system for all (preview) target images have just been up
 date: 2020-07-02T09:08:20Z
 author: jose-simoes
 tags: [tooling, engineering]
+cover: ./grinder-technical-drawing-scaled.jpg
+coverAlt: ""
 legacyComments:
   - id: "1797"
     author: "Bernard Cherry"

@@ -4,6 +4,8 @@ description: "The nanoFramework toolbox just got a new addition: nanoFramework F
 date: 2019-07-04T18:10:37Z
 author: jose-simoes
 tags: [releases, tooling]
+cover: ./toolbox-nanoframework.jpg
+coverAlt: ""
 legacyComments:
   - id: "7"
     author: "sg"

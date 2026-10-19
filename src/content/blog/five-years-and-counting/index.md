@@ -4,6 +4,8 @@ description: "Today we celebrate the 5<sup>th</sup> anniversary of .NET nanoFram
 date: 2021-10-16T09:58:56Z
 author: jose-simoes
 tags: [community]
+cover: ./B.nanoframework_logocolor500-1.png
+coverAlt: ""
 wordpressId: 1094
 ---
 

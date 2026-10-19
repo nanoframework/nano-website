@@ -4,12 +4,14 @@ description: ".NET nanoFramework NuGet downloads have reached on the last 7<sup>
 date: 2022-05-16T08:30:22Z
 author: laurent-ellerbach
 tags: [tooling, engineering]
+cover: ./nuget8.jpg
+coverAlt: ""
 wordpressId: 1229
 ---
 
 .NET **nanoFramework** [NuGet downloads](https://www.nuget.org/profiles/nanoframework) have reached on the last 7<sup>th</sup> of May the symbolic milestone of 2 million downloads. Statistics the 12<sup>th</sup> of May shows clearly more than the 2 million:
 
-![](https://nanoframework.net/wp-content/uploads/nuget1.jpg)
+![](./nuget1.jpg)
 
 The first million was reached on the 9<sup>th</sup> of August 2021. It took 5 years to reach the first million and only 9 months to reach out the second million!
 
@@ -19,7 +21,7 @@ So let’s have a look at those numbers and dig into some of the trends.
 
 All this data have been pulled up directly from the NuGet statistics. Now, it’s  not an easy task! NuGet does not provide direct statistics but allows accessing catalogs and then work with those. The good news is that the [NuGet Trends](https://www.nugettrends.com/) site is here to help! I gathered all the catalogs, all the details and all the elements needed for statistics. There is a UI and you can get those kind of graphs:
 
-![](https://nanoframework.net/wp-content/uploads/nuget2.jpg)
+![](./nuget2.jpg)
 
 Nice but when you have 187 packages and on top you want to get the statistics from the [UnitsNet](https://www.nuget.org/packages?q=UnitsNet.nanoFramework) ones, you add things up to more than 200 packages!
 
@@ -117,11 +119,11 @@ Now we have a generated json file which looks like:
 
 In PowerBI, you can happily import a json source and all will be automatically recognized.
 
-![](https://nanoframework.net/wp-content/uploads/nuget3.jpg)
+![](./nuget3.jpg)
 
 Then the tip is to set the column type. Making sure that the numbers are numbers, dates are dates and so on:
 
-![](https://nanoframework.net/wp-content/uploads/nuget4.jpg)
+![](./nuget4.jpg)
 
 Apply the changes and you’ll get all your data imported.
 
@@ -129,7 +131,7 @@ Apply the changes and you’ll get all your data imported.
 
 So now we have our data ready, the goal is to get some insights. The first graph I’ve built was the cumulated view. So having the dates, and the “count” which is the cumulated values:
 
-![](https://nanoframework.net/wp-content/uploads/nuget5.jpg)
+![](./nuget5.jpg)
 
 This graph will always grow because it’s a cumulative view. Now, you can see a clear acceleration of the growth: from a solid linear from 2019 to mid 2020, up to a more exponential growth starting in 2021.
 
@@ -139,11 +141,11 @@ That we knew already as it took us a bit more than 5 years to reach the first mi
 
 Another way of looking at the data is using the the weekly downloads. This is what we’ve been calculated while downloading the data.
 
-![](https://nanoframework.net/wp-content/uploads/nuget6.jpg)
+![](./nuget6.jpg)
 
 And this is the same view, this time with the data exported to Excel to be able to create tendency graphs. I’m using here a polynomial of order 5:
 
-![](https://nanoframework.net/wp-content/uploads/nuget7.jpg)
+![](./nuget7.jpg)
 
 This clearly shows the acceleration of the growth and the trend.
 
@@ -163,7 +165,7 @@ We’ve grouped NuGets by categories, with 187 packages, plus more than 20 more 
 
 One of the first comparison we can do is looking at platform specific nugets. So let’s compare on the same scales 4 different categories which are exclusive: ESP32, TI, STM32 and M5Stack.
 
-![](https://nanoframework.net/wp-content/uploads/nuget8.jpg)
+![](./nuget8.jpg)
 
 What we can learn from this comparison is that ESP32 is the clear winner with the highest adoption with a cumulated number of nugets which is more than 40K, followed by the M5Stack platform with about 25K (also ESP32 based but those are excluding the other category) and then STM32 platform with around 20K.
 
@@ -171,17 +173,17 @@ In terms of pure growth, the M5Stack arrived in late 2021 and shows the highest 
 
 Those statistics are not surprising for me as we’ve been investing a lot on the ESP32 platform with a full [migration to the latest IDF platform](/improved-support-for-esp32/) back in December 2021 and also a bet on the M5Stack boards and a solid release of dedicated board support packages starting in October with continuous additions of new packages.
 
-![](https://nanoframework.net/wp-content/uploads/nuget9.jpg)
+![](./nuget9.jpg)
 
 This work added as well multiple screen drivers natively allowing anyone to have native screen support for most of the popular screen and building their own .NET **nanoFramework** image to support them.
 
 Back in Excel, with a tendency graph, you can see the inflection point of the graphic libraries while adding those drivers:
 
-![](https://nanoframework.net/wp-content/uploads/nuget10.jpg)
+![](./nuget10.jpg)
 
 And looking at more details on the M5Stack boards, here is a view with all of them, in a weekly download view:
 
-![](https://nanoframework.net/wp-content/uploads/nuget11.jpg)
+![](./nuget11.jpg)
 
 The most popular board is the M5Core2. Others are quite egalitarian with weekly variation from one to another. The nuget called nanoFramework.M5Stack has been deprecated, that’s the reason why it has disappeared from starting in February 2022. Once originally created, it only included very minimum support with no real native support neither the screen.
 
@@ -191,17 +193,17 @@ One of the strategic decisions for the project was the decision to align the .NE
 
 Here is the view:
 
-![](https://nanoframework.net/wp-content/uploads/nuget12.jpg)
+![](./nuget12.jpg)
 
 And the associated tendency:
 
-![](https://nanoframework.net/wp-content/uploads/nuget13.jpg)
+![](./nuget13.jpg)
 
-![](https://nanoframework.net/wp-content/uploads/nuget14.jpg)
+![](./nuget14.jpg)
 
 While the cumulated numbers for the Windows.Devices nugets is impressive and still have a decent number of weekly downloads, the tendency is very clear: the Windows.Devices is logically fading while the System.Device one is raising fast.
 
-![](https://nanoframework.net/wp-content/uploads/nuget15.jpg)
+![](./nuget15.jpg)
 
 This tells us as well that despite Windows.Devices being deprecated and for the last month they aren't available in the official firmware images, they are clearly still being used with devices that have older firmware images. We expect this tendency to continue within the next few months. And most likely we’ll get a close to 0 downloads as we approach the end of the year.
 
@@ -211,7 +213,7 @@ Part of the goal to migrate Widows.Devices to System.Device was to allow easy mi
 
 Let’s put things in perspective here:
 
-![](https://nanoframework.net/wp-content/uploads/nuget16.jpg)
+![](./nuget16.jpg)
 
 Bringing back in the view the previous one with Windows.Devices and System.Device with the IoT.Device and UnitsNet downloads.
 
@@ -225,17 +227,17 @@ The CoreLibrary is the base for every other library. It has to be referenced in 
 
 The category is made by 2 nugets: CoreLibrary and CoreLibrary.NoReflection. In this weekly view where both downloads are cumulated, you can clearly see that the vast majority is the regular CoreLibrary:
 
-![](https://nanoframework.net/wp-content/uploads/nuget17.jpg)
+![](./nuget17.jpg)
 
 It has nothing surprising, the no reflection one has been built to fit very small and constraints environment, so it is rarely used.
 
 Looking at the weekly download rate and the trajectory, it does logically follow the rest of the trends 😊
 
-![](https://nanoframework.net/wp-content/uploads/nuget18.jpg)
+![](./nuget18.jpg)
 
 We can as well look at the tools section that does regroup what’s needed to flash the device, for the Visual Studio extension and the new VS Code extension.
 
-![](https://nanoframework.net/wp-content/uploads/nuget20.jpg)
+![](./nuget20.jpg)
 
 As you may now guess, the trend is the same with a nice cumulated download of the tools around 180K and a weekly trend around 75K if averring the last few months.
 
@@ -245,7 +247,7 @@ One question that can be raised while looking at all those nugets is the impact 
 
 This views shows other comparisons:
 
-![](https://nanoframework.net/wp-content/uploads/nuget21.jpg)
+![](./nuget21.jpg)
 
 On the top part, you can see the adoption of the AWS library vs Azure. Azure seems 2 times more popular than AWS with more than 10k cumulative downloads.
 
@@ -255,7 +257,7 @@ Now, let’s look at the logging and test framework. Those are 2 elements which 
 
 Here too, the usage is solid, the growth more linear than for other elements but with a stick curve if you consider those are only 1 year old!
 
-![](https://nanoframework.net/wp-content/uploads/nuget22.jpg)
+![](./nuget22.jpg)
 
 ## Conclusion: a good and sustainable growth
 

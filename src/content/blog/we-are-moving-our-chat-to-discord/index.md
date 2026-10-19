@@ -4,6 +4,8 @@ description: "After many discussions we’ve decided it is within the best inter
 date: 2018-08-22T16:36:36Z
 author: jose-simoes
 tags: [community]
+cover: ./moving-box.jpg
+coverAlt: ""
 wordpressId: 468
 ---
 

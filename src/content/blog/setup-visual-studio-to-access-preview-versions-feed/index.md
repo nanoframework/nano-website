@@ -4,6 +4,8 @@ description: "If you are one of those developers that like to have access to the
 date: 2018-05-16T15:10:15Z
 author: nanoframework-team
 tags: [tooling]
+cover: ./nanoframework-package-feed-cartoon.jpg
+coverAlt: ""
 wordpressId: 432
 ---
 
@@ -31,7 +33,7 @@ If you want to add this feed to your Visual Studio, just follow the following st
 
 2.       On the Options window navigate on the left-hand toolbar to Nuget Package Manager – Package Sources.
 
-![nanoframework-myget-feed-nuget-01](https://nanoframework.net/wp-content/uploads/2018/05/nanoframework-myget-feed-nuget-012.png)
+![nanoframework-myget-feed-nuget-01](./nanoframework-myget-feed-nuget-012.png)
 
 3.       Click on the add button (the big green plus sign on the top right) and enter a name for the package source along with the following URL:
 
@@ -41,7 +43,7 @@ https://pkgs.dev.azure.com/nanoframework/feed/_packaging/sandbox/nuget/v3/index.
 
 4.       Click on the **Update** button otherwise your changes won’t’ be effective.
 
-![](https://nanoframework.net/wp-content/uploads/2019/08/visual-studio-package-source-config-01.jpg)
+![](./visual-studio-package-source-config-01.jpg)
 
 5.       That’s all. From now on this feed will be included on the searches and update checks on the Nuget Package manager.
 
@@ -55,7 +57,7 @@ _Note 2: in case you are looking for a Nuget package of a PR you are testing, fo
 
 2.       On the Options window navigate on the left-hand toolbar to Environment – Extensions and Updates.
 
-![nanoframework-myget-feed-gallery-01](https://nanoframework.net/wp-content/uploads/2018/05/nanoframework-myget-feed-gallery-01.png)
+![nanoframework-myget-feed-gallery-01](./nanoframework-myget-feed-gallery-01.png)
 
 3.       Click on the Add button at the right and enter a name for the gallery source along with the following URL:
 
@@ -65,7 +67,7 @@ _Note 2: in case you are looking for a Nuget package of a PR you are testing, fo
 
 4.       Click on the Apply button otherwise your changes won’t’ be effective.
 
-![](https://nanoframework.net/wp-content/uploads/2019/08/visual-studio-extensions-source-config-01.jpg)
+![](./visual-studio-extensions-source-config-01.jpg)
 
 5.       That’s all. From now this gallery will be included on the searches and update checks for your Visual Studio Extensions and Updates.
 

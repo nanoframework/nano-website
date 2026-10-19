@@ -4,6 +4,8 @@ description: "If you come from the .NETMF age and at some point worked with json
 date: 2019-03-16T17:17:32Z
 author: jose-simoes
 tags: [releases, tooling]
+cover: ./nanoframework-json-netmf-e1552954908669.png
+coverAlt: ""
 wordpressId: 538
 ---
 

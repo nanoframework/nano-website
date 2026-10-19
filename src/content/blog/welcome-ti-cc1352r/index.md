@@ -4,6 +4,8 @@ description: "Today we have a great announcement to make: we are adding support 
 date: 2019-12-03T02:22:52Z
 author: jose-simoes
 tags: [releases, hardware]
+cover: ./simplelink-cc1352-launchpad-horizontal.png
+coverAlt: ""
 wordpressId: 809
 ---
 

@@ -4,6 +4,8 @@ description: "I’ve been using .NET Microframework since it appear and being sa
 date: 2021-09-13T09:21:56Z
 author: laurent-ellerbach
 tags: [community]
+cover: ./cropped-nano-framework-logo-500-border.png
+coverAlt: ""
 wordpressId: 1031
 ---
 

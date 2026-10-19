@@ -4,6 +4,8 @@ description: "A long‑awaited milestone is finally real: generics are supported
 date: 2025-12-17T17:49:51Z
 author: jose-simoes
 tags: [releases, engineering]
+cover: ./generics-nanoframework-blog-header-3840x2160-1-scaled.jpg
+coverAlt: ""
 wordpressId: 1690
 ---
 

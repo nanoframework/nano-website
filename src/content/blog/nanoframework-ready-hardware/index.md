@@ -4,6 +4,8 @@ description: "A quick blog post about a survey we are conducting about nanoFrame
 date: 2019-05-27T12:39:27Z
 author: jose-simoes
 tags: [hardware]
+cover: ./nf-box-label.jpg
+coverAlt: ""
 wordpressId: 638
 ---
 

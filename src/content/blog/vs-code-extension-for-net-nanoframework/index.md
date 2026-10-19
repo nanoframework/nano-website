@@ -4,6 +4,8 @@ description: "We’re just adding a brand new extension to VS Code to enjoy .NET
 date: 2021-11-25T09:45:58Z
 author: laurent-ellerbach
 tags: [tooling]
+cover: ./nano-vs-code.gif
+coverAlt: ""
 wordpressId: 1124
 ---
 
@@ -11,7 +13,7 @@ We’re just adding a brand new extension to [VS Code](https://code.visualstudio
 
 .NET nanoFramework was historically only working on Windows and with [Visual Studio](https://visualstudio.microsoft.com/vs/). That was it. The key reasons were historic, coming from .NET MicroFramework, as tools were only available for Windows. 5 years past, as the .NET community has been growing, as .NET has been embracing other platforms than Windows and as the developers can choose their preferred platform, it is time to go to other platforms as well. With VS Code - which became the most popular development tools on most platforms - we were getting more and more questions about non-Windows platform support and being prompted for a VS Code extension.
 
-![](https://nanoframework.net/wp-content/uploads/nano-vs-code.gif)
+![](./nano-vs-code.gif)
 
 _VS Code extension experience_
 

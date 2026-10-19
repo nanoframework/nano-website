@@ -4,6 +4,8 @@ description: "In honor of IoT Day, we want to congratulate the community and shi
 date: 2025-04-09T11:37:30Z
 author: jose-simoes
 tags: [community]
+cover: ./2025-04-09-nanoFramework-loves-IoT.png
+coverAlt: ""
 wordpressId: 1674
 ---
 

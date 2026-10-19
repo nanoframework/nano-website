@@ -4,6 +4,8 @@ description: "The first commercial products with the “nanoFramework inside” 
 date: 2019-07-15T10:12:35Z
 author: nanoframework-team
 tags: [hardware]
+cover: ./oil-tank-palthree-01-scaled.jpg
+coverAlt: ""
 wordpressId: 763
 ---
 
@@ -26,23 +28,23 @@ The resulting PalThree based solution is a game-changer for the industry.”
 
 Checkout some photos from the real thing.
 
-![](https://nanoframework.net/wp-content/uploads/2019/07/oil-tank-palthree-00.jpg)
+![](./oil-tank-palthree-00.jpg)
 
 _Tanks in staging area_
 
-![](https://nanoframework.net/wp-content/uploads/2019/07/oil-tank-palthree-01.jpg)
+![](./oil-tank-palthree-01.jpg)
 
 _Close up on tank with PalThree_
 
-![](https://nanoframework.net/wp-content/uploads/2019/07/oil-tank-palthree-02.jpg)
+![](./oil-tank-palthree-02.jpg)
 
 _Tank fitted with PalThree deployed in the desert_
 
-![](https://nanoframework.net/wp-content/uploads/2019/07/oil-tank-palthree-03.jpg)
+![](./oil-tank-palthree-03.jpg)
 
 _Solar panel powering PalThree_
 
-![](https://nanoframework.net/wp-content/uploads/2019/07/palthree-close-up.jpg)
+![](./palthree-close-up.jpg)
 
 _Palthree in product enclosure_
 

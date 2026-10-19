@@ -4,6 +4,8 @@ description: "As they say: better late than never! This post is a belated announ
 date: 2018-09-14T16:02:56Z
 author: jose-simoes
 tags: [networking, tooling]
+cover: ./nanoframework-networked.jpg
+coverAlt: ""
 legacyComments:
   - id: "1404"
     author: "Hector Barrera"

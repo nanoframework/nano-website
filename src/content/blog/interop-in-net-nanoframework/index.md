@@ -1,6 +1,5 @@
 ---
 title: "Interop in .NET nanoFramework"
-description: "Original post in José Simões personal blog here."
 date: 2018-06-19T17:15:39Z
 author: jose-simoes
 tags: [tooling, engineering]

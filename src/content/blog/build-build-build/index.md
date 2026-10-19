@@ -4,6 +4,8 @@ description: "Here’s a quick overview on one of the key aspects of any softwar
 date: 2017-04-01T10:32:53Z
 author: nanoframework-team
 tags: [engineering]
+cover: ./grinder-technical-drawing-scaled.jpg
+coverAlt: ""
 wordpressId: 246
 ---
 

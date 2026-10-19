@@ -4,6 +4,8 @@ description: "Industry expert Mark Harris just published an article on its Altiu
 date: 2019-06-14T13:27:11Z
 author: nanoframework-team
 tags: [tooling]
+cover: ./mark-harris-altium-programming-languages.png
+coverAlt: ""
 wordpressId: 673
 ---
 

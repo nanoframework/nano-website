@@ -4,6 +4,8 @@ description: "Today, I am extremely excite to announce that we have just release
 date: 2021-02-25T17:54:16Z
 author: jose-simoes
 tags: [tooling, engineering]
+cover: ./test-success.jpg
+coverAlt: ""
 wordpressId: 977
 ---
 
@@ -11,15 +13,15 @@ Today, I am extremely excite to announce that we have just released the initial 
 
 I believe you will find this familiar:
 
-![](https://nanoframework.net/wp-content/uploads/unit-test-project.png)
+![](./unit-test-project.png)
 
 Such as this:
 
-![](https://nanoframework.net/wp-content/uploads/test-success.jpg)
+![](./test-success.jpg)
 
 And, of course, this one too:
 
-![](https://nanoframework.net/wp-content/uploads/test-integration-vs-failed.jpg)
+![](./test-integration-vs-failed.jpg)
 
 Knowing how important this can be for developers serious about Quality Assurance, this was high on our concern list from the beginning of the project. The initial effort on this, dates to October 2018. Back then, we were stopped in our tracks because of the lack of extensibility support of the VS Test platform. There was only VS2017 and we were told by the good folks in the VSTest team that what we were trying to accomplish would be possible with the coming VS 2019. So, we put this project on halt.
 
@@ -33,7 +35,7 @@ That does not necessarily mean that this was a walk in the park! No sir. There w
 
 As usual, simplicity is the key here. To use this feature, one just has to reference the respective NuGet package:
 
-![](https://nanoframework.net/wp-content/uploads/test-nuget-test-framework.jpg)
+![](./test-nuget-test-framework.jpg)
 
 Hit build and go to the Test Explorer window to see the magic happen (and let me assure you that seeing this in action does look like magic)!
 

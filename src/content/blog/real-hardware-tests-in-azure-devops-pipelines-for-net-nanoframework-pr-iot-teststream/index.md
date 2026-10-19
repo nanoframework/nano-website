@@ -4,6 +4,8 @@ description: "This article will go through what we've put in place for .NET nano
 date: 2024-12-26T07:55:02Z
 author: laurent-ellerbach
 tags: [hardware, engineering]
+cover: ./image-13.png
+coverAlt: ""
 wordpressId: 1612
 ---
 
@@ -13,7 +15,7 @@ And we already had AZDO pipelines, and all what's needed to run tests in cloud p
 
 Our solution is called [nanoFramework IoT TestStream](https://github.com/nanoframework/nanoFramework.IoT.TestStream). While some elements are totally dedicated to .NET nanoFramework, the overall pattern, the scalability and security around the solution are elements that can be fully reused in any Open Source repository but as well for real hardware tests in private organizations where the environment is controlled.
 
-![](https://nanoframework.net/wp-content/uploads/image-13.png)
+![](./image-13.png)
 
 ## **What are the key features needed for IoT TestStream?**
 
@@ -71,19 +73,19 @@ So, with the previous bonus points and having in mind the security challenges, t
 
 ## **Azure DevOps Self-Hosted architecture**
 
-![](https://nanoframework.net/wp-content/uploads/image-14.png)
+![](./image-14.png)
 
 The overall architecture looks simple, the self-hosted agent is connected using HTTPS to the Azure DevOps API. All the communications are through this channel, the agent is pulling everything, including long pulling for long operations. This makes it very easy to deploy anywhere as any firewall will let the communication pass through. Note that the mechanism used for GitHub is similar.
 
 If we double click and look at an agent pool and on premise agents, then we can summarize as:
 
-![](https://nanoframework.net/wp-content/uploads/image-15.png)
+![](./image-15.png)
 
 Looking at the scenario, we want to make sure that a trusted user can safely add an agent and install everything. We can try to summarize the scenario as following.
 
 **Step 1: agent installation**
 
-![](https://nanoframework.net/wp-content/uploads/image-16.png)
+![](./image-16.png)
 
 In this first step, there are two important options: native agent installation (available for Windows, MacOS and Linux) and containerized installation (Linux containers only supported out of the box).
 
@@ -105,7 +107,7 @@ The Linux containerized approach, which offers the best security, is also the mo
 
 While joining the pool seems quite straight forward, it has some challenges. The first one is to choose the best method to join the pool. The second one is to find the best secure way to provide the information, either a token, either making sure the user is the proper one.
 
-![](https://nanoframework.net/wp-content/uploads/image-17.png)
+![](./image-17.png)
 
 More information on the different options: [Self-hosted agent authentication options - Azure Pipelines | Microsoft Learn](https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/agent-authentication-options?view=azure-devops).
 
@@ -141,7 +143,7 @@ pool:
 
 In this case, in a specific pool called TestStream, you demand an agent with the capability called ESP32\_REV0. If you have multiple ones available, the first non-used one will be trigger. In this example, we ask only for one capability, but you can request multiple ones. You can also ask for specific versions of the agent OS or any environment variable and its value.
 
-![](https://nanoframework.net/wp-content/uploads/image-18.png)
+![](./image-18.png)
 
 In this example, you can see some of the custom capabilities and the system ones. The system ones are populated automatically per the agent. Now, on this, it has quite some inconvenience as it will publish all the environment variables available on your system. While you can control this quite good on a container, it's much more complicated on a native agent. The good news is that you can use an environment variable to specify the environment variables that you don't want to publish. I call this the "privacy" mode. And it's definitely something we want to offer to our contributors. Here is an example of the script we're using to activate this mode:
 
@@ -158,7 +160,7 @@ With this, none of the environment variable will be published. Still, the agent 
 
 Here is an example on how it looks like with a native Windows agent once this is put in place:
 
-![](https://nanoframework.net/wp-content/uploads/image-19.png)
+![](./image-19.png)
 
 As you can see, except tools, there is nothing that is related to the machine except the machine name. And you can, in a setting not even report the tools to get an event better privacy and security around your machine.
 
@@ -178,7 +180,7 @@ And finally, in order to reduce the risks, all the builds will be done in the Cl
 
 The following picture represents the full flow of the pipelines run for .NET nanoFramework as an example. For .NET IoT, we will follow a similar approach having only the tests running locally based on artifacts as well.
 
-![](https://nanoframework.net/wp-content/uploads/image-20.png)
+![](./image-20.png)
 
 This view gives an idea of how to go with testing on different hardware:
 
@@ -186,7 +188,7 @@ ADO pipelines do have limitations for how to select a self-hosted agent. You can
 
 If we want to run multiple hardware tests, then a simple way of looking at this can be summarize as:
 
-![](https://nanoframework.net/wp-content/uploads/image-26.png)
+![](./image-26.png)
 
 The reality is a bit more complex as the test's stages do not necessarily execute in serial, they can, if run on different agents execute in parallel. In all cases, there is only one build, with published artifacts. And the exact same artifacts are downloaded on each agent (and cached) so that, they can run each test.
 
@@ -202,25 +204,25 @@ So, how to solve this chicken and egg problem? In short: with a bootstrap pipeli
 
 We will then just call a pipeline and adjust dynamically the parameters from another pipeline and that bootstrap pipeline will also report the status of the dynamically created pipeline. Before going into how to do this, here is how it looks like once put in place:
 
-![](https://nanoframework.net/wp-content/uploads/image-22.png)
+![](./image-22.png)
 
 A specific .NET nanoFramework repository then needs 2 pipeline. A regular one where the build and hardware tests are setup. And a bootstrap one that will gather the available hardware and trigger the build and another for the test pipeline.
 
-![](https://nanoframework.net/wp-content/uploads/image-21.png)
+![](./image-21.png)
 
 And this bootstrap pipeline is going to monitor the build and test pipeline and report if any issue happened. In the previous example, we had a successful pipeline, but we can also have a failed one:
 
-![](https://nanoframework.net/wp-content/uploads/image-24.png)
+![](./image-24.png)
 
 The build and test pipeline result, in the first case of success will look like this:
 
-![](https://nanoframework.net/wp-content/uploads/image-23.png)
+![](./image-23.png)
 
 You can see the build stage and every single test stage with every single required capability. In that case, all is nicely green, because all went well.
 
 And when you look at the GitHub repository where the PR run, in case of success, you will only see the bootstrap pipeline:
 
-![](https://nanoframework.net/wp-content/uploads/image-25.png)
+![](./image-25.png)
 
 Ho, wait, why don't we see the other build and test pipeline? It is also running on the same branch, and as the ADO/GitHub connection is created, it should appear here! Well, it does but only during the execution by default! During the execution, you can see all the executing stages and they will disappear once done. And that's the key reason we need the bootstrap pipeline to monitor the status. Otherwise, it won't be reported. This can be fixed by setting the proper PR branch:
 
@@ -232,7 +234,7 @@ echo "Updated branch: $branch"
 
 You then can see all the pipelines run and their status:
 
-![](https://nanoframework.net/wp-content/uploads/image-38.png)
+![](./image-38.png)
 
 ## **Double clicking on how to create the bootstrap pipeline**
 
@@ -391,7 +393,7 @@ Here are the key elements on how this is working and what needs to be done to ac
 
 Each USB device has a vendor ID and product ID. You will then need to properly attach the vendor ID and product ID associated with your compatible .NET nanoFramework device in WSL. Two PowerShell sessions will be required: one to execute `lsusb` to list the connected USB devices and another to use `usbipd` to manage the USB device in WSL (note that `usbipd` requires an Elevated PowerShell window).
 
-![](https://nanoframework.net/wp-content/uploads/image-27.png)
+![](./image-27.png)
 
 In order to bind and attach the USB device in WSL using `usbipd`, you'll need first to list the devices to find the USB bus id which will look like `x-y` where x and y are numbers then bind and attach it. So, running from an **elevated administrator prompt on Windows**:
 
@@ -403,7 +405,7 @@ If you list again, you'll see that your device is now "Attached" compare to "Not
 
 **Important**: When you unplug and replug the device, it is **not** attached anymore but on a "Shared" state meaning, you have to rerun the attach command to share it again. You need to add `--auto-attach` in the attach command line. But this is a blocking process. So it's definitely something you should run on the background.
 
-![](https://nanoframework.net/wp-content/uploads/image-28.png)
+![](./image-28.png)
 
 This is the basic principle. Of course, we want this totally transparent. So, we've been created an application that will take care of all this in the background! It's the [TestStream.Runner application](https://github.com/nanoframework/nanoFramework.IoT.TestStream/releases).
 
@@ -471,7 +473,7 @@ We do also have the equivalent in [PowerShell for the native Windows usage](http
 
 And in both cases, as a result, you can see in the agent, the capacities dynamically set:
 
-![](https://nanoframework.net/wp-content/uploads/image-29.png)
+![](./image-29.png)
 
 So far, the value used is just the serial port name. We will extend this to add specific capabilities like networking, or storage for example. This will allow us to run specific types of hardware. Remember that you can select both a key and check its value. The value can be equal, different, or containing something specific. See in the [pool demand documentation](https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/pool-demands?view=azure-pipelines). And that's indeed this last part we will use.
 
@@ -723,31 +725,31 @@ In order to simplify how all the steps to setup the serial port, install WSL, in
 
 Everything is explained in the [README from the repository](https://github.com/nanoframework/nanoFramework.IoT.TestStream?tab=readme-ov-file#automatic-configuration). In short, we've been using [Terminal.Gui](https://github.com/gui-cs/Terminal.Gui) to create a nice UI 😊 And, yes, even in a terminal, a lot of things are possible. The application helps setting everything. Here are couple of screen captures:
 
-![](https://nanoframework.net/wp-content/uploads/image-30.png)
+![](./image-30.png)
 
 It will also automatically detect if WSL2 is installed and setup properly and do it for you:
 
-![](https://nanoframework.net/wp-content/uploads/image-31.png)
+![](./image-31.png)
 
 And guide you for the manual steps:
 
-![](https://nanoframework.net/wp-content/uploads/image-32.png)
+![](./image-32.png)
 
 It will also detect and add any device you'll plug, just let you guide:
 
-![](https://nanoframework.net/wp-content/uploads/image-33.png)
+![](./image-33.png)
 
 And once detected, will setup the configuration, and do the plumbing:
 
-![](https://nanoframework.net/wp-content/uploads/image-34.png)
+![](./image-34.png)
 
 And also, as we know, not everyone is a container expert, build the docker file for you!
 
-![](https://nanoframework.net/wp-content/uploads/image-35.png)
+![](./image-35.png)
 
 It can also run everything for you later on including setting properly the custom capabilities based on the previous setup:
 
-![](https://nanoframework.net/wp-content/uploads/image-36.png)
+![](./image-36.png)
 
 It also propose to install and run the program as login time. WSL can't be run as a service. It must be on a user context with the user log in. You can also setup auto login for a fully automated solution.
 
@@ -755,7 +757,7 @@ It also propose to install and run the program as login time. WSL can't be run a
 
 The current prototype in production, running both the WSL2 Linux container and the Windows native self-hosted agent is a small all-in-one mini PC. In my case a [BMAX-B4 Plus Mini PC](https://www.aliexpress.com/item/1005005829346998.html) Windows 11, Intel N100, 16 Go DDR4, 512 Go SSD, 2 x HDMI, 1 x Type-C, 4K @60Hz, 750MHz, which offers for less than 150€ all what you need. And it also has the advantage of consuming a maximum of 16W!
 
-![](https://nanoframework.net/wp-content/uploads/image-37.png)
+![](./image-37.png)
 
 Running the hardware test does not require many resources. Most of the time, the machine is not used at all, so it can also run in parallel of regular usage. Meaning, any of our key contributor can install the solution and run the self-hosted agent in a normal PC while they are using it. And because we do set dynamically the pipelines for the tests, in case the machine is off, the tests won't run on it. That's also something we wanted by design.
 

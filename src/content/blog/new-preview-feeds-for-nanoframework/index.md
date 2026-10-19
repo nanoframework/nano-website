@@ -4,6 +4,8 @@ description: "Until now nanoFramework has been using MyGet as its NuGet feed pro
 date: 2019-08-21T16:44:21Z
 author: nanoframework-team
 tags: [tooling, engineering]
+cover: ./moving-box.jpg
+coverAlt: ""
 wordpressId: 784
 ---
 

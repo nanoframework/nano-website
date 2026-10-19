@@ -15,7 +15,7 @@ All this happens in the background, pretty much like Windows Update. As soon as 
 
 There are options to enable/disable the feature and to use preview or stable images. These are accessible in the setting dialog on Device Explorer.
 
-![](https://nanoframework.net/wp-content/uploads/2020/12/nanoframework-auto-updates-options.png)
+![](./nanoframework-auto-updates-options.png)
 
 The initial version of this new feature is able update the CLR images for STM32 targets. We will be adding support for ESP32 and TI targets soon.
 

@@ -4,6 +4,8 @@ description: "nanoFramework Visual Studio extension (both VS2017 and VS2019 vers
 date: 2019-05-31T11:21:49Z
 author: jose-simoes
 tags: [hardware, tooling]
+cover: ./nf-deployment.jpg
+coverAlt: ""
 wordpressId: 642
 ---
 
@@ -37,13 +39,13 @@ If one is using **nanoFramework** to deploy stuff on a couple of boards the abov
 
 There is already a very handy feature which is the generation of a binary file with the bundle of all the _PEs_ (application and referenced assemblies) that can be used to flash the “application” on a target that has already been loaded with the _nanoBooter_ & _nanoCLR_. Yes, that’s the .bin file with the assembly name that you can find on the project output folder after a successful build.
 
-![nf-app-binary](https://nanoframework.net/wp-content/uploads/2019/05/nf-app-binary.png)
+![nf-app-binary](./nf-app-binary.png)
 
 We the recent improvement this was taken to the next level: generating a complete deployment image. Yes, you read it correctly, **COMPLETE**. With all the above: _nanoBooter_, _nanoCLR_, _PEs_ and _configuration block_.
 
 The _nanoBooter_, _nanoCLR_ and _configuration block_ are dumped from the connected target flash and cached (because that’s a lengthy operation). When the deploy operation occurs (and the _PEs_ are generated and made available) the Visual Studio extension cooks everything together and spits a nice binary file with the full package.
 
-![nf-deployment-image-bin.png](https://nanoframework.net/wp-content/uploads/2019/05/nf-deployment-image-bin.png)
+![nf-deployment-image-bin.png](./nf-deployment-image-bin.png)
 
 This is working right now for STM32 targets only. Support for other platforms where this programming approach is suitable will follow.
 
@@ -53,7 +55,7 @@ Enough technicalities let’s see this working! :)
 
 Enable the deployment image generation in the (new) settings dialog available in Device Explorer.
 
-![nf-enable-deployment-image-generator.png](https://nanoframework.net/wp-content/uploads/2019/05/nf-enable-deployment-image-generator.png)
+![nf-enable-deployment-image-generator.png](./nf-enable-deployment-image-generator.png)
 
 You can optionally include the configuration block coming from the “seed” device. If you don’t, the region corresponding to the configuration block will be flashed with an empty content.
 
@@ -70,7 +72,7 @@ Now that we have the deployment image, let’s check it out.
 
 Fire up [ST-LINK Utility](https://www.st.com/content/st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-programmers/stsw-link004.html) and connect the board. I’m using a [STM32F769I-DISCO](https://www.st.com/en/evaluation-tools/32f769idiscovery.html) for this example.
 
-![nf-st-link-utility-connected](https://nanoframework.net/wp-content/uploads/2019/05/nf-st-link-utility-connected-1.png)
+![nf-st-link-utility-connected](./nf-st-link-utility-connected-1.png)
 
 The board is already flashed with _nanoBooter_ and _nanoCLR_ and a debug session has been started previously with the [Blinky](https://github.com/nanoframework/Samples/tree/master/samples/Blinky) application (meaning that the required _PEs_ are there too). So, it has everything needed to blink the LED. Which it’s doing.
 
@@ -78,35 +80,35 @@ The board is already flashed with _nanoBooter_ and _nanoCLR_ and a debug session
 
 Next let's load the file with the deployment image binary.
 
-![nf-st-link-utility-open-file](https://nanoframework.net/wp-content/uploads/2019/05/nf-st-link-utility-open-file.png)
+![nf-st-link-utility-open-file](./nf-st-link-utility-open-file.png)
 
 [ST-LINK Utility](https://www.st.com/content/st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-programmers/stsw-link004.html) has a nice comparing tool that we'll use to compare the contents of the deployment image binary and what's in the device flash.
 
-![nf-stlink-compare.png](https://nanoframework.net/wp-content/uploads/2019/05/nf-stlink-compare.png)
+![nf-stlink-compare.png](./nf-stlink-compare.png)
 
 We need to compare all the flash content so we'll enter the flash start address next, which is 0x08000000 for this device.
 
-![nf-stlink-compare-start-address.png](https://nanoframework.net/wp-content/uploads/2019/05/nf-stlink-compare-start-address.png)
+![nf-stlink-compare-start-address.png](./nf-stlink-compare-start-address.png)
 
 The file contents are loaded next and the compare operation starts. I'm guessing that ST-LINK is very thorough on this because the operation takes a lot of time to complete.
 
-![nf-stlink-compare-progress.png](https://nanoframework.net/wp-content/uploads/2019/05/nf-stlink-compare-progress.png)
+![nf-stlink-compare-progress.png](./nf-stlink-compare-progress.png)
 
 And _voilà_, if there were any doubts, the machine outputs it's conclusions and confirms that both contents are identical!
 
-![nf-stlink-compare-success](https://nanoframework.net/wp-content/uploads/2019/05/nf-stlink-compare-success-1.png)
+![nf-stlink-compare-success](./nf-stlink-compare-success-1.png)
 
 Last test with this: use the disk drive flashing method.
 
 Start by wiping the flash content using the "Full Chip Erase" command in [ST-LINK Utility](https://www.st.com/content/st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-programmers/stsw-link004.html) toolbar.
 
-![nf-stlink-full-chip-erase](https://nanoframework.net/wp-content/uploads/2019/05/nf-stlink-full-chip-erase.png)
+![nf-stlink-full-chip-erase](./nf-stlink-full-chip-erase.png)
 
 After this you can disconnect the device.
 
 Open Windows Explorer and locate the drive.
 
-![nf-mbed-disk-drive.png](https://nanoframework.net/wp-content/uploads/2019/05/nf-mbed-disk-drive.png)
+![nf-mbed-disk-drive.png](./nf-mbed-disk-drive.png)
 
 Now open the folder where the deployment image file is located (that should be the project output directory) and simply drag and drop it on the drive representing the connected target. The upload will take a few seconds. After that operation is completed the MCU is reset, _nanoBooter_ loads _nanoCLR_ and finally the managed application is executed.
 

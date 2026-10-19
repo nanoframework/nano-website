@@ -13,7 +13,7 @@ Although it has got easier over the years, debugging Visual Studio extensions is
 
 This can be checked by running the "Visual Studio Installer" clicking Modify and scrolling to "Other Toolsets"
 
-![VS Extension Workflow 1](https://nanoframework.net/wp-content/uploads/2018/02/vs-extension-workflow-1.png)
+![VS Extension Workflow 1](./vs-extension-workflow-1.png)
 
 If the box is not ticked, please tick it and then click the "Modify" button in the bottom right corner. Depending on the workflows already installed, this modification will install quite quickly.
 
@@ -21,11 +21,11 @@ If the box is not ticked, please tick it and then click the "Modify" button in t
 
 Open Visual Studio 2017 and browse to \[Tools -> Nuget Package Manager -> Package Management Settings\]
 
-![VS Extension Workflow 2](https://nanoframework.net/wp-content/uploads/2018/02/vs-extension-workflow-2.png)
+![VS Extension Workflow 2](./vs-extension-workflow-2.png)
 
 Click on Package Sources and then add a new package source by clicking the \[+\] button in the top right. You will then want to give the source an appropriate name such as "myget-nanoframework" and add the source "[https://www.myget.org/F/nanoframework-dev/](https://www.myget.org/F/nanoframework-dev/)".
 
-![VS Extension Workflow 3](https://nanoframework.net/wp-content/uploads/2018/02/vs-extension-workflow-3.png)
+![VS Extension Workflow 3](./vs-extension-workflow-3.png)
 
 Finally click \[Update\] and then \[OK\]
 
@@ -35,13 +35,13 @@ _Tip: if you wish to contribute and submit Pull Requests, it is more convenient 
 
 In your browser of choice, visit [https://www.github.com/nanoframework/nf-Visual-Studio-extension](https://github.com/nanoframework/nf-Visual-Studio-extension) and perform a clone choosing the appropriate method. In this example we will use the Visual Studio workflow.
 
-![VS Extension Workflow 4](https://nanoframework.net/wp-content/uploads/2018/02/vs-extension-workflow-4.png)
+![VS Extension Workflow 4](./vs-extension-workflow-4.png)
 
 _Note: if you have multiple versions of Visual Studio installed, you maybe asked which version to open. It is best to choose VS2017._
 
 From the displayed Team Explorer window, change the install location (if required), and ensure the \[Recursively Clone Submodules\] option is checked
 
-![VS Extension Workflow 5](https://nanoframework.net/wp-content/uploads/2018/02/vs-extension-workflow-5.png)
+![VS Extension Workflow 5](./vs-extension-workflow-5.png)
 
 Then click clone.
 
@@ -49,11 +49,11 @@ Then click clone.
 
 From Team Explorer Home, open **nanoFramework.Tools.VisualStudio.sln**
 
-![VS Extension Workflow 6](https://nanoframework.net/wp-content/uploads/2018/02/vs-extension-workflow-6.png)
+![VS Extension Workflow 6](./vs-extension-workflow-6.png)
 
 Ensure \[Debug\] and \[Any CPU\] are selected and then click \[Start\]
 
-![VS Extension Workflow 7](https://nanoframework.net/wp-content/uploads/2018/02/vs-extension-workflow-7.png)
+![VS Extension Workflow 7](./vs-extension-workflow-7.png)
 
 This will first compile the source and then it will load an experimental instance of Visual Studio in addition to the one currently open.
 
@@ -65,7 +65,7 @@ _Note: you should now ensure you have switched to the Experimental Instance for 
 
 A window will now pop up warning you that a release version of a DLL is being used
 
-![VS Extension Workflow 8](https://nanoframework.net/wp-content/uploads/2018/02/vs-extension-workflow-8.png)
+![VS Extension Workflow 8](./vs-extension-workflow-8.png)
 
 This is expected because the project is referencing the debugger library provided by the Nuget package. Click the \[Continue Debugging\] on the window.
 
@@ -73,11 +73,11 @@ _Note: if you need to step into the code of the debugger library, you will have 
 
 If the Device Explorer tool window is not present on the left of Visual Studio, Browse to \[View -> Other Windows -> Device Explorer\]
 
-![VS Extension Workflow 10](https://nanoframework.net/wp-content/uploads/2018/02/vs-extension-workflow-10.png)
+![VS Extension Workflow 10](./vs-extension-workflow-10.png)
 
 You should now use Visual Studio and the nanoFramework extension as you would.
 
-![VS Extension Workflow 9](https://nanoframework.net/wp-content/uploads/2018/02/vs-extension-workflow-9.png)
+![VS Extension Workflow 9](./vs-extension-workflow-9.png)
 
 If you find any exceptions or lockups, please provide the debug info from the Visual Studio instance running in the background to our [issues log](https://github.com/nanoframework/home/issues).
 

@@ -4,6 +4,8 @@ description: "nanoFramework C# class libraries are distributed as NuGet packages
 date: 2019-06-25T10:06:07Z
 author: jose-simoes
 tags: [tooling]
+cover: ./nf-deployment.jpg
+coverAlt: ""
 wordpressId: 742
 ---
 
@@ -21,15 +23,15 @@ This too has been improved. Because of all the above, there is no need for this 
 
 Along with this, the NuGets have been updated too and the dependencies are not strict versions anymore. Check bellow what is showing in Visual Studio package manager for a NuGet package before and after.
 
-![](https://nanoframework.net/wp-content/uploads/2019/06/nuget-dependencies.jpg)
+![](./nuget-dependencies.jpg)
 
 Another improvement in the NuGets is that the required native version is now showing on the NuGet description. Making this visible removes the obscurity behind it and this can be checked visually and programmatically.
 
-![](https://nanoframework.net/wp-content/uploads/2019/06/nuget-native-version-info.png)
+![](./nuget-native-version-info.png)
 
 This native version is what the target device has to have support for. The native version available can be checked in the Device Explorer in Visual Studio. Bellow you can see the device capabilities of a target that has support for the above NuGet.
 
-![](https://nanoframework.net/wp-content/uploads/2019/06/native-version-dev-caps.png)
+![](./native-version-dev-caps.png)
 
 Every class library is now free from this slave dependency and, from now on, will have its version bumped only when there is a real need to.
 

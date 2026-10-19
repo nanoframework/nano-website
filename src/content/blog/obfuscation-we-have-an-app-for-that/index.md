@@ -4,6 +4,8 @@ description: "If you are in the .NET world for long enough, you’ve probably ha
 date: 2018-09-26T18:31:59Z
 author: jose-simoes
 tags: [tooling, engineering]
+cover: ./nanoframework-tiraecol-obfuscation.png
+coverAlt: ""
 wordpressId: 497
 ---
 
@@ -32,7 +34,7 @@ Just to name a few: symbols renaming, overloaded renaming, cross assembly renami
 |     |     |
 | --- | --- |
 | _Before_ | _After_ |
-| ![obfuscation\_before](https://nanoframework.net/wp-content/uploads/2018/09/renaming1.png) | ![obfuscation\_after](https://nanoframework.net/wp-content/uploads/2018/09/renaming2.png) |
+| ![obfuscation\_before](./renaming1.png) | ![obfuscation\_after](./renaming2.png) |
 
   
 We've worked together with the good folks of [babelfor.NET](http://www.babelfor.net) to add support for **nanoFramework** on their .NET obfuscation product: [Babel Obfuscator](http://www.babelfor.net/products/obfuscator). Early this week v9.0 of this tool was released being the first (and only!) obfuscation tool supporting **nanoFramework**.

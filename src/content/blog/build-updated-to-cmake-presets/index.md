@@ -35,14 +35,14 @@ In a nutshell: CMake Presets offer centralized storage of build configurations w
 
 Here's an example of a couple of our base presets:
 
-![](https://nanoframework.net/wp-content/uploads/image.png)
+![](./image.png)
 
   
 Plus, there are also CMake User Presets which are meant to store “local” configurations that can be based on the official ones or contain entirely new sets. Powerful, isn’t it?
 
 Here's how the presets for the local tools look like in the template, before being replaced with the correct values for the local configuration:
 
-![](https://nanoframework.net/wp-content/uploads/image-1.png)
+![](./image-1.png)
 
 The next great thing about CMake Presets is that they can be passed directly to CMake CLI when building. With this, we’re now using those on our Azure DevOps pipelines. No more comparing yamls and local cmake-variants! There’s only one single source for build configurations and options.
 

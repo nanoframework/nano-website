@@ -1,6 +1,5 @@
 ---
 title: "Multithreading in .NET nanoFramework"
-description: "Original post at José Simões personal blog here."
 date: 2020-06-02T14:54:46Z
 author: nanoframework-team
 tags: [tooling, engineering]

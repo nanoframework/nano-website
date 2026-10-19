@@ -4,6 +4,8 @@ description: "Keeping a great build system for .NET nanoFramework firmware is so
 date: 2026-03-31T14:37:06Z
 author: jose-simoes
 tags: [engineering]
+cover: ./kconfig-migration.png
+coverAlt: ""
 wordpressId: 1714
 ---
 

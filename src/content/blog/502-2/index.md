@@ -4,6 +4,8 @@ description: "Today we are proudly announcing the first official release of nano
 date: 2018-10-12T15:11:30Z
 author: jose-simoes
 tags: [releases]
+cover: ./nanoframework-dilbert-release.png
+coverAlt: ""
 wordpressId: 502
 ---
 

@@ -4,6 +4,8 @@ description: "We have some great news to share: .NET nanoFramework has reached a
 date: 2020-09-28T10:11:03Z
 author: jose-simoes
 tags: [community]
+cover: ./dotnetfoundation_v4_horizontal.png
+coverAlt: ""
 legacyComments:
   - id: "93"
     author: "Peter"

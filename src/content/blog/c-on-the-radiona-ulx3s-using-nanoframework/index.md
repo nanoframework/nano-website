@@ -4,6 +4,8 @@ description: "nanoFramework has been recently discovered by the technology enthu
 date: 2020-02-21T12:31:13Z
 author: nanoframework-team
 tags: [hardware]
+cover: ./head.jpg
+coverAlt: ""
 wordpressId: 821
 ---
 

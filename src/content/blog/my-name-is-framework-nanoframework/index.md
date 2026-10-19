@@ -4,6 +4,8 @@ description: "Our vision for it is to be a platform that enables the writing of 
 date: 2017-01-23T18:04:40Z
 author: nanoframework-team
 tags: [community]
+cover: ./nanoframework-initial-post1.jpg
+coverAlt: ""
 wordpressId: 32
 ---
 

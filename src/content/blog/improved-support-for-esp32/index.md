@@ -4,6 +4,8 @@ description: "Today I’m proud to announce something that was due for quite som
 date: 2021-10-12T18:26:26Z
 author: jose-simoes
 tags: [hardware, tooling]
+cover: ./esp32-chip.webp
+coverAlt: ""
 wordpressId: 1070
 ---
 
