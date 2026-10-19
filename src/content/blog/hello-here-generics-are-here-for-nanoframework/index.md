@@ -11,9 +11,9 @@ wordpressId: 1690
 
 A long‑awaited milestone is finally real: **generics are supported in .NET nanoFramework**, and the public preview starts today! 🥳
 
-This post is intentionally more than an announcement. It’s a behind-the-scenes tour of what it actually took to get here: the metadata and tooling work, the runtime and type system changes, and the many “small” edge cases that turned out not to be small at all. Some parts get unapologetically dense, because generics live right at the heart of the **ECMA-335 Common Language Infrastructure (CLI)**—the same specification that defines the execution model, metadata, and type system that .NET is built on. And because nanoFramework’s PE/metadata format is an **extended subset** of ECMA-335 (optimized for constrained devices), we’ll also talk about what had to be added and reshaped so the device can resolve and execute generic code correctly.
+This post is intentionally more than an announcement. It’s a behind-the-scenes tour of what it actually took to get here: the metadata and tooling work, the runtime and type system changes, and the many “small” edge cases that turned out not to be small at all. Some parts get unapologetically dense, because generics live right at the heart of the **ECMA-335 Common Language Infrastructure (CLI)**–the same specification that defines the execution model, metadata, and type system that .NET is built on. And because nanoFramework’s PE/metadata format is an **extended subset** of ECMA-335 (optimized for constrained devices), we’ll also talk about what had to be added and reshaped so the device can resolve and execute generic code correctly.
 
-**TL;DR warning (with 💜):** if terms like _TypeSpec_, _MethodSpec_, _coded indices_, _token resolution_, and _generic context propagation_ sound like a pleasant afternoon, you’re in the right place. If they sound like a tax audit, you may want to skim the headings first—either way, if you’re up to it, let’s go.
+**TL;DR warning (with 💜):** if terms like _TypeSpec_, _MethodSpec_, _coded indices_, _token resolution_, and _generic context propagation_ sound like a pleasant afternoon, you’re in the right place. If they sound like a tax audit, you may want to skim the headings first–either way, if you’re up to it, let’s go.
 
 ## Generics in C# (Overview)
 
@@ -68,9 +68,9 @@ As one can imagine, generics support had a huge impact and reach in nanoFramewor
 
 ### A quick premise: “.NET semantics,” nano-sized metadata
 
-Because .NET nanoFramework is a .NET execution engine, it deliberately honors the same CLI rules that govern C# execution: if code is supported, you should expect the _same observable outcome_ whether it runs on a desktop CLR or on a microcontroller. What changes is not the language contract—it is the _packaging_ and _shape_ of the metadata we deploy to a constrained device.
+Because .NET nanoFramework is a .NET execution engine, it deliberately honors the same CLI rules that govern C# execution: if code is supported, you should expect the _same observable outcome_ whether it runs on a desktop CLR or on a microcontroller. What changes is not the language contract–it is the _packaging_ and _shape_ of the metadata we deploy to a constrained device.
 
-nanoFramework already shortens and adapts the standard PE/metadata model to keep footprint low and to reduce the amount of runtime crawling the device has to do. Concretely, parts of the PE headers are stripped, metadata tables are limited, indices are constrained, and (importantly) metadata tokens are 16-bit rather than 32-bit—so the IL stream itself differs from desktop .NET.
+nanoFramework already shortens and adapts the standard PE/metadata model to keep footprint low and to reduce the amount of runtime crawling the device has to do. Concretely, parts of the PE headers are stripped, metadata tables are limited, indices are constrained, and (importantly) metadata tokens are 16-bit rather than 32-bit–so the IL stream itself differs from desktop .NET.
 
 That approach (keep [ECMA 335](https://ecma-international.org/publications-and-standards/standards/ecma-335/) semantics, compress the representation) maps perfectly onto what generics demanded next: preserve the exact behavior, but extend the nano metadata model and runtime type system so the device can faithfully reproduce generic type/method behavior without turning boot and token resolution into a heavyweight process.
 
@@ -127,7 +127,7 @@ A disassembler typically shows something close to the following (simplified for 
 }
 ```
 
-The key detail is the operand behind that call. On desktop .NET, the call operand is a metadata token that might reference a MethodDef, MemberRef, or—when the target is a **constructed generic method**—a **MethodSpec**. A [MethodSpec](https://learn.microsoft.com/dotnet/api/system.reflection.metadata.ecma335.metadatabuilder.addmethodspecification?view=net-10.0&WT.mc_id=DT-MVP-5004179) is, conceptually, “generic method + instantiation signature”.
+The key detail is the operand behind that call. On desktop .NET, the call operand is a metadata token that might reference a MethodDef, MemberRef, or–when the target is a **constructed generic method**–a **MethodSpec**. A [MethodSpec](https://learn.microsoft.com/dotnet/api/system.reflection.metadata.ecma335.metadatabuilder.addmethodspecification?view=net-10.0&WT.mc_id=DT-MVP-5004179) is, conceptually, “generic method + instantiation signature”.
 
 ECMA-335 makes the “method + instantiation blob” model explicit: the **MethodSpec table** stores which generic method is being instantiated (a MethodDefOrRef coded index) and an **Instantiation** blob containing the signature of that instantiation.
 
@@ -149,7 +149,7 @@ Once you accept that both types and methods can be “described by signature blo
 
 ### What had to change in MDP: still compressing, now also preserving generic shape
 
-The Metadata Processor in nanoFramework has always been about two goals: reduce size and reduce complexity for the MCU at runtime. Generics didn’t change those goals—it raised the bar on what must be preserved during compression.
+The Metadata Processor in nanoFramework has always been about two goals: reduce size and reduce complexity for the MCU at runtime. Generics didn’t change those goals–it raised the bar on what must be preserved during compression.
 
 With generics, “dropping metadata you don’t need” becomes much harder, because generic behavior is _encoded in the relationships between tables and signature blobs_. The MDP now has to:
 
@@ -169,7 +169,7 @@ A generic definition (`Parcel<T>`) is _not_ the thing you instantiate at runtime
 
 Without that mapping, the runtime can’t reliably substitute placeholders in signatures, can’t build correct field layouts, and can’t guarantee consistent type identity across the application (which is a correctness issue, not an optimization detail).
 
-This is also where you start to feel the practical consequences of TypeSpec: a TypeSpec is literally “a signature blob plus a token wrapper” — and the runtime must be able to decode it, bind it, and then cache the resulting “closed type” object so the rest of execution can treat it like any other type.
+This is also where you start to feel the practical consequences of TypeSpec: a TypeSpec is literally “a signature blob plus a token wrapper” – and the runtime must be able to decode it, bind it, and then cache the resulting “closed type” object so the rest of execution can treat it like any other type.
 
 ### Boot/type-resolution: signatures are now part of loading, not just parsing
 
@@ -185,12 +185,12 @@ This is why, architecturally, generics pushes work into the **resolution stage**
 
 This is a place where a generic implementation can be subtly wrong if it shortcuts semantics.
 
-With generics, each distinct closed constructed type has its own static storage, and the static constructor must be tracked per closed type identity — not “once per open generic definition.” Your baseline already states the requirement crisply (and this is exactly the kind of detail worth emphasizing in a technical post). we have generics
+With generics, each distinct closed constructed type has its own static storage, and the static constructor must be tracked per closed type identity – not “once per open generic definition.” Your baseline already states the requirement crisply (and this is exactly the kind of detail worth emphasizing in a technical post). we have generics
 
 Practically, this means the runtime must ensure that `Parcel<int>` is materialized early enough that:
 
 -   its static storage can be allocated under the correct closed-type identity, and
--   its `.cctor` execution state can be tracked correctly, so “cctor runs once” remains true — but “once” is scoped to **each constructed type**, not to the open definition. we have generics
+-   its `.cctor` execution state can be tracked correctly, so “cctor runs once” remains true – but “once” is scoped to **each constructed type**, not to the open definition. we have generics
 
 This also explains your point about execution-flow changes: in “non-generic land,” the engine can often treat statics as a straightforward type-level singleton. In “generic land,” the runtime has to treat statics as **per-instantiation**, which affects when types are created, when initialization runs, and how first access is detected.
 
@@ -201,7 +201,7 @@ Once TypeSpec/MethodSpec enter the picture, resolution becomes context-dependent
 -   “What does this type placeholder mean under the current closed type?”
 -   “What does this method placeholder mean under the current generic method instantiation?” we have generics
 
-That is why the execution engine must carry and pass **type context** and **method context** across calls: callees often need that context to resolve signatures, bind tokens, and interpret generic parameters correctly — especially for nested calls and member access where signatures include generic parameters. we have generics
+That is why the execution engine must carry and pass **type context** and **method context** across calls: callees often need that context to resolve signatures, bind tokens, and interpret generic parameters correctly – especially for nested calls and member access where signatures include generic parameters. we have generics
 
 A very concrete “desktop .NET corroboration” of this requirement shows up in reflection/emit APIs: if you try to resolve a TypeSpec token whose signature contains `VAR`/MVAR without supplying the necessary generic type and/or method arguments, resolution fails. In other words, the platform itself forces you to provide the same two contexts you’re describing.
 
@@ -247,7 +247,7 @@ That is the same rule you are implementing in the interpreter: **frames and call
 At this stage in the story, it helps to be explicit about _where_ nanoFramework draws the line between “desktop .NET compatibility” and “embedded pragmatism”:
 
 -   We keep **CLI semantics** intact (same execution rules, same observable behavior).
--   We ship a **constrained PE/metadata format** that is intentionally smaller and easier to consume on-device (limited tables, limited indices, stripped PE32/COFF header), including the fact that **metadata tokens are 16-bit** in nanoFramework—so the IL stream is different from desktop .NET.
+-   We ship a **constrained PE/metadata format** that is intentionally smaller and easier to consume on-device (limited tables, limited indices, stripped PE32/COFF header), including the fact that **metadata tokens are 16-bit** in nanoFramework–so the IL stream is different from desktop .NET.
 -   In the new PE format **v2.0**, generics becomes a first-class feature in that constrained format. The AssemblyHeader marker explicitly calls out that **`NFMRK2` is “version 2.0 (after adding support for generics)”**, and the table directory gains **GenericParam** and **MethodSpec**, alongside **TypeSpec**.
 
 We had to have this v2.0 line clearly marked "in the sand” because it forces a runtime capability shift: the interpreter must be able to turn **specifications** (TypeSpec/MethodSpec + signature blobs) into **concrete runtime identities** (closed types and callable method instantiations), and then reuse them efficiently.
@@ -258,7 +258,7 @@ The key enabling detail is that signatures now contain generic element types. In
 -   `MVar` (generic parameter in a generic **method** definition),
 -   `GenericInst` (generic type instantiation).
 
-Those two facts—generic element types in signatures and compact coded tokens in IL—drive the rest of the implementation.
+Those two facts–generic element types in signatures and compact coded tokens in IL–drive the rest of the implementation.
 
 ### Closed type materialization: resolving TypeSpec into a runtime type identity
 
@@ -278,7 +278,7 @@ In practice, the runtime’s “TypeSpec resolver” becomes a small engine that
     -   The first time you see `Parcel<int>`, you pay the cost to materialize it.
     -   Every subsequent time, the type system returns the cached runtime handle without re-decoding the signature.
 
-This caching step is not just an optimization—it’s a correctness enabler. Once you add per-instantiation statics (next section), you _need_ a stable identity for “this exact closed type” so you can hang initialization state and static storage off it.
+This caching step is not just an optimization–it’s a correctness enabler. Once you add per-instantiation statics (next section), you _need_ a stable identity for “this exact closed type” so you can hang initialization state and static storage off it.
 
 ### MethodSpec binding: turning “call Echo\<int>” into something callable
 
@@ -307,7 +307,7 @@ Once `Var`/`MVar` exist in signatures, resolution becomes context-dependent by d
 -   Every call into an instantiated generic method must carry a **method context** (the closed method arguments).
 -   Any token/signature resolver that can encounter `Var`/`MVar` must accept those contexts as inputs; otherwise, it cannot bind signatures deterministically.
 
-This design also fits naturally with nanoFramework’s compact operand strategy: IL operands often use compact “BinaryTokens” (coded indices) that must be expanded into table + row and then interpreted—sometimes via TypeSpec/MethodSpec signature blobs.
+This design also fits naturally with nanoFramework’s compact operand strategy: IL operands often use compact “BinaryTokens” (coded indices) that must be expanded into table + row and then interpreted–sometimes via TypeSpec/MethodSpec signature blobs.
 
 ### Per-instantiation statics and cctors: where closed type identity becomes mandatory
 
@@ -331,19 +331,19 @@ This is also why your earlier point about execution-flow changes matters: non-ge
 With the “spec tokens” (TypeSpec/MethodSpec) and context propagation in place, the remaining work is making resolution _predictable_ and _cheap_ in the steady state. The pattern that emerges is a two-phase design:
 
 -   **Boot-time staging**: build fast indexes and lightweight handles from the metadata tables that are always present.
--   **First-use binding**: only when IL actually touches a TypeSpec/MethodSpec do we decode the signature blob, apply context, and materialize a concrete runtime identity—then cache it aggressively.
+-   **First-use binding**: only when IL actually touches a TypeSpec/MethodSpec do we decode the signature blob, apply context, and materialize a concrete runtime identity–then cache it aggressively.
 
 This division aligns directly with the nanoFramework PE format goals: keep footprint low, keep tables bounded, and keep runtime crawling minimal.
 
 ### Boot-time staging: scan, validate, and build lookup surfaces
 
-At boot (or when scanning the Deployment region), the runtime begins with the **AssemblyHeader**. The header provides verification markers/CRCs and—most importantly for performance—the offsets to every metadata table and blob stream.
+At boot (or when scanning the Deployment region), the runtime begins with the **AssemblyHeader**. The header provides verification markers/CRCs and–most importantly for performance–the offsets to every metadata table and blob stream.
 
 A few details here matter for the resolution strategy:
 
 -   The PE file starts with the **AssemblyHeader at offset 0**, and metadata immediately follows it; the device layout is designed for scanning multiple assemblies laid out back-to-back.
 -   The header contains `StartOfTables` offsets for each table and blobs, plus an `EndOfAssembly` offset that makes it cheap to jump to the next assembly when scanning a DAT/Deployment region.
--   The header marker explicitly encodes the format version, and **`NFMRK2` is “version 2.0 (after adding support for generics)”**—this our clean “feature gate” for generics-aware resolution.
+-   The header marker explicitly encodes the format version, and **`NFMRK2` is “version 2.0 (after adding support for generics)”**–this our clean “feature gate” for generics-aware resolution.
 -   PE format “major differences” include: limited metadata tables, stripped PE32/COFF details, constrained indexes, and the fact that **metadata tokens are 16-bit**.
 
 During this stage, the runtime can build fast, compact lookup structures without fully resolving everything:
@@ -434,7 +434,7 @@ That is the essential “embedded-friendly” design: correctness is paid once, 
 
 ### End-to-end walkthrough: resolving a 'CALL' that targets a MethodSpec
 
-To make this concrete, we will follow a single instruction—`call`—from the moment the interpreter fetches it, through token decoding, through MethodSpec binding, and into the actual call dispatch.
+To make this concrete, we will follow a single instruction–`call`–from the moment the interpreter fetches it, through token decoding, through MethodSpec binding, and into the actual call dispatch.
 
 The C# we start from:
 
@@ -481,7 +481,7 @@ Once the operand identifies the **MethodSpec** table (table kind `MethodSpec` ex
 This shape is mirrored by the official metadata APIs as well: a `MethodSpecification` exposes a `Method` handle (MethodDef or MemberRef) plus a `Signature` blob handle.  
 And when emitting metadata, `MetadataBuilder.AddMethodSpecification(...)` takes exactly those two things: the generic method entity handle and an instantiation blob that encodes the generic arguments.
 
-So far, we have not _resolved_ anything—we have simply identified that this call site points to “generic method + instantiation blob.”
+So far, we have not _resolved_ anything–we have simply identified that this call site points to “generic method + instantiation blob.”
 
 #### Step 3: Decode the Method field (MethodDefOrRef coded index)
 
@@ -565,7 +565,7 @@ nanoFramework’s PE format is an **extended subset of ECMA-335**, shaped by MCU
 
 Those constraints are precisely why we cannot rely on runtime “late discovery” patterns that desktop environments can sometimes tolerate. On nanoFramework, the runtime must be able to resolve everything from the deployed metadata, quickly and predictably. That means MDP must ensure that every generic instantiation used by the program is already materialized in metadata form.
 
-Also worth highlighting: MDP isn’t an optional tool in this pipeline—it’s _the_ post-build transformer that takes the Roslyn-produced assembly and converts it into the nanoFramework `.pe` representation the device runs.
+Also worth highlighting: MDP isn’t an optional tool in this pipeline–it’s _the_ post-build transformer that takes the Roslyn-produced assembly and converts it into the nanoFramework `.pe` representation the device runs.
 
 And what “closure” means in practice for generics?
 
@@ -598,7 +598,7 @@ So, why crawling IL/member refs is essential? This can be condensed in the follo
 
 -   If we **don’t crawl `MethodSpec`**, we'll miss generic method instantiations, and we’ll fail at runtime when a call site needs an instantiation context that isn’t in the PE.
 -   If we **don’t expand nested `TypeSpec`**, we’ll emit a top-level constructed type token but miss its inner type arguments (and any dependent member references).
--   If we **don’t filter aggressively**, we inflate metadata—which is dangerous given the constrains on the storage space that the PE is expected to run.
+-   If we **don’t filter aggressively**, we inflate metadata–which is dangerous given the constrains on the storage space that the PE is expected to run.
 
 This is a determinist process (and that matters) in the sense that:
 
@@ -609,7 +609,7 @@ This is also why the PE format leans so hard on compact tokens/coded indices: th
 
 ## Virtual dispatch and generic interfaces: making **_callvirt_** work with TypeSpec/MethodSpec
 
-So far, we have focused on `call` (often via `MethodSpec`) and `newobj` (often involving `TypeSpec`). To make the generics implementation feel complete, it is worth explicitly covering **virtual dispatch**—because the most interesting cases in real applications happen through `callvirt`, especially when interfaces are involved.
+So far, we have focused on `call` (often via `MethodSpec`) and `newobj` (often involving `TypeSpec`). To make the generics implementation feel complete, it is worth explicitly covering **virtual dispatch**–because the most interesting cases in real applications happen through `callvirt`, especially when interfaces are involved.
 
 ### The baseline: what _**callvirt**_ really means in the CLI
 
@@ -633,7 +633,7 @@ This is exactly where nanoFramework’s earlier design decision (“carry generi
 
 ##### 1) The target method is on a constructed generic type
 
-When you `callvirt` a method declared on (or overridden by) a constructed generic type (e.g., `Bucket<int>`), the runtime still follows normal virtual dispatch rules—choose the most derived applicable implementation based on the runtime instance type.  
+When you `callvirt` a method declared on (or overridden by) a constructed generic type (e.g., `Bucket<int>`), the runtime still follows normal virtual dispatch rules–choose the most derived applicable implementation based on the runtime instance type.  
 Where generics changes the mechanics is in **how the call site identifies the member**: in generic contexts, metadata often anchors member references to a _constructed_ declaring type, and the CLI model allows overriding/explicit mapping using constructs expressed with `TypeSpec` (see `.override` syntax referencing `TypeSpec::MethodName`).
 
 ##### 2) The interface is generic
@@ -661,38 +661,38 @@ In other words: for “generic method through interface,” nanoFramework must d
 
 ## New generic types and interfaces: enabling real-world scenarios
 
-Adding generics support to the runtime was only part of the story. To make generics _practical_ and idiomatic in C# code on tiny devices, we also needed to bring in the **fundamental generic types and interfaces** that people actually use in everyday .NET development. These are not arbitrary add-ons — they enable patterns and performance that are simply not achievable with their non-generic predecessors.
+Adding generics support to the runtime was only part of the story. To make generics _practical_ and idiomatic in C# code on tiny devices, we also needed to bring in the **fundamental generic types and interfaces** that people actually use in everyday .NET development. These are not arbitrary add-ons – they enable patterns and performance that are simply not achievable with their non-generic predecessors.
 
 The following generic types were added to the base libraries as part of the generics support rollout:
 
--   **`Span<T>`** and **`ReadOnlySpan<T>`** — lightweight, type-safe views over contiguous memory. Because they don’t allocate on the heap and avoid boxing, they are essential for high-performance buffer manipulation and APIs that work with raw memory in a generic way.
--   **`List<T>`** — a dynamically resizable array of `T`, which replaces older non-generic collections like `ArrayList`. It allows safe, type-checked storage and retrieval of values without casting.
--   **`Stack<T>`** — a generic last-in, first-out (LIFO) collection that works with any `T` without the need for boxing or unsafe casting.
+-   **`Span<T>`** and **`ReadOnlySpan<T>`** – lightweight, type-safe views over contiguous memory. Because they don’t allocate on the heap and avoid boxing, they are essential for high-performance buffer manipulation and APIs that work with raw memory in a generic way.
+-   **`List<T>`** – a dynamically resizable array of `T`, which replaces older non-generic collections like `ArrayList`. It allows safe, type-checked storage and retrieval of values without casting.
+-   **`Stack<T>`** – a generic last-in, first-out (LIFO) collection that works with any `T` without the need for boxing or unsafe casting.
 
 These generic collection types differ fundamentally from non-generic ones because they are _strongly typed at compile time_. The compiler knows what type they hold, and you get:
 
--   **Type safety enforced at compile time** — the compiler prevents invalid types from being inserted or retrieved.
--   **Better performance for value types** — because generics avoid boxing/unboxing when storing and retrieving value types.
+-   **Type safety enforced at compile time** – the compiler prevents invalid types from being inserted or retrieved.
+-   **Better performance for value types** – because generics avoid boxing/unboxing when storing and retrieving value types.
 
 By contrast, non-generic collections (e.g., `ArrayList`, non-generic `Stack`) work with `object`, forcing every value to be stored and retrieved as `object` and requiring casts at runtime, which is both less safe and less efficient.
 
 Alongside the concrete types, we also added key generic interfaces:
 
--   **`IEnumerable<T>`** — represents a sequence of `T` that can be iterated over. It forms the backbone of collection traversal in .NET and enables patterns like `foreach` and LINQ, without the need to cast each item.
--   **`IList<T>`** — extends `IEnumerable<T>` with indexed access and mutability, providing a common foundation for list-like types.
--   **`IComparable<T>`** and **`IComparer<T>`** — strongly typed comparison contracts, allowing generic algorithms and collections (like sorting routines) to order `T` values without relying on untyped comparison interfaces.
+-   **`IEnumerable<T>`** – represents a sequence of `T` that can be iterated over. It forms the backbone of collection traversal in .NET and enables patterns like `foreach` and LINQ, without the need to cast each item.
+-   **`IList<T>`** – extends `IEnumerable<T>` with indexed access and mutability, providing a common foundation for list-like types.
+-   **`IComparable<T>`** and **`IComparer<T>`** – strongly typed comparison contracts, allowing generic algorithms and collections (like sorting routines) to order `T` values without relying on untyped comparison interfaces.
 
 These generic interfaces differ from their non-generic predecessors in that they carry a type parameter, letting the compiler know _exactly_ what type operations apply to. For instance, `IEnumerable<T>` means “a sequence of `T`,” whereas the legacy `IEnumerable` means “a sequence of `object`,” requiring casts for each element and risking runtime errors if misused.
 
-Adding generics to the runtime without these core types would be like adding “2D drawing” to a graphics system but never implementing shapes — syntactically possible, but not usable in practice. These generic types and interfaces are the _building blocks_ for real generic code:
+Adding generics to the runtime without these core types would be like adding “2D drawing” to a graphics system but never implementing shapes – syntactically possible, but not usable in practice. These generic types and interfaces are the _building blocks_ for real generic code:
 
 -   They **leverage generic type parameters** to enforce correctness at compile time.
 -   They **avoid the performance costs** associated with boxing/unboxing and runtime casting.
 -   They enable common programming patterns (iteration, sorting, collection manipulation) to work fluidly with generics, just as developers expect in full .NET.
 
-Because of this foundation, generic APIs feel natural and efficient — whether you’re using spans, lists, stacks, or any other future generic collection.
+Because of this foundation, generic APIs feel natural and efficient – whether you’re using spans, lists, stacks, or any other future generic collection.
 
-One commonly expected generic type that is still in progress is **`Dictionary<TKey, TValue>`** — a strongly typed key/value map that is ubiquitous in .NET code. Work is underway to bring it to the generic preview, rounding out the collection story and giving embedded developers a familiar, high-performance associative container next.
+One commonly expected generic type that is still in progress is **`Dictionary<TKey, TValue>`** – a strongly typed key/value map that is ubiquitous in .NET code. Work is underway to bring it to the generic preview, rounding out the collection story and giving embedded developers a familiar, high-performance associative container next.
 
 ## Stackalloc: ECMA-compliant semantics on a constrained CLR
 
@@ -721,7 +721,7 @@ IL_0010: ldloc.0
 IL_0011: call       void Process(valuetype System.Span`1<uint8>)
 ```
 
-That pattern—**`localloc` → construct `Span<T>` over a raw pointer**—is exactly what we needed to support to unlock many modern APIs (including real-world nanoFramework examples that already rely on `stackalloc` for temporary buffers).
+That pattern–**`localloc` → construct `Span<T>` over a raw pointer**–is exactly what we needed to support to unlock many modern APIs (including real-world nanoFramework examples that already rely on `stackalloc` for temporary buffers).
 
 On a desktop CLR, “stack” vs “heap” is a runtime implementation detail behind the CLI guarantees. On microcontrollers, the _physical_ call stack is typically small and tightly budgeted, so implementing `localloc` as “consume native stack bytes” would be fragile and would make correct programs fail unpredictably under real workloads.
 
@@ -729,12 +729,12 @@ So nanoFramework implements the **ECMA lifetime rules** (method-scoped allocatio
 
 ### Representing _**stackalloc**_ memory in the object model
 
-Even though the storage originates outside the “managed heap,” the execution engine still needs a first-class way to _track, pass around, and bounds-check_ that buffer—especially because the common consumption pattern is via `Span<T>`/`SpanByte`\-like structures whose managed representation includes an **array reference plus slicing metadata** (array/start/length). nanoFramework already models arrays using the dedicated heap representation **`CLR_RT_HeapBlock_Array`**, which is the canonical way native code and the runtime reason about “array-like” memory.
+Even though the storage originates outside the “managed heap,” the execution engine still needs a first-class way to _track, pass around, and bounds-check_ that buffer–especially because the common consumption pattern is via `Span<T>`/`SpanByte`\-like structures whose managed representation includes an **array reference plus slicing metadata** (array/start/length). nanoFramework already models arrays using the dedicated heap representation **`CLR_RT_HeapBlock_Array`**, which is the canonical way native code and the runtime reason about “array-like” memory.
 
 To make `stackalloc` work seamlessly, we extended that mechanism so an “array heap block” can also **reference externally-owned storage** rather than only inline payload that lives inside the managed heap. This extension is critical for two scenarios that show up immediately once you bring in generics + spans:
 
 1.  **Externally-backed buffers** (the `stackalloc` case): storage is native-heap allocated, but surfaced through the usual array/span abstractions.
-2.  **Slicing/aliasing buffers**: spans and span-like structs must be able to point _into_ another buffer (including other arrays) without forcing copies—again matching desktop .NET behavior.
+2.  **Slicing/aliasing buffers**: spans and span-like structs must be able to point _into_ another buffer (including other arrays) without forcing copies–again matching desktop .NET behavior.
 
 ### Deterministic cleanup: honoring the CLI lifetime contract
 
@@ -751,7 +751,7 @@ This “stackalloc closure” was not a nice-to-have. It was a prerequisite to d
 -   deterministic lifetimes,
 -   and predictable behavior across platforms.
 
-In other words: **generics parity required `stackalloc` parity**—because the ecosystem uses them together everywhere.
+In other words: **generics parity required `stackalloc` parity**–because the ecosystem uses them together everywhere.
 
 ## Preview tooling, versioning, and how to get set up (v2)
 
@@ -788,6 +788,6 @@ Most importantly: please _use_ it and tell us what breaks (or what feels great!)
 
 ### A quick wrap-up
 
-This is a major milestone for .NET nanoFramework: bringing a foundational C# feature to constrained devices in a way that preserves expected language/runtime semantics is a big step toward being genuinely feature-aligned with “full” .NET—earned through a long, complex development path.
+This is a major milestone for .NET nanoFramework: bringing a foundational C# feature to constrained devices in a way that preserves expected language/runtime semantics is a big step toward being genuinely feature-aligned with “full” .NET–earned through a long, complex development path.
 
 Have fun with **.NET nanoFramework**!

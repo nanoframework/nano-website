@@ -452,4 +452,4 @@ console.log(`Tags: ${JSON.stringify(report.tags)}`);
 console.log(`Authors used: ${[...report.authors].join(', ')}`);
 console.log(`Comments kept: ${report.comments}`);
 if (download) console.log(`Images downloaded: ${report.images}, failed: ${report.imageFailures}`);
-else console.log('Images still point at nanoframework.net — re-run with --download-images before switching WordPress off.');
+else console.log('Images still point at nanoframework.net – re-run with --download-images before switching WordPress off.');

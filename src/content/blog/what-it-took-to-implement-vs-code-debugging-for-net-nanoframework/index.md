@@ -17,7 +17,7 @@ Quite some of our .NET nanoFramework users are fans of VS Code or are using Mac 
 
 ## The Challenge
 
-VS Code uses the **Debug Adapter Protocol (DAP)**—a JSON-based, language-agnostic protocol that defines how development tools communicate with debug adapters. Meanwhile, nanoFramework devices speak their own **Wire Protocol**, a binary protocol designed for resource-constrained embedded systems. The challenge was clear: we needed to build a translation layer between these two worlds.
+VS Code uses the **Debug Adapter Protocol (DAP)**–a JSON-based, language-agnostic protocol that defines how development tools communicate with debug adapters. Meanwhile, nanoFramework devices speak their own **Wire Protocol**, a binary protocol designed for resource-constrained embedded systems. The challenge was clear: we needed to build a translation layer between these two worlds.
 
 The good news? We discovered that **no changes to the device firmware were required**. The existing Wire Protocol already supported everything we needed:
 
@@ -52,7 +52,7 @@ Without access to this source code, we would have been flying blind.
 
 ## The Wire Protocol: Speaking the Device's Language
 
-The [nf-debugger](https://github.com/nanoframework/nf-debugger) library is the crown jewel that makes debugging possible. This .NET library implements the complete Wire Protocol—the binary communication layer between host and device. There is a low level C/C++ implementation on the device itself, part of the native code.
+The [nf-debugger](https://github.com/nanoframework/nf-debugger) library is the crown jewel that makes debugging possible. This .NET library implements the complete Wire Protocol–the binary communication layer between host and device. There is a low level C/C++ implementation on the device itself, part of the native code.
 
 ### Key Wire Protocol Commands
 
@@ -121,7 +121,7 @@ When the debugger reports "stopped at IL offset 0x0012 in method token 0x0600003
 
 ### The .pdbx Files
 
-The build process generates `.pdbx` files—XML-based symbol files that contain these crucial mappings:
+The build process generates `.pdbx` files–XML-based symbol files that contain these crucial mappings:
 
 ```xml
 <Method clrToken="0x06000001" nanoToken="0x06000002">
@@ -162,7 +162,7 @@ Device Reports: "Stopped at nanoIL=0x000A in nanoToken=0x06000002"
 VS Code shows: "Stopped at Program.cs, line 42"
 ```
 
-This same process works in reverse for setting breakpoints—user clicks line 42, we trace back through the PDBs to find the exact nanoFramework IL offset to set.
+This same process works in reverse for setting breakpoints–user clicks line 42, we trace back through the PDBs to find the exact nanoFramework IL offset to set.
 
 ## The Architecture
 
@@ -244,7 +244,7 @@ The first step was creating a comprehensive implementation plan. Rather than spe
 3.  **Design the architecture** - The bridge process approach emerged from discussing trade-offs with Copilot, weighing options like TypeScript ports vs. .NET interop.
 4.  **Create the work breakdown** - The detailed phase-by-phase plan in our `work-debug-todo.md` was developed iteratively through conversation.
 
-The planning document became our living roadmap—updated after each session to track progress and capture decisions.
+The planning document became our living roadmap–updated after each session to track progress and capture decisions.
 
 ### Executing the Plan
 
@@ -310,7 +310,7 @@ Copilot implemented defensive handling for each case. All those would have been 
 
 #### 4\. Runtime Value Traversal
 
-Inspecting variables on a nanoFramework device means traversing a complex type system with primitives, strings, arrays, objects, and value types. The `RuntimeValue` handling code—normally a week of work—was generated in a single session.
+Inspecting variables on a nanoFramework device means traversing a complex type system with primitives, strings, arrays, objects, and value types. The `RuntimeValue` handling code–normally a week of work–was generated in a single session.
 
 ### The Iteration Process
 
@@ -319,7 +319,7 @@ Nothing worked perfectly on the first try. The real power was in rapid iteration
 Example: Breakpoint Symbol Resolution:
 
 1.  **First attempt**: Copilot generated a straightforward lookup.
-2.  **Problem discovered**: IL offsets weren't matching—nanoFramework uses compact IL.
+2.  **Problem discovered**: IL offsets weren't matching–nanoFramework uses compact IL.
 3.  **Discussed with Copilot**: Explained the CLR vs. nano IL offset problem.
 4.  **Second attempt**: Copilot added the .pdbx IL mapping layer.
 5.  **Problem discovered**: Binary search was off-by-one in interpolation.
@@ -345,7 +345,7 @@ Copilot isn't magic. Critical decisions still required human judgment:
 
 -   **Architecture choices**: The bridge process approach was a human decision based on our team skills and maintenance concerns.
 -   **Understanding the domain**: Someone had to understand what tokens and IL offsets _mean_ before Copilot could implement the mapping.
--   **Testing with real devices**: Copilot can't plug in hardware—actual device testing found real-world issues.
+-   **Testing with real devices**: Copilot can't plug in hardware–actual device testing found real-world issues.
 -   **Integration debugging**: When the TypeScript and C# sides disagreed (and obviously, they do time to time), human debugging was essential.
 -   **Performance tuning**: Identifying bottlenecks required profiling and measurement.
 
@@ -367,7 +367,7 @@ Let's be honest about the timeline:
 -   **Traditional estimate**: 13-16 weeks (based on similar projects).
 -   **Actual time with Copilot**: ~5-7 days of focused work, well, in my case mainly evenings and couple of short lunch breaks.
 
-That's not an exaggeration—it's the difference between:
+That's not an exaggeration–it's the difference between:
 
 -   Writing every line manually vs. generating and refining.
 -   Researching APIs alone vs. asking and getting answers.
@@ -380,7 +380,7 @@ The code quality wasn't sacrificed either. Copilot-generated code followed consi
 
 ### 1\. Open Source is Essential
 
-Without access to the Visual Studio extension, nf-debugger, and metadata processor source code, this project would have been nearly impossible. Every piece of the puzzle was available because nanoFramework is fully open source. **This also enabled Copilot to be effective**—when you can share actual source code as context, AI assistance becomes dramatically more useful.
+Without access to the Visual Studio extension, nf-debugger, and metadata processor source code, this project would have been nearly impossible. Every piece of the puzzle was available because nanoFramework is fully open source. **This also enabled Copilot to be effective**–when you can share actual source code as context, AI assistance becomes dramatically more useful.
 
 ### 2\. Don't Reinvent the Wheel
 
@@ -388,15 +388,15 @@ The decision to create a bridge process instead of reimplementing the Wire Proto
 
 ### 3\. Symbol Resolution is the Hard Part
 
-Getting breakpoints to work is straightforward. Getting them to work at the _right line_ requires understanding multiple layers of symbol translation. The token and IL mapping systems were the most challenging aspect of the entire project—but also where Copilot's ability to generate complex parsing and mapping code shined brightest.
+Getting breakpoints to work is straightforward. Getting them to work at the _right line_ requires understanding multiple layers of symbol translation. The token and IL mapping systems were the most challenging aspect of the entire project–but also where Copilot's ability to generate complex parsing and mapping code shined brightest.
 
 ### 4\. The Device Already Supports Everything
 
-We initially worried about limitations in the Wire Protocol. Instead, we found it was remarkably complete. The nanoFramework team had already implemented everything needed for a full debugging experience—we just needed to expose it properly.
+We initially worried about limitations in the Wire Protocol. Instead, we found it was remarkably complete. The nanoFramework team had already implemented everything needed for a full debugging experience–we just needed to expose it properly.
 
 ### 5\. AI Changes the Development Economics
 
-The most profound lesson: **AI pair programming fundamentally changes what's feasible**. Projects that would require dedicated teams and months of effort can now be tackled by smaller teams in days. The barrier isn't coding speed anymore—it's understanding the problem deeply enough to guide the AI effectively. It's like having a team of junior developers you have to coach properly. You are the very senior in the room, you take the decisions, you review, you analyze the situation, you test the code.
+The most profound lesson: **AI pair programming fundamentally changes what's feasible**. Projects that would require dedicated teams and months of effort can now be tackled by smaller teams in days. The barrier isn't coding speed anymore–it's understanding the problem deeply enough to guide the AI effectively. It's like having a team of junior developers you have to coach properly. You are the very senior in the room, you take the decisions, you review, you analyze the situation, you test the code.
 
 ### 6\. Planning Matters More with AI
 
@@ -404,7 +404,7 @@ Paradoxically, having an AI that can generate code quickly makes _planning_ more
 
 ### 7\. Domain Knowledge is the Bottleneck
 
-Copilot can write code all day, but it can't understand your specific domain without help. The time spent learning about Wire Protocol, tokens, and IL offsets wasn't wasted—it was _essential context_ that made AI assistance effective. Invest in understanding before asking AI to implement.
+Copilot can write code all day, but it can't understand your specific domain without help. The time spent learning about Wire Protocol, tokens, and IL offsets wasn't wasted–it was _essential context_ that made AI assistance effective. Invest in understanding before asking AI to implement.
 
 ## What's Next
 
@@ -420,7 +420,7 @@ The core debugging functionality is complete. Future enhancements include:
 
 ## Conclusion
 
-Implementing VS Code debugging for nanoFramework was a journey through multiple codebases, protocols, and file formats. The key insight was recognizing that this was fundamentally a **translation problem**—not a reimplementation problem. By leveraging existing open-source components and building focused bridges between them, we achieved full debugging support without modifying a single line of device firmware.
+Implementing VS Code debugging for nanoFramework was a journey through multiple codebases, protocols, and file formats. The key insight was recognizing that this was fundamentally a **translation problem**–not a reimplementation problem. By leveraging existing open-source components and building focused bridges between them, we achieved full debugging support without modifying a single line of device firmware.
 
 But the real story here is about **how** we built it. Using GitHub Copilot as an implementation partner transformed a multi-month project into a week-long sprint. The combination of:
 
@@ -429,11 +429,11 @@ But the real story here is about **how** we built it. Using GitHub Copilot as an
 -   **Detailed planning** - Clear roadmap guiding AI-assisted development.
 -   **Domain expertise** - Human understanding directing AI capabilities.
 
-...created a development experience unlike anything before. We didn't just build a debugger—we demonstrated a new way of building complex software.
+...created a development experience unlike anything before. We didn't just build a debugger–we demonstrated a new way of building complex software.
 
 The nanoFramework community's commitment to open source made this possible. Every critical piece of documentation and code was available, searchable, and forkable. Combined with AI assistance, that openness enabled a small team to accomplish what would previously have required significant resources.
 
-**The future of embedded development isn't just open source—it's AI-augmented open source.**
+**The future of embedded development isn't just open source–it's AI-augmented open source.**
 
 ---
 

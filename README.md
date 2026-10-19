@@ -1,7 +1,7 @@
 # nanoframework.net
 
 Source of the [.NET nanoFramework](https://nanoframework.net) website: home page, blog and project pages.
-Built with [Astro](https://astro.build) from Markdown files — no CMS, no database.
+Built with [Astro](https://astro.build) from Markdown files – no CMS, no database.
 
 ## Run it locally
 
@@ -19,7 +19,7 @@ npm run check      # type + content validation (also runs in CI)
 
 ```
 src/
-  content/blog/        blog posts (Markdown) — one file or folder per post
+  content/blog/        blog posts (Markdown) – one file or folder per post
   content/pages/       standalone pages: partners, press kit, contact… (folder path = URL)
   data/site.ts         links, nav, reference targets, case studies, sponsors, blog tags
   data/authors.json    blog authors
@@ -37,7 +37,7 @@ Most day-to-day edits (a new sponsor, a new reference target, a changed link) ar
 
 ## Writing a blog post
 
-1. Create `src/content/blog/<slug>.md` — or `src/content/blog/<slug>/index.md` if the post has images,
+1. Create `src/content/blog/<slug>.md` – or `src/content/blog/<slug>/index.md` if the post has images,
    and put the images next to it. The `<slug>` becomes the URL: `https://nanoframework.net/<slug>/`.
 2. Start the file with this header:
 
@@ -70,7 +70,7 @@ npm run migrate:wordpress -- path/to/export.xml --download-images  # copy every 
 ```
 
 Run it once more **with `--download-images`** (from a machine with internet access) before the old
-WordPress site is switched off — until then, post images are loaded from `nanoframework.net/wp-content/uploads`.
+WordPress site is switched off – until then, post images are loaded from `nanoframework.net/wp-content/uploads`.
 Re-running overwrites the generated post folders, so do it before editing posts by hand.
 
 ## Adding a page

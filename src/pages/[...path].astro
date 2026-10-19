@@ -15,7 +15,7 @@ export const getStaticPaths = (async () => {
   const pages = await getCollection('pages');
   const postIds = new Set(posts.map((p) => p.id));
   for (const page of pages) {
-    if (postIds.has(page.id)) throw new Error(`"${page.id}" is both a post and a page — rename one of them.`);
+    if (postIds.has(page.id)) throw new Error(`"${page.id}" is both a post and a page – rename one of them.`);
   }
   return [
     ...posts.map((post) => ({ params: { path: post.id }, props: { kind: 'post' as const, post } })),
