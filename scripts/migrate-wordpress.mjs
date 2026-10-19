@@ -2,10 +2,11 @@
 /**
  * Convert a WordPress export (WXR .xml) into Markdown blog posts for this site.
  *
- *   node scripts/migrate-wordpress.mjs <export.xml> [--download-images] [--out src/content/blog]
+ *   node scripts/migrate-wordpress.mjs <export.xml> [--download-images] [--out src/content/blog] [--pages-out src/content/pages]
  *
  * - Every published post becomes src/content/blog/<wordpress-slug>/index.md,
  *   so the URL stays https://nanoframework.net/<slug>/.
+ * - Published pages listed in PAGES become src/content/pages/<path>/index.md.
  * - WordPress categories are mapped to the site's six tags (see TAG_RULES).
  * - Approved comments are kept in the post's front matter (legacyComments) and
  *   shown as an archive under the post.
@@ -25,10 +26,12 @@ import { decodeHTML } from 'entities';
 // ---------------------------------------------------------------- options
 
 const args = process.argv.slice(2);
-const xmlPath = args.find((a) => !a.startsWith('--'));
+const xmlPath = args.find((a, i) => !a.startsWith('--') && !['--out', '--pages-out'].includes(args[i - 1]));
 const download = args.includes('--download-images');
 const outIdx = args.indexOf('--out');
 const outDir = path.resolve(outIdx >= 0 ? args[outIdx + 1] : 'src/content/blog');
+const pagesIdx = args.indexOf('--pages-out');
+const pagesDir = path.resolve(pagesIdx >= 0 ? args[pagesIdx + 1] : 'src/content/pages');
 
 if (!xmlPath) {
   console.error('Usage: node scripts/migrate-wordpress.mjs <export.xml> [--download-images] [--out <dir>]');
@@ -222,19 +225,25 @@ async function fetchTo(url, file) {
 // ---------------------------------------------------------------- front matter
 
 const yamlStr = (s) => JSON.stringify(s); // JSON strings are valid YAML scalars
+const optional = (key, value) => (value ? [`${key}: ${yamlStr(value)}`] : []);
+
+const toPlain = (md) =>
+  md
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/https?:\/\/\S+/g, '')
+    .replace(/[*_`\\]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
 
 function describe(item, markdown) {
   const excerpt = decodeHTML(text(item['excerpt:encoded']).replace(/<[^>]+>/g, '')).trim();
   const source = excerpt || markdown
     .split(/\n\s*\n/)
     .map((p) => p.trim())
-    .find((p) => p && !/^(#|!\[|```|~~~|>|\||- |\d+\. )/.test(p) && p.replace(/[[\]()*_`]/g, '').length > 60) || '';
-  const plain = source
-    .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
-    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
-    .replace(/[*_`]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
+    .find((p) => p && !/^(#|!\[|```|~~~|>|\||- |\d+\. )/.test(p) && toPlain(p).length > 60) || '';
+  const plain = toPlain(source);
+  if (plain.length < 40 || /^https?:\/\//.test(plain)) return '';
   if (plain.length <= 200) return plain;
   return plain.slice(0, 197).replace(/\s+\S*$/, '') + '…';
 }
@@ -267,26 +276,60 @@ function commentsFor(item) {
     .sort((a, b) => a.date.localeCompare(b.date));
 }
 
-// ---------------------------------------------------------------- run
+// ---------------------------------------------------------------- pages
 
-await mkdir(outDir, { recursive: true });
-const report = { posts: 0, images: 0, imageFailures: 0, comments: 0, authors: new Set(), tags: {} };
+// WordPress page path -> new path. Pages not listed here are skipped
+// (they are replaced by the new home page / blog, or are leftovers);
+// redirects for every old path live in src/data/redirects.ts.
+const PAGES = {
+  '/what-is-nanoframework/': '/what-is-nanoframework/',
+  '/why-use-nanoframework/': '/why-use-nanoframework/',
+  '/where-do-i-start/': '/where-do-i-start/',
+  '/home/getting-started-guides/': '/getting-started-guides/',
+  '/overview-of-nanoframework/': '/overview-of-nanoframework/',
+  '/logos-and-images/': '/logos-and-images/',
+  // '/partner-program/' is now a designed page: src/pages/partner-program/index.astro + src/data/partners.ts
+  '/partner-program/join-the-partners-program/': '/partner-program/join-the-partners-program/',
+  '/partner-program/chibios/': '/partner-program/chibios/',
+  '/partner-program/partners-eclo-solutions/': '/partner-program/partners-eclo-solutions/',
+  '/partner-program/partners-espressif-systems/': '/partner-program/partners-espressif-systems/',
+  '/partner-program/partners-csa-engineering-ag/': '/partner-program/partners-csa-engineering-ag/',
+  // '/support-nanoframework/' and '/most-valuable-contributors/' are designed pages now:
+  // src/pages/<name>/index.astro, with their lists in src/data/site.ts
+  '/contact-2/': '/contact/',
+};
 
-for (const item of posts) {
-  const slug = decodeURIComponent(text(item['wp:post_name']).trim());
-  const title = decodeHTML(text(item.title)).trim();
-  const date = text(item['wp:post_date_gmt']).replace(' ', 'T') + 'Z';
-  const login = text(item['dc:creator']).trim();
-  const author = AUTHORS[login] ?? 'nanoframework-team';
-  report.authors.add(author);
+// Pages rewritten by hand after the migration. The converter still downloads their images,
+// but never overwrites their index.md.
+const HAND_EDITED = new Set(['/logos-and-images/']);
 
-  const dir = path.join(outDir, slug);
-  await mkdir(dir, { recursive: true });
+// Small corrections applied to converted pages on every run (typos carried over from WordPress).
+const TEXT_FIXES = {};
 
+const byId = new Map(items.map((it) => [text(it['wp:post_id']), it]));
+function wpPath(item) {
+  const parts = [];
+  for (let it = item; it; ) {
+    parts.unshift(decodeURIComponent(text(it['wp:post_name']).trim()));
+    const parent = text(it['wp:post_parent']);
+    it = parent && parent !== '0' ? byId.get(parent) : undefined;
+  }
+  return `/${parts.join('/')}/`;
+}
+
+const pages = items.filter((it) => text(it['wp:post_type']) === 'page' && text(it['wp:status']) === 'publish');
+
+// ---------------------------------------------------------------- shared conversion
+
+const report = { posts: 0, pages: 0, images: 0, imageFailures: 0, comments: 0, authors: new Set(), tags: {} };
+const localName = (u) => decodeURIComponent(path.basename(new URL(u).pathname));
+
+/** WordPress HTML -> Markdown, with images resolved (and downloaded into `dir` when asked). */
+async function convertBody(item, dir) {
   let html = preprocess(text(item['content:encoded']));
+  // Embedded widgets (Open Collective, forms) don't carry over: drop scripts, styles and iframes.
+  html = html.replace(/<(script|style|iframe|form)[\s\S]*?<\/\1>/gi, '');
 
-  // Images: point at the original upload; optionally download next to the post.
-  const localName = (u) => decodeURIComponent(path.basename(new URL(u).pathname));
   const images = new Map();
   html = html.replace(/(<img[^>]*?\ssrc=")([^"]+)(")/g, (_m, a, src, b) => {
     const orig = originalImage(src);
@@ -314,14 +357,36 @@ for (const item of posts) {
       }
     }
     for (const [url, name] of images) html = html.split(`src="${url}"`).join(`src="./${encodeURI(name)}"`);
+  } else {
+    cover = undefined; // covers must be local files
   }
 
   let md = td.turndown(html).trim();
   // Site-internal absolute links -> root-relative, so they work on any host and in previews.
   // (Uploads stay absolute: they only exist on the WordPress host until downloaded.)
   md = md.replace(/\]\(https?:\/\/(?:www\.)?nanoframework\.net(\/(?!wp-content\/)[^)\s]*)?\)/g, (_m, p) => `](${p || '/'})`);
+  // Old page addresses -> new ones.
+  for (const [from, to] of Object.entries(PAGES)) if (from !== to) md = md.split(`](${from})`).join(`](${to})`);
   md = escapeStrayTags(md);
   md = md.replace(/\n{3,}/g, '\n\n');
+  return { md, cover };
+}
+
+// ---------------------------------------------------------------- run: posts
+
+await mkdir(outDir, { recursive: true });
+
+for (const item of posts) {
+  const slug = decodeURIComponent(text(item['wp:post_name']).trim());
+  const title = decodeHTML(text(item.title)).trim();
+  const date = text(item['wp:post_date_gmt']).replace(' ', 'T') + 'Z';
+  const login = text(item['dc:creator']).trim();
+  const author = AUTHORS[login] ?? 'nanoframework-team';
+  report.authors.add(author);
+
+  const dir = path.join(outDir, slug);
+  await mkdir(dir, { recursive: true });
+  const { md, cover } = await convertBody(item, dir);
 
   const tags = tagsFor(item, title);
   for (const t of tags) report.tags[t] = (report.tags[t] ?? 0) + 1;
@@ -331,12 +396,12 @@ for (const item of posts) {
   const fm = [
     '---',
     `title: ${yamlStr(title)}`,
-    `description: ${yamlStr(describe(item, md))}`,
+    ...optional('description', describe(item, md)),
     `date: ${date}`,
     `author: ${author}`,
     `tags: [${tags.join(', ')}]`,
   ];
-  if (download && cover) fm.push(`cover: ./${localName(cover)}`, `coverAlt: ""`);
+  if (cover) fm.push(`cover: ./${localName(cover)}`, `coverAlt: ""`);
   if (comments.length) {
     fm.push('legacyComments:');
     for (const c of comments) {
@@ -351,7 +416,38 @@ for (const item of posts) {
   report.posts++;
 }
 
+// ---------------------------------------------------------------- run: pages
+
+for (const item of pages) {
+  const target = PAGES[wpPath(item)];
+  if (!target) continue;
+  const dir = path.join(pagesDir, ...target.split('/').filter(Boolean));
+  await mkdir(dir, { recursive: true });
+  let { md } = await convertBody(item, dir);
+  for (const [from, to] of TEXT_FIXES[target] ?? []) md = md.split(from).join(to);
+  const file = path.join(dir, 'index.md');
+  if (HAND_EDITED.has(target)) {
+    try {
+      await access(file);
+      console.log(`Kept hand-edited page ${target}`);
+      continue;
+    } catch {}
+  }
+  const title = decodeHTML(text(item.title)).trim();
+  const fm = [
+    '---',
+    `title: ${yamlStr(title)}`,
+    ...optional('description', describe(item, md)),
+    `wordpressId: ${text(item['wp:post_id'])}`,
+    '---',
+    '',
+  ];
+  await writeFile(file, fm.join('\n') + '\n' + md + '\n');
+  report.pages++;
+}
+
 console.log(`Converted ${report.posts} posts into ${path.relative(process.cwd(), outDir)}`);
+console.log(`Converted ${report.pages} pages into ${path.relative(process.cwd(), pagesDir)}`);
 console.log(`Tags: ${JSON.stringify(report.tags)}`);
 console.log(`Authors used: ${[...report.authors].join(', ')}`);
 console.log(`Comments kept: ${report.comments}`);
