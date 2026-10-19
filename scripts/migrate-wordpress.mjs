@@ -291,7 +291,7 @@ const PAGES = {
   // '/partner-program/' is now a designed page: src/pages/partner-program/index.astro + src/data/partners.ts
   '/partner-program/join-the-partners-program/': '/partner-program/join-the-partners-program/',
   '/partner-program/chibios/': '/partner-program/chibios/',
-  '/partner-program/partners-eclo-solutions/': '/partner-program/partners-eclo-solutions/',
+  // '/partner-program/partners-eclo-solutions/' is a designed page: src/pages/partner-program/partners-eclo-solutions/
   '/partner-program/partners-espressif-systems/': '/partner-program/partners-espressif-systems/',
   '/partner-program/partners-csa-engineering-ag/': '/partner-program/partners-csa-engineering-ag/',
   // '/support-nanoframework/' and '/most-valuable-contributors/' are designed pages now:

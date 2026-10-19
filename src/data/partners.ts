@@ -15,9 +15,21 @@ export type Partner = {
   logo?: string;
   /** Show the logo on a dark tile (for white or light logos). */
   darkLogo?: boolean;
+  /** Highlight label shown on the card, e.g. "Founding partner". */
+  badge?: string;
 };
 
 export const ENGINEERING_PARTNERS: Partner[] = [
+  {
+    name: 'Eclo Solutions',
+    kind: 'IoT product engineering',
+    badge: 'Founding partner',
+    blurb:
+      'IoT products engineered end to end – hardware, PCB, firmware in C# on .NET nanoFramework, connectivity and cloud, by a single team. Home of the .NET nanoFramework project.',
+    website: 'https://www.eclo.solutions',
+    profile: '/partner-program/partners-eclo-solutions/',
+    logo: 'eclo-logo.png',
+  },
   {
     name: 'CSA Engineering AG',
     kind: 'Consulting · R&D · Support',
@@ -26,15 +38,6 @@ export const ENGINEERING_PARTNERS: Partner[] = [
     website: 'https://www.csa.ch',
     profile: '/partner-program/partners-csa-engineering-ag/',
     logo: 'CSA-cmyk.png',
-  },
-  {
-    name: 'Eclo Solutions',
-    kind: 'Engineering services · Training',
-    blurb:
-      'Engineering services for .NET nanoFramework projects: C# and low-level driver development, customisation of core features, hardware design and training.',
-    website: 'https://www.eclo.solutions',
-    profile: '/partner-program/partners-eclo-solutions/',
-    logo: 'https://avatars.githubusercontent.com/u/12029939',
   },
 ];
 

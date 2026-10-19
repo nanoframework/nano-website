@@ -1,0 +1,210 @@
+---
+import { Mail, ArrowUpRight } from '@lucide/astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Logo from '../../../components/Logo.astro';
+import { LINKS } from '../../../data/site';
+
+const ECLO = {
+  website: 'https://www.eclo.solutions',
+  websiteLabel: 'www.eclo.solutions',
+  email: 'hello@eclo.solutions',
+};
+
+const stack = [
+  {
+    title: 'Hardware',
+    text: 'Product and hardware design, component selection and sourcing strategy, schematic capture and PCB layout. Experience across the ESP32, STM32, Silicon Labs Gecko and Texas Instruments MCU families.',
+  },
+  {
+    title: 'Firmware',
+    text: 'Firmware written in C# on .NET nanoFramework, plus board bring-up, platform ports, drivers and build tooling. Deep enough to port the runtime itself to new silicon.',
+  },
+  {
+    title: 'Connectivity',
+    text: 'Wi-Fi, Bluetooth LE, LoRaWAN, NB-IoT and LTE-M, Ethernet and serial industrial buses, with MQTT and standard IoT protocols on top.',
+  },
+  {
+    title: 'Cloud and backend',
+    text: 'Device-to-cloud connectivity and custom backend development, including Azure IoT and other major platforms – ingestion, provisioning, dashboards and APIs.',
+  },
+  {
+    title: 'Manufacturing',
+    text: 'Production through national partners who assemble to high quality standards, keeping the supply chain close and responsive.',
+  },
+  {
+    title: 'Certification',
+    text: 'Designed with compliance in mind, with support through the regulatory certification process, which remains the client’s responsibility.',
+  },
+];
+---
+<BaseLayout
+  title="Eclo Solutions – Partner profile"
+  description="Eclo Solutions: IoT products engineered end to end – hardware, PCB, firmware in C# on .NET nanoFramework, connectivity and cloud, by a single team."
+>
+  <section class="section section--dark profile-hero">
+    <div class="container profile-hero__inner">
+      <div class="profile-hero__copy">
+        <nav class="profile-hero__crumbs" aria-label="Breadcrumb"><a href="/partner-program/">Partners</a> <span aria-hidden="true">›</span></nav>
+        <p class="eyebrow">Engineering partner <span class="profile-hero__badge">Founding partner</span></p>
+        <h1 class="section-title">Eclo Solutions</h1>
+        <p class="lead">
+          IoT products, engineered end to end. Hardware design, PCB layout, firmware, connectivity and cloud backend –
+          delivered by a single team, from the first schematic to a device reporting data in production.
+        </p>
+        <p class="profile-hero__home">Home of the .NET nanoFramework open-source project.</p>
+        <div class="profile-hero__ctas">
+          <a class="btn btn--primary" href={`mailto:${ECLO.email}`}><Mail size={18} aria-hidden="true" />{ECLO.email}</a>
+          <a class="btn btn--ghost-dark" href={ECLO.website}>{ECLO.websiteLabel} <ArrowUpRight size={16} aria-hidden="true" /></a>
+        </div>
+      </div>
+      <div class="profile-hero__logo">
+        <Logo logo="eclo-logo.png" name="Eclo Solutions" class="profile-hero__img" height={240} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">One team, the whole stack.</h2>
+      <p class="lead">
+        Most IoT projects stall in the gaps between disciplines – between the board and the firmware, between the device
+        and the cloud. Eclo covers the full chain in-house, so those gaps never become someone else's problem. All
+        engineering and software work is done by Eclo's own team.
+      </p>
+      <div class="grid stack" style="--min: 300px">
+        {stack.map((s) => (
+          <div class="stack__item">
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="contact">
+        <span class="contact__label">Contact Eclo</span>
+        <a href={`mailto:${ECLO.email}`}><Mail size={16} aria-hidden="true" />{ECLO.email}</a>
+        <a href={ECLO.website}><ArrowUpRight size={16} aria-hidden="true" />{ECLO.websiteLabel}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint back">
+    <div class="container">
+      <p>Looking for something else? See <a href="/partner-program/">all .NET nanoFramework partners</a> or <a href={LINKS.joinPartners}>join the partner program</a>.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .profile-hero__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px 64px;
+    align-items: center;
+  }
+  .profile-hero__copy {
+    flex: 1.5 1 520px;
+    min-width: 0;
+  }
+  .profile-hero__crumbs {
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .profile-hero__crumbs a {
+    color: var(--on-dark-2);
+  }
+  .profile-hero__badge {
+    margin-left: 10px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--nf-green);
+    font-size: 11px;
+    color: var(--nf-green);
+  }
+  .profile-hero h1 {
+    font-size: clamp(36px, 4.8vw, 56px);
+    letter-spacing: -1px;
+  }
+  .profile-hero__home {
+    margin-top: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--nf-green);
+  }
+  .profile-hero__ctas {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .profile-hero__logo {
+    flex: 1 1 260px;
+    max-width: 340px;
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 36px;
+    border-radius: var(--radius);
+    background: #fff;
+  }
+  .profile-hero__logo :global(.profile-hero__img) {
+    width: 100%;
+    height: auto;
+    max-height: 180px;
+    object-fit: contain;
+  }
+
+  .stack {
+    margin-top: 44px;
+    gap: 24px;
+  }
+  .stack__item {
+    padding: 28px;
+    border-radius: var(--radius);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+  }
+  .stack__item h3 {
+    font-size: 19px;
+    font-weight: 700;
+  }
+  .stack__item p {
+    margin-top: 8px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+
+  .contact {
+    margin-top: 40px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 28px;
+    font-weight: 600;
+  }
+  .contact__label {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .contact a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .back {
+    padding-block: 40px;
+  }
+  .back p {
+    color: var(--ink-2);
+  }
+</style>

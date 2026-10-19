@@ -8,10 +8,11 @@ const { partner } = Astro.props;
 
 const primary = partner.profile ?? partner.website;
 ---
-<article class="partner">
+<article class:list={['partner', { 'partner--featured': partner.badge }]}>
   <a class:list={['partner__logo', { 'partner__logo--dark': partner.darkLogo }]} href={primary} tabindex="-1" aria-hidden="true">
     <Logo logo={partner.logo} name={partner.name} />
   </a>
+  {partner.badge && <span class="partner__badge">{partner.badge}</span>}
   <div class="partner__body">
     <span class="card__kicker">{partner.kind}</span>
     <h3 class="partner__name"><a href={primary}>{partner.name}</a></h3>
@@ -32,6 +33,26 @@ const primary = partner.profile ?? partner.website;
     background: var(--surface);
     overflow: hidden;
     transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .partner {
+    position: relative;
+  }
+  .partner--featured {
+    border: 2px solid var(--nf-green);
+    box-shadow: 0 12px 34px rgba(0, 144, 134, 0.14);
+  }
+  .partner__badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: var(--nf-navy);
+    color: var(--nf-green);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.4px;
   }
   .partner:hover {
     border-color: var(--nf-teal);
