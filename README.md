@@ -20,10 +20,13 @@ npm run check      # type + content validation (also runs in CI)
 ```
 src/
   content/blog/        blog posts (Markdown) — one file or folder per post
+  content/pages/       standalone pages: partners, press kit, contact… (folder path = URL)
   data/site.ts         links, nav, reference targets, case studies, sponsors, blog tags
   data/authors.json    blog authors
+  data/redirects.mjs   old WordPress URLs -> new ones (categories, tags, renamed pages, feeds)
   components/          header, footer, home sections, blog cards
-  pages/               routes: /, /blog/, /blog/page/N/, /tag/<tag>/, /<post-slug>/, /rss.xml
+  pages/               routes: /, /blog/, /blog/page/N/, /tag/<tag>/, /rss.xml,
+                       and [...path].astro for every post (/<slug>/) and page (/<path>/)
   styles/global.css    theme: brand colors, type, buttons, cards
   assets/              logos
 public/                favicons, manifest, robots.txt
@@ -59,7 +62,7 @@ A post with a future `date` is published automatically on that day by the next s
 
 ## Migrating from WordPress
 
-The posts in `src/content/blog/` were generated from the WordPress export with:
+The posts in `src/content/blog/` and the pages in `src/content/pages/` were generated from the WordPress export with:
 
 ```shell
 npm run migrate:wordpress -- path/to/export.xml                    # images still served by WordPress
@@ -69,6 +72,11 @@ npm run migrate:wordpress -- path/to/export.xml --download-images  # copy every 
 Run it once more **with `--download-images`** (from a machine with internet access) before the old
 WordPress site is switched off — until then, post images are loaded from `nanoframework.net/wp-content/uploads`.
 Re-running overwrites the generated post folders, so do it before editing posts by hand.
+
+## Adding a page
+
+Create `src/content/pages/<path>/index.md` with a `title:` (and optionally `description:`) header.
+`src/content/pages/partner-program/acme/index.md` is served at `/partner-program/acme/`.
 
 ## Brand
 
