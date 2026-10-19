@@ -1,0 +1,110 @@
+---
+import { LINKS } from '../../data/site';
+
+const steps = [
+  {
+    title: 'Install the extension',
+    text: 'For Visual Studio or VS Code, from the Marketplace.',
+  },
+  {
+    title: 'Flash the firmware',
+    text: 'nanoff installs the right image for your board.',
+    code: 'nanoff --target <YOUR_TARGET> --serialport COM3 --update',
+  },
+  {
+    title: 'Deploy and debug',
+    text: "Create a project from the template, press F5, set a breakpoint. You're doing embedded.",
+  },
+];
+---
+<section id="start" class="section section--tint">
+  <div class="container start">
+    <div class="start__intro">
+      <p class="eyebrow">Get started</p>
+      <h2 class="section-title">From unboxing to blinking in three steps.</h2>
+      <p class="lead">Grab a supported board, a USB cable and ten minutes. The full walkthrough lives in the docs.</p>
+      <a class="btn btn--indigo start__cta" href={LINKS.gettingStarted}>Read the getting-started guide</a>
+    </div>
+    <ol class="start__steps">
+      {steps.map((s, i) => (
+        <li>
+          <span class="start__num" aria-hidden="true">{i + 1}</span>
+          <div>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+            {s.code && <code class="start__code">{s.code}</code>}
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .start {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 56px;
+  }
+  .start__intro {
+    flex: 1 1 340px;
+    min-width: 0;
+  }
+  .start__cta {
+    margin-top: 28px;
+  }
+  .start__steps {
+    flex: 1.4 1 520px;
+    min-width: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .start__steps li {
+    display: flex;
+    gap: 20px;
+    padding: 24px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .start__steps li > div {
+    min-width: 0;
+    flex: 1;
+  }
+  .start__num {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--nf-navy);
+    color: var(--nf-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-weight: 500;
+  }
+  .start__steps h3 {
+    margin-bottom: 6px;
+    font-size: 18px;
+  }
+  .start__steps p {
+    font-size: 15px;
+    color: var(--ink-2);
+  }
+  .start__code {
+    display: block;
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    background: var(--nf-navy);
+    color: #e7e5f7;
+    font-size: 14px;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+</style>

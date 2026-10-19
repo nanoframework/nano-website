@@ -1,0 +1,88 @@
+---
+import { marked } from 'marked';
+import type { Post } from '../../lib/posts';
+import { formatDateLong } from '../../lib/posts';
+
+interface Props { comments: Post['data']['legacyComments'] }
+const { comments } = Astro.props;
+
+// Top-level comments with their replies underneath.
+const top = comments.filter((c) => !c.parent || !comments.some((p) => p.id === c.parent));
+const repliesTo = (id: string) => comments.filter((c) => c.parent === id);
+const render = (body: string) => marked.parse(body, { async: false }) as string;
+---
+{comments.length > 0 && (
+  <section class="legacy" aria-labelledby="legacy-title">
+    <h2 id="legacy-title">Earlier comments</h2>
+    <p class="legacy__note">Carried over from the previous version of the blog.</p>
+    <ol class="legacy__list">
+      {top.map((c) => (
+        <li>
+          <article class="legacy__item">
+            <header><strong>{c.author}</strong> · <time datetime={c.date.toISOString()}>{formatDateLong(c.date)}</time></header>
+            <div class="legacy__body" set:html={render(c.body)} />
+          </article>
+          {repliesTo(c.id).length > 0 && (
+            <ol class="legacy__list legacy__replies">
+              {repliesTo(c.id).map((r) => (
+                <li>
+                  <article class="legacy__item">
+                    <header><strong>{r.author}</strong> · <time datetime={r.date.toISOString()}>{formatDateLong(r.date)}</time></header>
+                    <div class="legacy__body" set:html={render(r.body)} />
+                  </article>
+                </li>
+              ))}
+            </ol>
+          )}
+        </li>
+      ))}
+    </ol>
+  </section>
+)}
+
+<style>
+  .legacy {
+    margin-top: 40px;
+  }
+  .legacy h2 {
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .legacy__note {
+    margin-top: 6px;
+    font-size: 14px;
+    color: var(--ink-3);
+  }
+  .legacy__list {
+    list-style: none;
+    margin: 16px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .legacy__replies {
+    margin: 12px 0 0 28px;
+  }
+  .legacy__item {
+    padding: 16px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-size: 15px;
+  }
+  .legacy__item header {
+    font-size: 14px;
+    color: var(--ink-3);
+  }
+  .legacy__item header strong {
+    color: var(--ink);
+  }
+  .legacy__body {
+    margin-top: 6px;
+    color: var(--ink-2);
+    overflow-wrap: anywhere;
+  }
+  .legacy__body :global(p + p) {
+    margin-top: 0.6em;
+  }
+</style>

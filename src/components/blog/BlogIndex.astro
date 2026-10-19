@@ -1,0 +1,182 @@
+---
+import { Rss } from '@lucide/astro';
+import FeaturedPost from './FeaturedPost.astro';
+import PostRow from './PostRow.astro';
+import { TAG_KEYS, SITE } from '../../data/site';
+import { tagUrl, tagLabel, pageUrl, type Post } from '../../lib/posts';
+import type { TagKey } from '../../data/site';
+
+interface Props {
+  posts: Post[];
+  page: number;
+  totalPages: number;
+  totalPosts: number;
+  sinceYear: number;
+  /** When set, this is a tag page. */
+  tag?: TagKey;
+}
+const { posts, page, totalPages, totalPosts, sinceYear, tag } = Astro.props;
+
+// Feature the newest post only on the first page of the unfiltered blog.
+const showFeatured = !tag && page === 1 && posts.length > 0;
+const featured = showFeatured ? posts[0] : undefined;
+const rows = showFeatured ? posts.slice(1) : posts;
+const heading = tag ? `${tagLabel(tag)} posts` : 'News, deep dives and release notes.';
+---
+<section class="blog-hero">
+  <div class="container">
+    <p class="eyebrow">
+      {tag ? <a href="/blog/">Blog</a> : 'Blog'} · {totalPosts} {totalPosts === 1 ? 'post' : 'posts'} since {sinceYear}
+    </p>
+    <h1>{heading}</h1>
+    <div class="blog-hero__tools">
+      <nav class="chips" aria-label="Filter by topic">
+        <a class="chip-link" href="/blog/" aria-current={!tag ? 'page' : undefined}>All</a>
+        {TAG_KEYS.map((t) => (
+          <a class="chip-link" href={tagUrl(t)} aria-current={tag === t ? 'page' : undefined}>{tagLabel(t)}</a>
+        ))}
+      </nav>
+      <a class="blog-hero__rss" href="/rss.xml"><Rss size={16} aria-hidden="true" /> RSS</a>
+    </div>
+  </div>
+</section>
+
+<section class="blog-list">
+  <div class="container">
+    {featured && <FeaturedPost post={featured} />}
+    {rows.length > 0 && (
+      <div class="rows" class:list={[{ 'rows--after-featured': featured }]}>
+        {rows.map((p) => <PostRow post={p} />)}
+      </div>
+    )}
+    {posts.length === 0 && <p class="empty">No posts here yet.</p>}
+
+    {totalPages > 1 && (
+      <nav class="pager" aria-label="Pagination">
+        <span>Page {page} of {totalPages}</span>
+        <div class="pager__links">
+          {page > 1 && <a class="btn btn--outline btn--sm" href={pageUrl(page - 1)} rel="prev">← Newer posts</a>}
+          {page < totalPages && <a class="btn btn--indigo btn--sm" href={pageUrl(page + 1)} rel="next">Older posts →</a>}
+        </div>
+      </nav>
+    )}
+
+    <aside id="write" class="write">
+      <div>
+        <h2>Write for the blog</h2>
+        <p>Built something with .NET nanoFramework? Posts are Markdown files in our GitHub repo — open a pull request and we'll help you polish it.</p>
+      </div>
+      <a class="btn btn--indigo" href={`${SITE.repo}#writing-a-blog-post`}>How to submit a post</a>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .blog-hero {
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+    padding: 72px 0 40px;
+  }
+  .blog-hero h1 {
+    font-size: clamp(36px, 4.4vw, 56px);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -1px;
+  }
+  .blog-hero__tools {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 16px;
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 14px;
+  }
+  .chip-link:hover {
+    text-decoration: none;
+    color: var(--ink);
+    border-color: var(--nf-indigo);
+  }
+  .chip-link[aria-current='page'] {
+    background: var(--nf-navy);
+    border-color: var(--nf-navy);
+    color: #fff;
+    font-weight: 600;
+  }
+  .blog-hero__rss {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 40px;
+    font-weight: 600;
+  }
+  .blog-list {
+    padding: 56px 0 96px;
+  }
+  .rows {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    column-gap: 48px;
+  }
+  .rows--after-featured {
+    margin-top: 48px;
+  }
+  .empty {
+    color: var(--ink-2);
+  }
+  .pager {
+    margin-top: 48px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: var(--ink-3);
+  }
+  .pager__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .write {
+    margin-top: 64px;
+    padding: 32px;
+    border-radius: 16px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 40px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .write > div {
+    flex: 1 1 420px;
+  }
+  .write h2 {
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .write p {
+    margin-top: 8px;
+    color: var(--ink-2);
+  }
+</style>

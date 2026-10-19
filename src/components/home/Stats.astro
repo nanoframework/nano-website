@@ -1,0 +1,46 @@
+---
+const stats = [
+  { value: '15M+', label: 'NuGet downloads' },
+  { value: '100+', label: 'sensor & display libraries' },
+  { value: 'MIT', label: 'licensed, free for commercial use' },
+  { value: '.NET Foundation', label: 'member project' },
+];
+---
+<section class="stats" aria-label="At a glance">
+  <dl class="container stats__grid">
+    {stats.map((s) => (
+      <div>
+        <dt>{s.label}</dt>
+        <dd>{s.value}</dd>
+      </div>
+    ))}
+  </dl>
+</section>
+
+<style>
+  .stats {
+    background: var(--nf-indigo);
+    color: #fff;
+  }
+  .stats__grid {
+    margin-block: 0;
+    padding-block: 28px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px 32px;
+  }
+  .stats__grid div {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  dt {
+    font-size: 14px;
+    color: var(--on-dark-2);
+  }
+  dd {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+</style>

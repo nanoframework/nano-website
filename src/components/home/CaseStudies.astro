@@ -1,0 +1,61 @@
+---
+import { CASE_STUDIES } from '../../data/site';
+---
+<section class="section section--dark">
+  <div class="container">
+    <p class="eyebrow">In production</p>
+    <h2 class="section-title">Shipping in oil fields, solar plants and factories.</h2>
+    <div class="grid cases" style="--min: 300px">
+      {CASE_STUDIES.map((c) => (
+        <a class="case" href={c.href}>
+          <span class="case__company">{c.company}</span>
+          <span class="case__title">{c.title}</span>
+          <span class="case__text">{c.blurb}</span>
+          <span class="case__more">Read the case study →</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .cases {
+    margin-top: 48px;
+  }
+  .case {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 28px;
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+  .case:hover {
+    color: #fff;
+    text-decoration: none;
+    border-color: var(--nf-green);
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .case__company {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--nf-green);
+  }
+  .case__title {
+    font-size: 21px;
+    font-weight: 700;
+  }
+  .case__text {
+    font-size: 15px;
+    color: var(--on-dark-2);
+  }
+  .case__more {
+    margin-top: auto;
+    font-weight: 600;
+    color: var(--nf-green);
+  }
+</style>

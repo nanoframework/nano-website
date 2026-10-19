@@ -1,0 +1,138 @@
+---
+import { Heart } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import { SPONSORS, LINKS } from '../../data/site';
+---
+<section id="sponsor" class="section section--dark sponsor">
+  <div class="sponsor__bar" aria-hidden="true"></div>
+  <div class="container sponsor__inner">
+    <div class="sponsor__pitch">
+      <p class="eyebrow">Sponsor the project</p>
+      <h2 class="section-title">.NET nanoFramework is free. Keeping it that way isn't.</h2>
+      <p class="lead">
+        The project is built by volunteers and funded entirely by sponsors. Your support pays for build and test
+        infrastructure, hardware for the test lab, documentation and learning materials. If .NET nanoFramework is part
+        of your product, please help keep it healthy.
+      </p>
+      <div class="sponsor__ctas">
+        <a class="btn btn--primary btn--lg" href={LINKS.openCollective}>
+          <Heart size={18} stroke-width={2.2} aria-hidden="true" />Sponsor on Open Collective
+        </a>
+        <a class="btn btn--ghost-dark" href={LINKS.partnerProgram}>Talk to us about partnering</a>
+      </div>
+      <p class="sponsor__note">Open Collective is fully transparent: every contribution and expense is public.</p>
+    </div>
+
+    <div class="sponsor__list">
+      <h3 class="sponsor__label">Current sponsors — thank you</h3>
+      {SPONSORS.map((s) => (
+        <a class="sponsor__logo" href={s.href}>
+          {s.logo ? <Image src={s.logo} alt={s.name} height={56} /> : <span>{s.name}</span>}
+        </a>
+      ))}
+      <a class="sponsor__logo sponsor__logo--empty" href={LINKS.openCollective}>
+        <strong>Your logo here</strong>
+        <span>Become a sponsor →</span>
+      </a>
+      <div class="sponsor__backers">
+        <h3 class="sponsor__label">Backers on Open Collective</h3>
+        <!-- TODO: fetch backers from the Open Collective API at build time and render avatars here. -->
+        <a href={LINKS.openCollective}>See everyone who backs the project →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sponsor {
+    position: relative;
+    overflow: hidden;
+  }
+  .sponsor__bar {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--nf-green), var(--nf-teal) 40%, var(--nf-indigo));
+  }
+  .sponsor__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 56px;
+    align-items: flex-start;
+  }
+  .sponsor__pitch {
+    flex: 1.2 1 480px;
+    min-width: 0;
+  }
+  .sponsor__ctas {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .sponsor__note {
+    margin-top: 18px;
+    font-size: 14px;
+    color: var(--on-dark-3);
+  }
+  .sponsor__list {
+    flex: 1 1 360px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .sponsor__label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: var(--on-dark-3);
+  }
+  .sponsor__logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-height: 112px;
+    padding: 16px;
+    border-radius: var(--radius);
+    background: #fff;
+    color: var(--nf-navy);
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .sponsor__logo:hover {
+    text-decoration: none;
+    color: var(--nf-navy);
+    box-shadow: 0 0 0 3px var(--nf-green);
+  }
+  .sponsor__logo--empty {
+    background: transparent;
+    border: 2px dashed rgba(76, 180, 140, 0.6);
+    color: #fff;
+    font-size: 17px;
+  }
+  .sponsor__logo--empty:hover {
+    color: #fff;
+  }
+  .sponsor__logo--empty span {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--nf-green);
+  }
+  .sponsor__backers {
+    margin-top: 8px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .sponsor__backers a {
+    color: var(--nf-green);
+    font-weight: 600;
+  }
+</style>

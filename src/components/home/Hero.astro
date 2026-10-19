@@ -1,0 +1,189 @@
+---
+import { Code } from 'astro:components';
+import { ArrowRight, FileCode } from '@lucide/astro';
+import { LINKS } from '../../data/site';
+
+const blinky = `using System.Device.Gpio;
+using System.Threading;
+
+var gpio = new GpioController();
+var led  = gpio.OpenPin(2, PinMode.Output);
+
+while (true)
+{
+    led.Toggle();
+    Thread.Sleep(500);  // that's it. blinky.
+}`;
+---
+<section class="hero">
+  <svg class="hero__traces" aria-hidden="true" viewBox="0 0 1440 640" preserveAspectRatio="xMidYMid slice">
+    <g fill="none" stroke="#009086" stroke-width="2">
+      <path d="M-20 120 H380 L440 180 H760"></path>
+      <path d="M-20 520 H220 L300 440 H520 L560 400"></path>
+      <path d="M1460 90 H1180 L1120 150 H980"></path>
+      <path d="M1460 300 H1300 L1240 360 V560"></path>
+      <path d="M1460 600 H1060 L1000 540 H900"></path>
+      <path d="M120 640 V580 L180 520"></path>
+    </g>
+    <g fill="#181730" stroke="#4cb48c" stroke-width="2">
+      <circle cx="760" cy="180" r="7"></circle>
+      <circle cx="560" cy="400" r="7"></circle>
+      <circle cx="980" cy="150" r="7"></circle>
+      <circle cx="1240" cy="560" r="7"></circle>
+      <circle cx="900" cy="540" r="7"></circle>
+      <circle cx="180" cy="520" r="7"></circle>
+    </g>
+  </svg>
+
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <h1>C# all the way down to the microcontroller.</h1>
+      <p class="hero__lead">
+        .NET nanoFramework™ makes it easy to write C# code for embedded systems. Use the tools and skills you
+        already have — Visual Studio, NuGet, real debugging — on constrained devices from many silicon vendors.
+      </p>
+      <div class="hero__ctas">
+        <a class="btn btn--primary" href="#start">Get started <ArrowRight size={18} aria-hidden="true" /></a>
+        <a class="btn btn--ghost-dark" href={LINKS.github}>Star on GitHub</a>
+      </div>
+      <div class="hero__install">
+        <span class="hero__prompt" aria-hidden="true">$</span>
+        <code>dotnet tool install -g nanoff</code>
+      </div>
+    </div>
+
+    <figure class="hero__code" aria-label="Example: blinking an LED in C#">
+      <div class="hero__code-bar">
+        <FileCode size={16} aria-hidden="true" class="hero__code-icon" />
+        <span>Program.cs</span>
+        <span class="hero__code-status">● Device connected</span>
+      </div>
+      <Code code={blinky} lang="csharp" theme="dark-plus" class="hero__pre" />
+      <figcaption class="hero__code-foot">
+        <span>✓ Deployed to device</span><span>Breakpoints · step · watch</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--nf-navy);
+    color: #fff;
+  }
+  .hero__traces {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    opacity: 0.22;
+  }
+  .hero__inner {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 56px;
+    align-items: center;
+    padding-block: clamp(64px, 8vw, 96px) clamp(72px, 8vw, 104px);
+  }
+  .hero__copy {
+    flex: 1 1 460px;
+    min-width: 0;
+  }
+  .hero h1 {
+    font-size: clamp(38px, 5.2vw, 66px);
+    font-weight: 700;
+    line-height: 1.06;
+    letter-spacing: -1.2px;
+  }
+  .hero__lead {
+    margin-top: 24px;
+    font-size: clamp(17px, 1.6vw, 19px);
+    line-height: 1.6;
+    color: var(--on-dark-2);
+    max-width: 560px;
+  }
+  .hero__ctas {
+    margin-top: 36px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .hero__install {
+    margin-top: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 100%;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 14px;
+    color: #dcdaf0;
+    overflow-x: auto;
+  }
+  .hero__install code {
+    white-space: nowrap;
+  }
+  .hero__prompt {
+    font-family: var(--font-mono);
+    color: var(--nf-green);
+  }
+
+  .hero__code {
+    flex: 1 1 440px;
+    min-width: 0;
+    margin: 0;
+    border-radius: var(--radius);
+    background: var(--code-bg);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+  }
+  .hero__code-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: var(--code-bar);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--code-fg);
+  }
+  .hero__code-bar :global(.hero__code-icon) {
+    color: #9b6bdf;
+  }
+  .hero__code-status {
+    margin-left: auto;
+    color: var(--nf-green);
+  }
+  .hero__code :global(.hero__pre) {
+    margin: 0;
+    padding: 24px 24px 28px;
+    font-size: 15px;
+    line-height: 1.75;
+    background: var(--code-bg) !important;
+    overflow-x: auto;
+  }
+  @media (max-width: 520px) {
+    .hero__code :global(.hero__pre) {
+      padding: 18px 16px 20px;
+      font-size: 13px;
+    }
+  }
+  .hero__code-foot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    padding: 10px 24px;
+    background: var(--nf-teal-strong);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: #fff;
+  }
+</style>

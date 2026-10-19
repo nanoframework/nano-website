@@ -1,0 +1,52 @@
+---
+import { getEntry } from 'astro:content';
+import { postUrl, formatDate, tagLabel, type Post } from '../../lib/posts';
+
+interface Props { post: Post }
+const { post } = Astro.props;
+const author = await getEntry(post.data.author);
+---
+<article class="post-row">
+  <span class="post-row__meta">
+    <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>{' · '}{post.data.tags.map(tagLabel).join(', ')}
+  </span>
+  <h2 class="post-row__title"><a href={postUrl(post)}>{post.data.title}</a></h2>
+  {author && <span class="post-row__author">{author.data.name}</span>}
+</article>
+
+<style>
+  .post-row {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 28px 0;
+    border-top: 1px solid var(--border);
+  }
+  .post-row__meta,
+  .post-row__author {
+    font-size: 13px;
+    color: var(--ink-3);
+  }
+  .post-row__author {
+    font-size: 14px;
+  }
+  .post-row__title {
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+  .post-row__title a {
+    color: var(--ink);
+  }
+  /* Whole row is clickable, while the link text stays the accessible name. */
+  .post-row__title a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .post-row:hover .post-row__title a {
+    color: var(--nf-teal-text);
+    text-decoration: none;
+  }
+</style>

@@ -1,0 +1,21 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogIndex from '../../../components/blog/BlogIndex.astro';
+import { getPublishedPosts, paginate } from '../../../lib/posts';
+
+// Pages 2..N at /blog/page/<n>/ (same URLs WordPress used).
+export const getStaticPaths = (async () => {
+  const all = await getPublishedPosts();
+  const { totalPages } = paginate(all, 1);
+  return Array.from({ length: Math.max(0, totalPages - 1) }, (_, i) => ({ params: { page: String(i + 2) } }));
+}) satisfies GetStaticPaths;
+
+const page = Number(Astro.params.page);
+const all = await getPublishedPosts();
+const { items, totalPages } = paginate(all, page);
+const sinceYear = all.at(-1)?.data.date.getUTCFullYear() ?? new Date().getFullYear();
+---
+<BaseLayout title={`Blog – page ${page}`} current="Blog">
+  <BlogIndex posts={items} page={page} totalPages={totalPages} totalPosts={all.length} sinceYear={sinceYear} />
+</BaseLayout>

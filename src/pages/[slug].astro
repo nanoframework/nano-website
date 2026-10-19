@@ -1,0 +1,323 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getEntry, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Comments from '../components/blog/Comments.astro';
+import LegacyComments from '../components/blog/LegacyComments.astro';
+import { getPublishedPosts, formatDateLong, tagUrl, tagLabel, type Post } from '../lib/posts';
+import { LINKS, SITE } from '../data/site';
+
+// Each post lives at /<slug>/ — the same permalink WordPress used.
+export const getStaticPaths = (async () => {
+  const posts = await getPublishedPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}) satisfies GetStaticPaths;
+
+interface Props { post: Post }
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const author = await getEntry(post.data.author);
+const toc = headings.filter((h) => h.depth === 2);
+const editUrl = post.filePath ? `${SITE.repo}/edit/main/${post.filePath}` : SITE.repo;
+const initials = author?.data.name.split(' ').map((n) => n[0]).slice(0, 2).join('') ?? '';
+---
+<BaseLayout title={post.data.title} description={post.data.description} type="article" current="Blog" image={post.data.cover?.src}>
+  <article>
+    <header class="post-hero">
+      <div class="container">
+        <a class="post-hero__back" href="/blog/">← All posts</a>
+        <p class="post-hero__tags">
+          {post.data.tags.map((t, i) => <>{i > 0 && ' · '}<a href={tagUrl(t)}>{tagLabel(t)}</a></>)}
+        </p>
+        <h1>{post.data.title}</h1>
+        <div class="post-hero__byline">
+          {author?.data.github ? (
+            <img class="post-hero__avatar" src={`https://github.com/${author.data.github}.png?size=96`} alt="" width="44" height="44" loading="lazy" />
+          ) : (
+            <span class="post-hero__avatar post-hero__avatar--initials" aria-hidden="true">{initials}</span>
+          )}
+          <div>
+            <div class="post-hero__author">{author?.data.name}</div>
+            <div class="post-hero__date">
+              <time datetime={post.data.date.toISOString()}>{formatDateLong(post.data.date)}</time>
+              {post.data.updated && <> · updated <time datetime={post.data.updated.toISOString()}>{formatDateLong(post.data.updated)}</time></>}
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="container post-layout">
+      <div class="post-main">
+        {post.data.cover && (
+          <Image class="post-cover" src={post.data.cover} alt={post.data.coverAlt ?? ''} width={1440} />
+        )}
+        <div class="prose">
+          <Content />
+        </div>
+        <footer class="post-foot">
+          <a href={editUrl}>Edit this post on GitHub</a>
+          <span>Tags: {post.data.tags.map((t, i) => <>{i > 0 && ', '}<a href={tagUrl(t)}>{tagLabel(t)}</a></>)}</span>
+        </footer>
+        <LegacyComments comments={post.data.legacyComments} />
+        <Comments />
+      </div>
+
+      <aside class="post-aside" aria-label="Post sidebar">
+        {toc.length > 1 && (
+          <nav class="toc" aria-label="On this page">
+            <h2>On this page</h2>
+            {toc.map((h) => <a href={`#${h.slug}`}>{h.text}</a>)}
+          </nav>
+        )}
+        <div class="aside-card aside-card--dark">
+          <h2>New to .NET nanoFramework?</h2>
+          <p>Get C# running on your board in about ten minutes.</p>
+          <a class="btn btn--primary btn--sm" href="/#start">Get started</a>
+        </div>
+        <div class="aside-card aside-card--sponsor">
+          <h2>Enjoying this post?</h2>
+          <p>.NET nanoFramework is funded by sponsors. A small monthly contribution keeps the work going.</p>
+          <a class="btn btn--indigo btn--sm" href={LINKS.openCollective}>Sponsor on Open Collective</a>
+        </div>
+      </aside>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .post-hero {
+    background: var(--nf-indigo);
+    color: #fff;
+    padding: 56px 0 64px;
+  }
+  .post-hero__back {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--nf-green);
+  }
+  .post-hero__tags {
+    margin: 28px 0 12px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+  }
+  .post-hero__tags a {
+    color: var(--nf-green);
+  }
+  .post-hero h1 {
+    max-width: 880px;
+    font-size: clamp(32px, 4.4vw, 54px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -1px;
+  }
+  .post-hero__byline {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 15px;
+    line-height: 1.4;
+  }
+  .post-hero__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--nf-green);
+  }
+  .post-hero__avatar--initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--nf-navy);
+    font-weight: 700;
+  }
+  .post-hero__author {
+    font-weight: 600;
+  }
+  .post-hero__date {
+    color: var(--on-dark-2);
+  }
+
+  .post-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 56px;
+    align-items: flex-start;
+    padding-block: 64px 96px;
+  }
+  .post-main {
+    flex: 999 1 560px;
+    min-width: 0;
+    max-width: 760px;
+  }
+  .post-cover {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    margin-bottom: 40px;
+  }
+  .post-aside {
+    flex: 1 1 240px;
+    min-width: 0;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: sticky;
+    top: 24px;
+  }
+  .toc h2 {
+    margin-bottom: 12px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .toc {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .toc a {
+    color: var(--ink);
+  }
+  .aside-card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+  .aside-card h2 {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .aside-card p {
+    margin: 8px 0 16px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .aside-card--dark {
+    background: var(--nf-navy);
+    color: #fff;
+  }
+  .aside-card--dark p {
+    color: var(--on-dark-2);
+  }
+  .aside-card--sponsor {
+    border: 2px dashed #9fd6bf;
+    background: #f3faf7;
+  }
+  .aside-card--sponsor p {
+    color: var(--ink-2);
+  }
+  .post-foot {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    justify-content: space-between;
+    font-size: 15px;
+    color: var(--ink-3);
+  }
+  @media (max-width: 860px) {
+    .post-aside {
+      position: static;
+      max-width: none;
+    }
+  }
+
+  /* ---------- Post typography ---------- */
+  .prose {
+    font-size: 18px;
+    line-height: 1.75;
+    color: #2a2846;
+  }
+  .prose :global(> * + *) {
+    margin-top: 1.1em;
+  }
+  .prose :global(h2) {
+    margin-top: 2.2em;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    scroll-margin-top: 24px;
+  }
+  .prose :global(h3) {
+    margin-top: 1.8em;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    scroll-margin-top: 24px;
+  }
+  .prose :global(a) {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: 1.4em;
+  }
+  .prose :global(li + li) {
+    margin-top: 0.4em;
+  }
+  .prose :global(img) {
+    height: auto;
+    border-radius: 10px;
+  }
+  .prose :global(blockquote) {
+    margin-inline: 0;
+    padding: 16px 20px;
+    border-radius: 10px;
+    background: #eaf6f1;
+    border: 1px solid #bfe3d3;
+    font-size: 16px;
+  }
+  .prose :global(blockquote > * + *) {
+    margin-top: 0.6em;
+  }
+  .prose :global(:not(pre) > code) {
+    font-size: 0.85em;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--surface-3);
+  }
+  .prose :global(pre) {
+    padding: 20px 22px;
+    border-radius: 10px;
+    font-size: 14.5px;
+    line-height: 1.7;
+    overflow-x: auto;
+  }
+  .prose :global(table) {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .prose :global(th),
+  .prose :global(td) {
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    text-align: left;
+  }
+  .prose :global(th) {
+    background: var(--surface-2);
+    font-weight: 600;
+  }
+  .prose :global(hr) {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin-block: 2.5em;
+  }
+</style>

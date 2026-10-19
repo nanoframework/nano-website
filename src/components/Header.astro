@@ -1,0 +1,123 @@
+---
+import { Heart } from '@lucide/astro';
+import logo from '../assets/logo-white.svg';
+import GitHubMark from './GitHubMark.astro';
+import { NAV, LINKS } from '../data/site';
+
+interface Props { current?: string }
+const { current } = Astro.props;
+---
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-header__logo" href="/" aria-label=".NET nanoFramework home">
+      <img src={logo.src} width="121" height="44" alt=".NET nanoFramework" />
+    </a>
+    <nav class="site-header__nav" aria-label="Main">
+      {NAV.map((item) => (
+        <a href={item.href} aria-current={current === item.label ? 'page' : undefined}>{item.label}</a>
+      ))}
+    </nav>
+    <div class="site-header__actions">
+      <a class="site-header__icon" href={LINKS.github} aria-label=".NET nanoFramework on GitHub">
+        <GitHubMark size={22} />
+      </a>
+      <a class="btn btn--sm site-header__sponsor" href="/#sponsor" aria-label="Sponsor .NET nanoFramework">
+        <Heart size={16} stroke-width={2.2} aria-hidden="true" /><span class="site-header__sponsor-text">Sponsor</span>
+      </a>
+      <a class="btn btn--sm btn--primary" href="/#start">Get started</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background: var(--nf-navy);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .site-header__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 32px;
+    padding-block: 14px;
+  }
+  .site-header__logo {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .site-header__logo img {
+    height: 44px;
+    width: auto;
+  }
+  .site-header__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 24px;
+    flex: 1 1 auto;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .site-header__nav a {
+    color: #dcdaf0;
+    padding-block: 10px;
+  }
+  .site-header__nav a:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+  .site-header__nav a[aria-current='page'] {
+    color: #fff;
+    text-decoration: underline;
+    text-decoration-color: var(--nf-green);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 8px;
+  }
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .site-header__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    color: #dcdaf0;
+  }
+  .site-header__icon:hover {
+    color: #fff;
+  }
+  .site-header__sponsor {
+    border-color: rgba(76, 180, 140, 0.55);
+    color: #fff;
+  }
+  .site-header__sponsor:hover {
+    border-color: var(--nf-green);
+    color: #fff;
+  }
+  .site-header__sponsor :global(svg) {
+    color: var(--nf-green);
+  }
+
+  @media (max-width: 720px) {
+    .site-header__nav {
+      order: 3;
+      flex-basis: 100%;
+    }
+    .site-header__actions {
+      margin-left: auto;
+    }
+  }
+  @media (max-width: 520px) {
+    .site-header__icon,
+    .site-header__sponsor-text {
+      display: none;
+    }
+    .site-header__sponsor {
+      width: 44px;
+      padding: 0;
+    }
+  }
+</style>

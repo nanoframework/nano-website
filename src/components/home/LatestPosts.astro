@@ -1,0 +1,27 @@
+---
+import { getLatestPosts } from '../../lib/posts';
+import PostCard from '../blog/PostCard.astro';
+
+const posts = await getLatestPosts(3);
+---
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">From the blog</p>
+        <h2 class="section-title">What we've been building.</h2>
+      </div>
+      <a class="section-head__link" href="/blog/">All posts →</a>
+    </div>
+    <div class="grid latest" style="--min: 300px">
+      {posts.map((p, i) => <PostCard post={p} variant={i} />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .latest {
+    margin-top: 48px;
+    gap: 24px;
+  }
+</style>

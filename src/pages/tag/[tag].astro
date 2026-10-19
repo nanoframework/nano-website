@@ -1,0 +1,17 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogIndex from '../../components/blog/BlogIndex.astro';
+import { getPublishedPosts, tagLabel } from '../../lib/posts';
+import { TAG_KEYS, type TagKey } from '../../data/site';
+
+export const getStaticPaths = (() => TAG_KEYS.map((tag) => ({ params: { tag } }))) satisfies GetStaticPaths;
+
+const tag = Astro.params.tag as TagKey;
+const all = await getPublishedPosts();
+const posts = all.filter((p) => p.data.tags.includes(tag));
+const sinceYear = posts.at(-1)?.data.date.getUTCFullYear() ?? new Date().getFullYear();
+---
+<BaseLayout title={`${tagLabel(tag)} posts`} current="Blog">
+  <BlogIndex posts={posts} page={1} totalPages={1} totalPosts={posts.length} sinceYear={sinceYear} tag={tag} />
+</BaseLayout>

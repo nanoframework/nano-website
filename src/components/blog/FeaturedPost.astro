@@ -1,0 +1,88 @@
+---
+import { Image } from 'astro:assets';
+import { getEntry } from 'astro:content';
+import { postUrl, formatDate, tagLabel, type Post } from '../../lib/posts';
+
+interface Props { post: Post }
+const { post } = Astro.props;
+const author = await getEntry(post.data.author);
+---
+<a class="featured" href={postUrl(post)}>
+  {post.data.cover ? (
+    <Image class="featured__art" src={post.data.cover} alt={post.data.coverAlt ?? ''} width={800} height={420} />
+  ) : (
+    <div class="featured__art featured__art--blank" aria-hidden="true"><span>{tagLabel(post.data.tags[0])}</span></div>
+  )}
+  <div class="featured__body">
+    <span class="featured__kicker">Latest · {tagLabel(post.data.tags[0])}</span>
+    <span class="featured__title">{post.data.title}</span>
+    {post.data.description && <span class="featured__desc">{post.data.description}</span>}
+    <span class="featured__meta">
+      {author?.data.name} · <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+    </span>
+  </div>
+</a>
+
+<style>
+  .featured {
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    color: var(--ink);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .featured:hover {
+    text-decoration: none;
+    color: var(--ink);
+    border-color: var(--nf-teal);
+    box-shadow: 0 10px 30px rgba(24, 23, 48, 0.08);
+  }
+  .featured__art {
+    flex: 1 1 420px;
+    min-height: 280px;
+    width: 100%;
+    object-fit: cover;
+  }
+  .featured__art--blank {
+    display: flex;
+    align-items: flex-end;
+    padding: 32px;
+    background-color: var(--nf-indigo);
+    background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1.5px, transparent 1.6px);
+    background-size: 24px 24px;
+    font-family: var(--font-mono);
+    font-size: clamp(28px, 4vw, 48px);
+    color: var(--nf-green);
+  }
+  .featured__body {
+    flex: 1 1 420px;
+    padding: clamp(28px, 4vw, 40px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
+  }
+  .featured__kicker {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--nf-teal-text);
+  }
+  .featured__title {
+    font-size: clamp(24px, 2.6vw, 32px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.4px;
+  }
+  .featured__desc {
+    font-size: 16px;
+    color: var(--ink-2);
+  }
+  .featured__meta {
+    font-size: 14px;
+    color: var(--ink-3);
+  }
+</style>

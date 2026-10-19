@@ -1,0 +1,99 @@
+---
+import { LINKS } from '../../data/site';
+
+const channels = [
+  { label: 'Discord', href: LINKS.discord },
+  { label: 'GitHub', href: LINKS.github },
+  { label: 'YouTube', href: LINKS.youtube },
+  { label: 'Hackster.io', href: LINKS.hackster },
+];
+const contribute = [
+  { label: 'Good first issues', href: LINKS.goodFirstIssues },
+  { label: 'Write for the blog', href: '/blog/#write' },
+  { label: 'Contributing guide', href: LINKS.contributing },
+];
+---
+<section id="community" class="section section--tint">
+  <div class="container community">
+    <div class="community__main">
+      <p class="eyebrow">Community</p>
+      <h2 class="section-title">Come build with us.</h2>
+      <p class="lead">
+        Questions, show-and-tell, or your first pull request — the team and community hang out on Discord and GitHub.
+      </p>
+      <div class="grid community__channels" style="--min: 220px">
+        {channels.map((c) => <a class="community__link" href={c.href}>{c.label} <span aria-hidden="true">→</span></a>)}
+      </div>
+    </div>
+    <div class="community__contribute">
+      <h3>Contribute</h3>
+      <p>
+        Code, docs, samples or a blog post — everything on this site is Markdown in a GitHub repo, so it's all one pull
+        request away.
+      </p>
+      <div class="community__list">
+        {contribute.map((c) => <a class="community__link community__link--soft" href={c.href}>{c.label} <span aria-hidden="true">→</span></a>)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .community {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 56px;
+  }
+  .community__main {
+    flex: 1 1 440px;
+    min-width: 0;
+  }
+  .community__channels {
+    margin-top: 28px;
+    gap: 12px;
+  }
+  .community__contribute {
+    flex: 1 1 400px;
+    min-width: 0;
+    padding: 36px;
+    border-radius: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .community__contribute h3 {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .community__contribute > p {
+    margin: 10px 0 20px;
+    font-size: 15px;
+    color: var(--ink-2);
+  }
+  .community__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .community__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 56px;
+    padding: 0 18px;
+    border-radius: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .community__link:hover {
+    text-decoration: none;
+    color: var(--ink);
+    border-color: var(--nf-teal);
+  }
+  .community__link--soft {
+    min-height: 52px;
+    background: var(--surface-2);
+    border-color: transparent;
+  }
+</style>

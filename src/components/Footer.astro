@@ -1,0 +1,117 @@
+---
+import logo from '../assets/logo-white.svg';
+import { SITE, LINKS } from '../data/site';
+
+const year = new Date().getFullYear();
+const columns = [
+  {
+    title: 'Learn',
+    links: [
+      { label: 'Documentation', href: LINKS.docs },
+      { label: 'Getting started', href: LINKS.gettingStarted },
+      { label: 'Samples', href: LINKS.samples },
+      { label: 'API reference', href: LINKS.apiReference },
+    ],
+  },
+  {
+    title: 'Project',
+    links: [
+      { label: 'Blog', href: '/blog/' },
+      { label: 'Contribute', href: LINKS.contributing },
+      { label: 'Press kit', href: LINKS.pressKit },
+      { label: 'Sponsor', href: LINKS.openCollective },
+    ],
+  },
+  {
+    title: 'Partners',
+    links: [
+      { label: 'Partner program', href: LINKS.partnerProgram },
+      { label: 'Most Valuable Contributors', href: LINKS.mvc },
+      { label: 'Contact', href: `mailto:${SITE.email}` },
+    ],
+  },
+  {
+    title: 'Community',
+    links: [
+      { label: 'Discord', href: LINKS.discord },
+      { label: 'GitHub', href: LINKS.github },
+      { label: 'YouTube', href: LINKS.youtube },
+      { label: 'X / Twitter', href: LINKS.twitter },
+    ],
+  },
+];
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <img src={logo.src} width="94" height="34" alt=".NET nanoFramework" />
+        <p>{SITE.tagline}</p>
+      </div>
+      {columns.map((col) => (
+        <nav aria-label={col.title} class="site-footer__col">
+          <h2>{col.title}</h2>
+          {col.links.map((l) => <a href={l.href}>{l.label}</a>)}
+        </nav>
+      ))}
+    </div>
+    <div class="site-footer__bottom">
+      <span>© {year} .NET Foundation and Contributors · MIT License</span>
+      <span><a href="/rss.xml">RSS</a> · Built from Markdown on GitHub · <a href={SITE.repo}>Edit this site</a></span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--nf-navy);
+    color: var(--on-dark-2);
+    padding: 64px 0 40px;
+    font-size: 14px;
+  }
+  .site-footer__grid {
+    display: grid;
+    gap: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+  .site-footer__brand img {
+    height: 34px;
+    width: auto;
+  }
+  .site-footer__brand p {
+    margin-top: 14px;
+    line-height: 1.6;
+    max-width: 240px;
+  }
+  .site-footer__col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .site-footer__col h2 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .site-footer a {
+    color: var(--on-dark-2);
+  }
+  .site-footer a:hover {
+    color: #fff;
+  }
+  .site-footer__bottom {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--on-dark-3);
+  }
+  .site-footer__bottom a {
+    color: var(--on-dark-3);
+    text-decoration: underline;
+  }
+</style>

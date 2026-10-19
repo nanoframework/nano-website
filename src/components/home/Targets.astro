@@ -1,0 +1,72 @@
+---
+import { TARGETS, LINKS } from '../../data/site';
+---
+<section id="hardware" class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Hardware</p>
+        <h2 class="section-title">Runs on the chips you already use.</h2>
+      </div>
+      <a class="section-head__link" href={LINKS.referenceTargets}>Compare all reference targets →</a>
+    </div>
+    <p class="lead">
+      Reference targets are built, tested and published by the core team on every release. Flash one with nanoff and
+      you're running.
+    </p>
+
+    <ul class="grid targets" style="--min: 260px" role="list">
+      {TARGETS.map((t) => (
+        <li>
+          <a class="card target" href={t.href}>
+            <span class="card__kicker">{t.vendor}</span>
+            <span class="card__title">{t.family}</span>
+            <span class="card__text">{t.blurb}</span>
+            <span class="target__boards">
+              {t.boards.map((b) => <span class="chip">{b}</span>)}
+            </span>
+          </a>
+        </li>
+      ))}
+      <li>
+        <a class="card target target--community" href={LINKS.communityTargets}>
+          <span class="card__kicker">Community</span>
+          <span class="card__title">Your board here</span>
+          <span class="card__text">Many more boards live in community targets, and adding your own is documented.</span>
+          <span class="target__more">Community targets →</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .targets {
+    margin: 44px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .targets li {
+    display: flex;
+  }
+  .target {
+    flex: 1;
+  }
+  .target__boards {
+    margin-top: auto;
+    padding-top: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .target--community {
+    border: 2px dashed #c9c7dc;
+    background: var(--surface-2);
+  }
+  .target__more {
+    margin-top: auto;
+    padding-top: 6px;
+    font-weight: 600;
+    color: var(--nf-teal-text);
+  }
+</style>

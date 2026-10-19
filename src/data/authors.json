@@ -1,0 +1,30 @@
+[
+  {
+    "id": "jose-simoes",
+    "name": "José Simões",
+    "github": "josesimoes",
+    "linkedin": "https://www.linkedin.com/in/jose-simoes-eclo/"
+  },
+  {
+    "id": "laurent-ellerbach",
+    "name": "Laurent Ellerbach",
+    "github": "Ellerbach",
+    "linkedin": "https://www.linkedin.com/in/laurelle"
+  },
+  {
+    "id": "adrian-soundy",
+    "name": "Adrian Soundy",
+    "github": "AdrianSoundy"
+  },
+  {
+    "id": "robin-jones",
+    "name": "Robin Jones",
+    "github": "networkfusion",
+    "linkedin": "https://www.linkedin.com/in/robin-jones-771896170/"
+  },
+  {
+    "id": "nanoframework-team",
+    "name": "The .NET nanoFramework team",
+    "github": "nanoframework"
+  }
+]

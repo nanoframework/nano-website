@@ -1,0 +1,92 @@
+---
+import { Image } from 'astro:assets';
+import { getEntry } from 'astro:content';
+import { postUrl, formatDate, tagLabel, type Post } from '../../lib/posts';
+
+interface Props {
+  post: Post;
+  /** Index used to vary the header color when a post has no cover image. */
+  variant?: number;
+}
+const { post, variant = 0 } = Astro.props;
+const author = await getEntry(post.data.author);
+const tones = ['indigo', 'teal', 'navy'] as const;
+const tone = tones[variant % tones.length];
+---
+<a class="post-card" href={postUrl(post)}>
+  {post.data.cover ? (
+    <Image class="post-card__cover" src={post.data.cover} alt={post.data.coverAlt ?? ''} width={600} height={300} />
+  ) : (
+    <div class={`post-card__cover post-card__cover--${tone}`} aria-hidden="true">
+      <span>{tagLabel(post.data.tags[0])}</span>
+    </div>
+  )}
+  <div class="post-card__body">
+    <span class="post-card__meta">
+      <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>{' · '}{tagLabel(post.data.tags[0])}
+    </span>
+    <span class="post-card__title">{post.data.title}</span>
+    {author && <span class="post-card__author">{author.data.name}</span>}
+  </div>
+</a>
+
+<style>
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    color: var(--ink);
+    background: var(--surface);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .post-card:hover {
+    text-decoration: none;
+    color: var(--ink);
+    border-color: var(--nf-teal);
+    box-shadow: 0 10px 30px rgba(24, 23, 48, 0.08);
+    transform: translateY(-2px);
+  }
+  .post-card__cover {
+    width: 100%;
+    height: 168px;
+    object-fit: cover;
+  }
+  div.post-card__cover {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1.5px, transparent 1.6px);
+    background-size: 22px 22px;
+  }
+  .post-card__cover--indigo { background-color: var(--nf-indigo); color: var(--nf-green); }
+  .post-card__cover--teal { background-color: var(--nf-teal-strong); color: #fff; }
+  .post-card__cover--navy { background-color: var(--nf-navy); color: var(--nf-green); }
+  .post-card__body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+  .post-card__meta,
+  .post-card__author {
+    font-size: 13px;
+    color: var(--ink-3);
+  }
+  .post-card__title {
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+  .post-card__author {
+    margin-top: auto;
+    font-size: 14px;
+  }
+</style>
