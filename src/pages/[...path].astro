@@ -1,0 +1,28 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import PostView from '../components/blog/PostView.astro';
+import PageView from '../components/PageView.astro';
+import { getPublishedPosts } from '../lib/posts';
+
+/**
+ * Posts and pages share the root, exactly like WordPress did:
+ *   /<post-slug>/            -> src/content/blog/<post-slug>/
+ *   /<page-path>/            -> src/content/pages/<page-path>/
+ */
+export const getStaticPaths = (async () => {
+  const posts = await getPublishedPosts();
+  const pages = await getCollection('pages');
+  const postIds = new Set(posts.map((p) => p.id));
+  for (const page of pages) {
+    if (postIds.has(page.id)) throw new Error(`"${page.id}" is both a post and a page — rename one of them.`);
+  }
+  return [
+    ...posts.map((post) => ({ params: { path: post.id }, props: { kind: 'post' as const, post } })),
+    ...pages.map((page) => ({ params: { path: page.id }, props: { kind: 'page' as const, page } })),
+  ];
+}) satisfies GetStaticPaths;
+
+const props = Astro.props;
+---
+{props.kind === 'post' ? <PostView post={props.post} /> : <PageView page={props.page} />}

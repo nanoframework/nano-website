@@ -1,6 +1,7 @@
 ---
 import { Heart } from '@lucide/astro';
-import { Image } from 'astro:assets';
+import Logo from '../Logo.astro';
+import GitHubMark from '../GitHubMark.astro';
 import { SPONSORS, LINKS } from '../../data/site';
 ---
 <section id="sponsor" class="section section--dark sponsor">
@@ -15,27 +16,34 @@ import { SPONSORS, LINKS } from '../../data/site';
         of your product, please help keep it healthy.
       </p>
       <div class="sponsor__ctas">
-        <a class="btn btn--primary btn--lg" href={LINKS.openCollective}>
+        <a class="btn btn--primary btn--lg" href={LINKS.githubSponsors}>
+          <GitHubMark size={18} />Sponsor on GitHub
+        </a>
+        <a class="btn btn--ghost-dark btn--lg" href={LINKS.openCollective}>
           <Heart size={18} stroke-width={2.2} aria-hidden="true" />Sponsor on Open Collective
         </a>
-        <a class="btn btn--ghost-dark" href={LINKS.partnerProgram}>Talk to us about partnering</a>
       </div>
-      <p class="sponsor__note">Open Collective is fully transparent: every contribution and expense is public.</p>
+      <p class="sponsor__note">
+        Both go straight to the project. On Open Collective every contribution and expense is public.
+        Building a product on .NET nanoFramework? <a href={LINKS.partnerProgram}>Talk to us about partnering</a>.
+      </p>
     </div>
 
     <div class="sponsor__list">
       <h3 class="sponsor__label">Current sponsors — thank you</h3>
-      {SPONSORS.map((s) => (
-        <a class="sponsor__logo" href={s.href}>
-          {s.logo ? <Image src={s.logo} alt={s.name} height={56} /> : <span>{s.name}</span>}
+      <div class="sponsor__grid">
+        {SPONSORS.map((s) => (
+          <a class="sponsor__logo" href={s.href} aria-label={s.name}>
+            <Logo logo={s.logo} name={s.name} class="sponsor__img" />
+          </a>
+        ))}
+        <a class="sponsor__logo sponsor__logo--empty" href="/support-nanoframework/#sponsor-options">
+          <strong>Your logo here</strong>
+          <span>Become a sponsor →</span>
         </a>
-      ))}
-      <a class="sponsor__logo sponsor__logo--empty" href={LINKS.openCollective}>
-        <strong>Your logo here</strong>
-        <span>Become a sponsor →</span>
-      </a>
+      </div>
       <div class="sponsor__backers">
-        <h3 class="sponsor__label">Backers on Open Collective</h3>
+        <h3 class="sponsor__label">Backers</h3>
         <!-- TODO: fetch backers from the Open Collective API at build time and render avatars here. -->
         <a href={LINKS.openCollective}>See everyone who backs the project →</a>
       </div>
@@ -72,8 +80,14 @@ import { SPONSORS, LINKS } from '../../data/site';
   }
   .sponsor__note {
     margin-top: 18px;
+    max-width: 560px;
     font-size: 14px;
+    line-height: 1.6;
     color: var(--on-dark-3);
+  }
+  .sponsor__note a {
+    color: var(--nf-green);
+    text-decoration: underline;
   }
   .sponsor__list {
     flex: 1 1 360px;
@@ -90,26 +104,42 @@ import { SPONSORS, LINKS } from '../../data/site';
     text-transform: uppercase;
     color: var(--on-dark-3);
   }
+  .sponsor__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+    gap: 14px;
+  }
   .sponsor__logo {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 4px;
-    min-height: 112px;
-    padding: 16px;
+    height: 132px;
+    padding: 18px 22px;
     border-radius: var(--radius);
     background: #fff;
     color: var(--nf-navy);
     font-size: 20px;
     font-weight: 700;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
   }
   .sponsor__logo:hover {
     text-decoration: none;
     color: var(--nf-navy);
     box-shadow: 0 0 0 3px var(--nf-green);
+    transform: translateY(-2px);
+  }
+  /* Logos fill the tile: as wide as possible, capped in height so wide and square marks balance. */
+  .sponsor__logo :global(.sponsor__img) {
+    width: 100%;
+    height: 100%;
+    max-height: 92px;
+    object-fit: contain;
   }
   .sponsor__logo--empty {
+    grid-column: 1 / -1;
+    height: 96px;
     background: transparent;
     border: 2px dashed rgba(76, 180, 140, 0.6);
     color: #fff;

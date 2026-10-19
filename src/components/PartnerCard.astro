@@ -1,0 +1,97 @@
+---
+import { ArrowUpRight } from '@lucide/astro';
+import Logo from './Logo.astro';
+import type { Partner } from '../data/partners';
+
+interface Props { partner: Partner }
+const { partner } = Astro.props;
+
+const primary = partner.profile ?? partner.website;
+---
+<article class="partner">
+  <a class:list={['partner__logo', { 'partner__logo--dark': partner.darkLogo }]} href={primary} tabindex="-1" aria-hidden="true">
+    <Logo logo={partner.logo} name={partner.name} />
+  </a>
+  <div class="partner__body">
+    <span class="card__kicker">{partner.kind}</span>
+    <h3 class="partner__name"><a href={primary}>{partner.name}</a></h3>
+    <p class="partner__blurb">{partner.blurb}</p>
+    <div class="partner__links">
+      {partner.profile && <a href={partner.profile}>Partner profile →</a>}
+      <a href={partner.website} rel="noopener">Website <ArrowUpRight size={14} aria-hidden="true" /></a>
+    </div>
+  </div>
+</article>
+
+<style>
+  .partner {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    overflow: hidden;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .partner:hover {
+    border-color: var(--nf-teal);
+    box-shadow: 0 10px 30px rgba(24, 23, 48, 0.08);
+    transform: translateY(-2px);
+  }
+  .partner__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    padding: 28px 32px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+  }
+  .partner__logo--dark {
+    background: var(--nf-navy);
+  }
+  .partner__logo :global(img) {
+    max-height: 94px;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+  .partner__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 24px;
+  }
+  .partner__name {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .partner__name a {
+    color: var(--ink);
+  }
+  .partner__name a::after {
+    content: '';
+    position: absolute;
+  }
+  .partner__blurb {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+  .partner__links {
+    margin-top: auto;
+    padding-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .partner__links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+  }
+</style>

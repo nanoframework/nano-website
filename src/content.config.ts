@@ -47,6 +47,23 @@ const blog = defineCollection({
     }),
 });
 
+/**
+ * Standalone pages (partners, press kit, contact…).
+ * src/content/pages/<path>/index.md  ->  https://nanoframework.net/<path>/
+ */
+const pages = defineCollection({
+  loader: glob({
+    base: './src/content/pages',
+    pattern: '**/index.md',
+    generateId: ({ entry }) => entry.replace(/\/?index\.md$/, ''),
+  }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    wordpressId: z.number().optional(),
+  }),
+});
+
 /** Post authors, referenced from a post's `author:` field by id. */
 const authors = defineCollection({
   loader: file('src/data/authors.json'),
@@ -57,4 +74,4 @@ const authors = defineCollection({
   }),
 });
 
-export const collections = { blog, authors };
+export const collections = { blog, pages, authors };

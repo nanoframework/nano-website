@@ -1,18 +1,11 @@
 ---
-import type { GetStaticPaths } from 'astro';
 import { getEntry, render } from 'astro:content';
 import { Image } from 'astro:assets';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Comments from '../components/blog/Comments.astro';
-import LegacyComments from '../components/blog/LegacyComments.astro';
-import { getPublishedPosts, formatDateLong, tagUrl, tagLabel, type Post } from '../lib/posts';
-import { LINKS, SITE } from '../data/site';
-
-// Each post lives at /<slug>/ — the same permalink WordPress used.
-export const getStaticPaths = (async () => {
-  const posts = await getPublishedPosts();
-  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
-}) satisfies GetStaticPaths;
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Comments from './Comments.astro';
+import LegacyComments from './LegacyComments.astro';
+import { formatDateLong, tagUrl, tagLabel, type Post } from '../../lib/posts';
+import { LINKS, SITE } from '../../data/site';
 
 interface Props { post: Post }
 const { post } = Astro.props;
@@ -79,7 +72,10 @@ const initials = author?.data.name.split(' ').map((n) => n[0]).slice(0, 2).join(
         <div class="aside-card aside-card--sponsor">
           <h2>Enjoying this post?</h2>
           <p>.NET nanoFramework is funded by sponsors. A small monthly contribution keeps the work going.</p>
-          <a class="btn btn--indigo btn--sm" href={LINKS.openCollective}>Sponsor on Open Collective</a>
+          <div class="aside-card__ctas">
+            <a class="btn btn--indigo btn--sm" href={LINKS.githubSponsors}>GitHub Sponsors</a>
+            <a class="btn btn--outline btn--sm" href={LINKS.openCollective}>Open Collective</a>
+          </div>
         </div>
       </aside>
     </div>
@@ -213,6 +209,11 @@ const initials = author?.data.name.split(' ').map((n) => n[0]).slice(0, 2).join(
     border: 2px dashed #9fd6bf;
     background: #f3faf7;
   }
+  .aside-card__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
   .aside-card--sponsor p {
     color: var(--ink-2);
   }
@@ -234,90 +235,4 @@ const initials = author?.data.name.split(' ').map((n) => n[0]).slice(0, 2).join(
     }
   }
 
-  /* ---------- Post typography ---------- */
-  .prose {
-    font-size: 18px;
-    line-height: 1.75;
-    color: #2a2846;
-  }
-  .prose :global(> * + *) {
-    margin-top: 1.1em;
-  }
-  .prose :global(h2) {
-    margin-top: 2.2em;
-    font-size: 30px;
-    font-weight: 700;
-    line-height: 1.2;
-    color: var(--ink);
-    scroll-margin-top: 24px;
-  }
-  .prose :global(h3) {
-    margin-top: 1.8em;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--ink);
-    scroll-margin-top: 24px;
-  }
-  .prose :global(a) {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-  .prose :global(ul),
-  .prose :global(ol) {
-    padding-left: 1.4em;
-  }
-  .prose :global(li + li) {
-    margin-top: 0.4em;
-  }
-  .prose :global(img) {
-    height: auto;
-    border-radius: 10px;
-  }
-  .prose :global(blockquote) {
-    margin-inline: 0;
-    padding: 16px 20px;
-    border-radius: 10px;
-    background: #eaf6f1;
-    border: 1px solid #bfe3d3;
-    font-size: 16px;
-  }
-  .prose :global(blockquote > * + *) {
-    margin-top: 0.6em;
-  }
-  .prose :global(:not(pre) > code) {
-    font-size: 0.85em;
-    padding: 2px 6px;
-    border-radius: 4px;
-    background: var(--surface-3);
-  }
-  .prose :global(pre) {
-    padding: 20px 22px;
-    border-radius: 10px;
-    font-size: 14.5px;
-    line-height: 1.7;
-    overflow-x: auto;
-  }
-  .prose :global(table) {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    border-collapse: collapse;
-    font-size: 15px;
-    line-height: 1.5;
-  }
-  .prose :global(th),
-  .prose :global(td) {
-    padding: 12px 16px;
-    border: 1px solid var(--border);
-    text-align: left;
-  }
-  .prose :global(th) {
-    background: var(--surface-2);
-    font-weight: 600;
-  }
-  .prose :global(hr) {
-    border: 0;
-    border-top: 1px solid var(--border);
-    margin-block: 2.5em;
-  }
 </style>

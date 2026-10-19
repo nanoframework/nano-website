@@ -1,0 +1,80 @@
+---
+import { getEntry, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site';
+
+interface Props { page: CollectionEntry<'pages'> }
+const { page } = Astro.props;
+
+// Parents that are hand-built Astro pages rather than Markdown.
+const DESIGNED_PAGES: Record<string, string> = { 'partner-program': 'Partners' };
+const { Content } = await render(page);
+
+// Breadcrumb for nested pages, e.g. Partners › Eclo Solutions
+const segments = page.id.split('/');
+const crumbs = await Promise.all(
+  segments.slice(0, -1).map(async (_, i) => {
+    const id = segments.slice(0, i + 1).join('/');
+    const parent = await getEntry('pages', id);
+    const label = parent?.data.title ?? DESIGNED_PAGES[id];
+    return label ? { href: `/${id}/`, label } : undefined;
+  }),
+);
+const editUrl = page.filePath ? `${SITE.repo}/edit/main/${page.filePath}` : SITE.repo;
+---
+<BaseLayout title={page.data.title} description={page.data.description}>
+  <article>
+    <header class="page-hero">
+      <div class="container">
+        {crumbs.some(Boolean) && (
+          <nav class="page-hero__crumbs" aria-label="Breadcrumb">
+            {crumbs.filter(Boolean).map((c) => <><a href={c!.href}>{c!.label}</a><span aria-hidden="true"> › </span></>)}
+          </nav>
+        )}
+        <h1>{page.data.title}</h1>
+      </div>
+    </header>
+    <div class="container page-body">
+      <div class="prose">
+        <Content />
+      </div>
+      <footer class="page-foot">
+        <a href={editUrl}>Edit this page on GitHub</a>
+      </footer>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+    padding: 64px 0 48px;
+  }
+  .page-hero__crumbs {
+    margin-bottom: 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink-3);
+  }
+  .page-hero h1 {
+    max-width: 880px;
+    font-size: clamp(34px, 4.4vw, 52px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -1px;
+  }
+  .page-body {
+    padding-block: 56px 96px;
+  }
+  .page-body .prose {
+    max-width: 800px;
+  }
+  .page-foot {
+    max-width: 800px;
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 15px;
+  }
+</style>

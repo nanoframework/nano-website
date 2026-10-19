@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "check": "astro check",
     "astro": "astro",
-    "migrate:wordpress": "node scripts/migrate-wordpress.mjs"
+    "migrate:wordpress": "node scripts/migrate-wordpress.mjs",
+    "trim-logos": "node scripts/trim-logos.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",
@@ -25,6 +26,7 @@
     "@joplin/turndown-plugin-gfm": "^1.0.68",
     "entities": "^8.1.0",
     "fast-xml-parser": "^5.11.2",
+    "sharp": "^0.35.5",
     "turndown": "^7.2.4",
     "typescript": "^5.9.3"
   },

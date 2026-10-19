@@ -18,8 +18,9 @@ const columns = [
     links: [
       { label: 'Blog', href: '/blog/' },
       { label: 'Contribute', href: LINKS.contributing },
-      { label: 'Press kit', href: LINKS.pressKit },
-      { label: 'Sponsor', href: LINKS.openCollective },
+      { label: 'Overview', href: LINKS.overview },
+      { label: 'Logos & images', href: LINKS.pressKit },
+      { label: 'Support the project', href: LINKS.support },
     ],
   },
   {
@@ -27,7 +28,8 @@ const columns = [
     links: [
       { label: 'Partner program', href: LINKS.partnerProgram },
       { label: 'Most Valuable Contributors', href: LINKS.mvc },
-      { label: 'Contact', href: `mailto:${SITE.email}` },
+      { label: 'Join the program', href: LINKS.joinPartners },
+      { label: 'Contact', href: LINKS.contact },
     ],
   },
   {
@@ -45,7 +47,7 @@ const columns = [
   <div class="container">
     <div class="site-footer__grid">
       <div class="site-footer__brand">
-        <img src={logo.src} width="94" height="34" alt=".NET nanoFramework" />
+        <img src={logo.src} width="90" height="34" alt=".NET nanoFramework" />
         <p>{SITE.tagline}</p>
       </div>
       {columns.map((col) => (

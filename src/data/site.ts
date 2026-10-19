@@ -27,12 +27,16 @@ export const LINKS = {
   hackster: 'https://www.hackster.io/nanoframework',
   nuget: 'https://www.nuget.org/profiles/nanoframework',
   openCollective: 'https://opencollective.com/nanoframework',
+  githubSponsors: 'https://github.com/sponsors/nanoframework',
   dotnetFoundation: 'https://dotnetfoundation.org/',
-  // Pages still to be migrated from WordPress — kept on their current URLs.
+  // Pages migrated from WordPress (src/content/pages), on their original URLs.
   partnerProgram: '/partner-program/',
+  joinPartners: '/partner-program/join-the-partners-program/',
   mvc: '/most-valuable-contributors/',
   pressKit: '/logos-and-images/',
-  coreTeam: '/#team', // TODO: core team section/page
+  overview: '/overview-of-nanoframework/',
+  support: '/support-nanoframework/',
+  contact: '/contact/',
 };
 
 export const NAV = [
@@ -125,10 +129,35 @@ export const CASE_STUDIES = [
   },
 ];
 
-// Current sponsors. Add `logo` (an import from src/assets/sponsors/) when the files are available.
-export const SPONSORS: { name: string; href: string; logo?: ImageMetadata }[] = [
-  { name: 'OrgPal', href: 'https://www.orgpal.com' },
-  { name: 'ISMA CONTROLLI', href: 'https://www.ismacontrolli.com/en/' },
+// Sponsors and supporters. `logo`: a file name in src/assets/partners/ or a URL (see components/Logo.astro).
+export type Supporter = { name: string; href: string; logo?: string };
+
+/** Current sponsors: shown on the home page and on /support-nanoframework/. */
+export const SPONSORS: Supporter[] = [
+  { name: 'ISMA CONTROLLI', href: 'https://www.ismacontrolli.com/en/', logo: 'isma-controlli.png' },
+  { name: 'OrgPal', href: 'https://www.orgpal.com', logo: 'orgpallogo.png' },
+];
+
+/** Past sponsors and supporters: shown on /support-nanoframework/. */
+export const PAST_SUPPORTERS: Supporter[] = [
+  { name: 'D-FENS', href: 'https://d-fens.ch/', logo: 'logo_d-fense.webp' },
+  { name: 'Hive (LinkIT)', href: 'https://hive.linkit.nl/', logo: 'https://avatars.githubusercontent.com/u/17175831' },
+  { name: 'Eclo Solutions', href: 'https://www.eclo.solutions', logo: 'https://avatars.githubusercontent.com/u/12029939' },
+  { name: 'ChibiOS', href: 'https://www.chibios.org/dokuwiki/doku.php', logo: 'https://avatars.githubusercontent.com/u/2803041' },
+  { name: 'Espressif', href: 'https://espressif.com/', logo: 'https://avatars.githubusercontent.com/u/9460735' },
+];
+
+/**
+ * Most Valuable Contributors (GitHub logins), shown on /most-valuable-contributors/.
+ * Avatars come from GitHub.
+ */
+export const MVCS: { login: string }[] = [
+  { login: 'alberk8' },
+  { login: 'bytewizer' },
+  { login: 'mikeoliphant' },
+  { login: 'MrCSharp22' },
+  { login: 'torbacz' },
+  { login: 'CoryCharlton' },
 ];
 
 // Blog tags. Keep this list short: it drives the filter chips on /blog/.
