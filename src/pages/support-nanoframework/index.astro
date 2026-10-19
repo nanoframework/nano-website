@@ -1,0 +1,411 @@
+---
+import { Heart, Server, Cpu, Sparkles, BookOpen, GitPullRequest, MessageCircle, Megaphone } from '@lucide/astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Logo from '../../components/Logo.astro';
+import GitHubMark from '../../components/GitHubMark.astro';
+import { SPONSORS, PAST_SUPPORTERS, LINKS } from '../../data/site';
+
+const funds = [
+  { icon: Server, title: 'Build & test infrastructure', text: 'CI pipelines, package feeds and the services every release depends on.' },
+  { icon: Cpu, title: 'Test lab hardware', text: 'Real boards that run the test suites on every pull request.' },
+  { icon: Sparkles, title: 'New features', text: 'Sponsored coding of features the community needs.' },
+  { icon: BookOpen, title: 'Docs & learning', text: 'Documentation, samples and learning materials.' },
+];
+const ways = [
+  { icon: GitPullRequest, title: 'Contribute code', text: 'Fix a bug, add a binding or pick a good first issue.', href: LINKS.goodFirstIssues },
+  { icon: BookOpen, title: 'Improve the docs', text: 'Guides, samples and corrections are always welcome.', href: LINKS.contributing },
+  { icon: MessageCircle, title: 'Help on Discord', text: 'Answer questions and share what you have built.', href: LINKS.discord },
+  { icon: Megaphone, title: 'Spread the word', text: 'Blog, talk or post about your .NET nanoFramework projects.', href: '/blog/#write' },
+];
+---
+<BaseLayout
+  title="Support .NET nanoFramework"
+  description=".NET nanoFramework is free, open source and funded by its sponsors. See who supports the project and how you can help keep it going."
+>
+  <section class="section section--dark support-hero">
+    <div class="support-hero__bar" aria-hidden="true"></div>
+    <div class="container">
+      <p class="eyebrow">Support the project</p>
+      <h1 class="section-title">.NET nanoFramework is free. Keeping it that way isn't.</h1>
+      <p class="lead">
+        .NET nanoFramework™ is free and open source, and it is funded entirely by its sponsors and backers. You can
+        sponsor the project through GitHub Sponsors or Open Collective.
+      </p>
+      <div class="support-hero__ctas">
+        <a class="btn btn--primary btn--lg" href={LINKS.githubSponsors}><GitHubMark size={18} />Sponsor on GitHub</a>
+        <a class="btn btn--ghost-dark btn--lg" href={LINKS.openCollective}><Heart size={18} stroke-width={2.2} aria-hidden="true" />Sponsor on Open Collective</a>
+      </div>
+      <p class="support-hero__more">Not ready to sponsor? <a href="#help">There are other ways to help</a>.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Where the money goes</p>
+      <h2 class="section-title">Your support keeps the lights on.</h2>
+      <div class="grid funds" style="--min: 230px">
+        {funds.map((f) => (
+          <div class="fund">
+            <f.icon size={26} stroke-width={1.8} color="var(--nf-teal-text)" aria-hidden="true" />
+            <h3>{f.title}</h3>
+            <p>{f.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="sponsor-options" class="section section--tint">
+    <div class="container">
+      <p class="eyebrow">How to sponsor</p>
+      <h2 class="section-title">Two ways, same project.</h2>
+      <p class="lead">Every option goes straight to .NET nanoFramework. Pick whichever suits you or your company.</p>
+      <div class="grid options" style="--min: 300px">
+        <a class="option" href={LINKS.githubSponsors}>
+          <span class="option__icon"><GitHubMark size={30} /></span>
+          <span class="option__title">GitHub Sponsors</span>
+          <span class="option__text">Sponsor straight from your GitHub account, personally or on behalf of your organization, with GitHub handling billing. Public sponsorships show on your profile.</span>
+          <span class="option__cta">Sponsor on GitHub →</span>
+        </a>
+        <a class="option" href={LINKS.openCollective}>
+          <span class="option__icon"><Heart size={30} stroke-width={1.8} aria-hidden="true" /></span>
+          <span class="option__title">Open Collective</span>
+          <span class="option__text">Contribute by card or PayPal, with invoices for companies. Fully transparent: every contribution and every expense is public.</span>
+          <span class="option__cta">Sponsor on Open Collective →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Current sponsors</p>
+          <h2 class="section-title">Thank you to the companies that sponsor us today.</h2>
+        </div>
+      </div>
+      <p class="lead">Sponsors get their logo and a link to their website on our GitHub readme and on this site's home page.</p>
+      <ul class="grid sponsors" style="--min: 260px" role="list">
+        {SPONSORS.map((s) => (
+          <li>
+            <a class="sponsor-tile" href={s.href}>
+              <span class="sponsor-tile__logo"><Logo logo={s.logo} name={s.name} class="sponsor-tile__img" /></span>
+              <span class="sponsor-tile__name">{s.name}</span>
+            </a>
+          </li>
+        ))}
+        <li>
+          <a class="sponsor-tile sponsor-tile--empty" href="#sponsor-options">
+            <span class="sponsor-tile__logo"><strong>Your logo here</strong></span>
+            <span class="sponsor-tile__name">Become a sponsor →</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container backers">
+      <div class="backers__text">
+        <p class="eyebrow">Backers</p>
+        <h2 class="section-title">Every little bit helps.</h2>
+        <p class="lead">
+          Backers are individuals who contribute money to support .NET nanoFramework. We appreciate every
+          contribution, even the smallest ones.
+        </p>
+        <div class="backers__ctas">
+          <a class="btn btn--indigo" href={LINKS.githubSponsors}>Back us on GitHub</a>
+          <a class="btn btn--outline" href={LINKS.openCollective}>Back us on Open Collective</a>
+        </div>
+      </div>
+      <a class="backers__wall" href={`${LINKS.openCollective}#support`} aria-label="See all backers on Open Collective">
+        <img src="https://opencollective.com/nanoframework/tiers/backer.svg?avatarHeight=48&width=520" alt="Avatars of the project's backers on Open Collective" loading="lazy" />
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Past sponsors and supporters</p>
+      <h2 class="section-title">With gratitude.</h2>
+      <p class="lead">
+        Over the years, other companies have helped in many ways: sponsoring a missing feature, paying for an expense,
+        contributing code or providing the foundations the platform runs on.
+      </p>
+      <ul class="grid past" style="--min: 180px" role="list">
+        {PAST_SUPPORTERS.map((s) => (
+          <li>
+            <a class="past-tile" href={s.href}>
+              <span class="past-tile__logo"><Logo logo={s.logo} name={s.name} class="past-tile__img" /></span>
+              <span class="past-tile__name">{s.name}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section id="help" class="section section--tint">
+    <div class="container">
+      <p class="eyebrow">Other ways to help</p>
+      <h2 class="section-title">Not everything is about money.</h2>
+      <div class="grid ways" style="--min: 230px">
+        {ways.map((w) => (
+          <a class="card way" href={w.href}>
+            <w.icon size={24} stroke-width={1.8} color="var(--nf-teal-text)" aria-hidden="true" />
+            <span class="card__title">{w.title}</span>
+            <span class="card__text">{w.text}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark foundation">
+    <div class="container foundation__inner">
+      <div>
+        <p class="eyebrow">Part of the .NET Foundation</p>
+        <p class="foundation__text">
+          .NET nanoFramework is a member project of the .NET Foundation, an independent non-profit that supports the
+          open-source .NET ecosystem.
+        </p>
+      </div>
+      <a class="btn btn--ghost-dark" href="https://dotnetfoundation.org/projects/project-detail/nanoframework">Our .NET Foundation page</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .support-hero {
+    position: relative;
+    overflow: hidden;
+  }
+  .support-hero__bar {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--nf-green), var(--nf-teal) 40%, var(--nf-indigo));
+  }
+  .support-hero h1 {
+    max-width: 880px;
+    font-size: clamp(34px, 4.6vw, 54px);
+    letter-spacing: -1px;
+  }
+  .support-hero__ctas {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .support-hero__more {
+    margin-top: 18px;
+    font-size: 15px;
+    color: var(--on-dark-2);
+  }
+  .support-hero__more a {
+    color: var(--nf-green);
+    text-decoration: underline;
+  }
+  .options {
+    margin-top: 36px;
+    gap: 24px;
+  }
+  .option {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 28px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--ink);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .option:hover {
+    text-decoration: none;
+    color: var(--ink);
+    border-color: var(--nf-teal);
+    box-shadow: 0 10px 30px rgba(24, 23, 48, 0.08);
+    transform: translateY(-2px);
+  }
+  .option__icon {
+    display: inline-flex;
+    width: 56px;
+    height: 56px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--nf-navy);
+    color: var(--nf-green);
+  }
+  .option__title {
+    margin-top: 6px;
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .option__text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+  .option__cta {
+    margin-top: auto;
+    padding-top: 8px;
+    font-weight: 700;
+    color: var(--nf-teal-text);
+  }
+  .backers__ctas {
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .funds,
+  .ways {
+    margin-top: 40px;
+  }
+  .fund {
+    padding: 24px;
+    border-radius: var(--radius);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+  }
+  .fund h3 {
+    margin: 14px 0 6px;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .fund p {
+    font-size: 15px;
+    color: var(--ink-2);
+  }
+
+  .sponsors,
+  .past {
+    margin: 36px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .sponsors li,
+  .past li {
+    display: flex;
+  }
+  .sponsor-tile,
+  .past-tile {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--ink);
+    overflow: hidden;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .sponsor-tile:hover,
+  .past-tile:hover {
+    text-decoration: none;
+    color: var(--ink);
+    border-color: var(--nf-teal);
+    box-shadow: 0 10px 30px rgba(24, 23, 48, 0.08);
+    transform: translateY(-2px);
+  }
+  .sponsor-tile__logo,
+  .past-tile__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .sponsor-tile__logo {
+    height: 170px;
+    padding: 20px 28px;
+  }
+  .past-tile__logo {
+    height: 120px;
+    padding: 20px;
+  }
+  .sponsor-tile :global(.sponsor-tile__img) {
+    width: 100%;
+    height: 100%;
+    max-height: 112px;
+    object-fit: contain;
+  }
+  .past-tile :global(.past-tile__img) {
+    width: 100%;
+    height: 100%;
+    max-height: 76px;
+    object-fit: contain;
+  }
+  .sponsor-tile__name,
+  .past-tile__name {
+    padding: 14px 20px;
+    border-top: 1px solid var(--border);
+    font-weight: 600;
+    font-size: 15px;
+    text-align: center;
+  }
+  .past-tile__name {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+  .sponsor-tile--empty {
+    border: 2px dashed #9fd6bf;
+    background: #f3faf7;
+  }
+  .sponsor-tile--empty .sponsor-tile__logo {
+    font-size: 18px;
+  }
+  .sponsor-tile--empty .sponsor-tile__name {
+    border-top-color: #cfe9de;
+    color: var(--nf-teal-text);
+  }
+
+  .backers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px 56px;
+    align-items: center;
+  }
+  .backers__text {
+    flex: 1 1 420px;
+  }
+  .backers__cta {
+    margin-top: 28px;
+  }
+  .backers__wall {
+    flex: 1 1 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    padding: 24px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .backers__wall img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .foundation__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 56px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .foundation__inner > div {
+    flex: 1 1 520px;
+  }
+  .foundation__text {
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--on-dark-2);
+  }
+  .foundation {
+    padding-block: clamp(56px, 6vw, 72px);
+  }
+</style>

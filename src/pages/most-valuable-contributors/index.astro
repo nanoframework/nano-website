@@ -1,0 +1,215 @@
+---
+import { GitPullRequest, MessageCircle, BookOpen, Video, Presentation, Sparkles, Megaphone, CircleCheck, Award, Users } from '@lucide/astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { MVCS, LINKS } from '../../data/site';
+
+const contributions = [
+  { icon: GitPullRequest, label: 'Pull requests' },
+  { icon: CircleCheck, label: 'Helping on issues' },
+  { icon: MessageCircle, label: 'Helping on Discord' },
+  { icon: BookOpen, label: 'Documentation' },
+  { icon: Video, label: 'Videos & Hackster.io' },
+  { icon: Presentation, label: 'Conferences & events' },
+  { icon: Sparkles, label: 'New features' },
+  { icon: Megaphone, label: 'Promoting the project' },
+];
+const how = [
+  {
+    icon: Award,
+    title: 'Chosen by the core team',
+    text: "There's no fixed number of contributions to reach. The core team selects the people it wants to recognise, and pays close attention to nominations and feedback from the community.",
+  },
+  {
+    icon: Users,
+    title: 'Reviewed every year',
+    text: 'Recognition is assessed yearly, with timing depending on when someone was first recognised. People who helped a lot in the past are recognised too.',
+  },
+  {
+    icon: MessageCircle,
+    title: 'The Insiders channel',
+    text: 'Present and past Most Valuable Contributors join a dedicated channel for discussions and early feedback with the core team.',
+  },
+];
+---
+<BaseLayout
+  title="Most Valuable Contributors"
+  description=".NET nanoFramework's yearly recognition of people who contribute code, documentation, help on Discord, talks and more."
+>
+  <section class="section section--dark mvc-hero">
+    <div class="container">
+      <p class="eyebrow">Community recognition</p>
+      <h1 class="section-title">Most Valuable Contributors</h1>
+      <p class="lead">
+        Every year, the .NET nanoFramework™ core team recognises people whose contributions made an exceptional
+        difference — with code, on Discord, through documentation or at conferences.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Recognised contributors</p>
+      <h2 class="section-title">Thank you for everything you do.</h2>
+      <ul class="people" role="list">
+        {MVCS.map((p) => (
+          <li>
+            <a class="person" href={`https://github.com/${p.login}`}>
+              <img class="person__avatar" src={`https://github.com/${p.login}.png?size=192`} alt="" width="96" height="96" loading="lazy" />
+              <span class="person__name">{p.login}</span>
+              <span class="person__link">GitHub profile →</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <p class="eyebrow">What counts</p>
+      <h2 class="section-title">Every kind of contribution.</h2>
+      <p class="lead">Contributions aren't restricted to this list — anything that helps the project and its community counts.</p>
+      <ul class="contribs" role="list">
+        {contributions.map((c) => (
+          <li><c.icon size={20} stroke-width={1.8} color="var(--nf-teal-text)" aria-hidden="true" />{c.label}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">How it works</p>
+      <h2 class="section-title">Recognition, not a points system.</h2>
+      <div class="grid how" style="--min: 280px">
+        {how.map((h) => (
+          <div class="how__item">
+            <h.icon size={26} stroke-width={1.8} color="var(--nf-teal-text)" aria-hidden="true" />
+            <h3>{h.title}</h3>
+            <p>{h.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container cta">
+      <div>
+        <h2 class="section-title">Start contributing.</h2>
+        <p class="lead">Pick a good first issue, improve the docs or say hi on Discord — that's how every MVC started.</p>
+      </div>
+      <div class="cta__actions">
+        <a class="btn btn--indigo" href={LINKS.goodFirstIssues}>Good first issues</a>
+        <a class="btn btn--outline" href={LINKS.discord}>Join Discord</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .mvc-hero h1 {
+    font-size: clamp(36px, 5vw, 58px);
+    letter-spacing: -1px;
+  }
+  .people {
+    margin: 40px 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 20px;
+  }
+  .person {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 28px 16px 22px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--ink);
+    text-align: center;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .person:hover {
+    text-decoration: none;
+    color: var(--ink);
+    border-color: var(--nf-teal);
+    box-shadow: 0 10px 30px rgba(24, 23, 48, 0.08);
+    transform: translateY(-2px);
+  }
+  .person__avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: var(--surface-3);
+    box-shadow: 0 0 0 4px #fff, 0 0 0 6px var(--nf-green);
+    margin-bottom: 8px;
+  }
+  .person__name {
+    font-size: 17px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+  }
+  .person__link {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--nf-teal-text);
+  }
+  .contribs {
+    margin: 32px 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .contribs li {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 0 18px;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .how {
+    margin-top: 40px;
+    gap: 24px;
+  }
+  .how__item {
+    padding: 28px;
+    border-radius: var(--radius);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+  }
+  .how__item h3 {
+    margin: 16px 0 8px;
+    font-size: 19px;
+    font-weight: 700;
+  }
+  .how__item p {
+    font-size: 15px;
+    color: var(--ink-2);
+  }
+  .cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 56px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cta > div:first-child {
+    flex: 1 1 480px;
+  }
+  .cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+</style>

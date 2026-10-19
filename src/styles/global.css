@@ -4,6 +4,7 @@
 
 @import '@fontsource-variable/open-sans';
 @import '@fontsource-variable/jetbrains-mono';
+@import './prose.css';
 
 :root {
   /* Brand */
