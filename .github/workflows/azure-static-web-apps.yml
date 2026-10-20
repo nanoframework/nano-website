@@ -13,9 +13,17 @@ name: Build and deploy
 on:
   push:
     branches: [main]
+    paths-ignore: &docs-only
+      - '*.md'            # README, CONTRIBUTING, WRITING-A-POST… (root only; blog posts still build)
+      - 'LICENSE'
+      - '.gitignore'
+      - '.vscode/**'
+      - '.github/**'      # workflow edits: use "Run workflow" to test them
+      - 'scripts/**'      # migration / logo tools, not part of the build
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches: [main]
+    paths-ignore: *docs-only
   schedule:
     - cron: '0 5 * * *'
   workflow_dispatch:
