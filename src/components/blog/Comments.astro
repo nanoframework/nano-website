@@ -17,7 +17,10 @@ const enabled = GISCUS.repo && GISCUS.repoId && GISCUS.categoryId;
 ---
 <section class="comments" aria-labelledby="comments-title">
   <h2 id="comments-title">Comments</h2>
-  <p>Comments are powered by GitHub Discussions. Sign in with GitHub to join in.</p>
+  <p>
+    Comments are powered by GitHub Discussions. Sign in with GitHub to join in. By commenting, you agree to publish
+    your comment under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>.
+  </p>
   {enabled ? (
     <script
       is:inline

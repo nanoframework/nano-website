@@ -96,4 +96,12 @@ Tokens live at the top of `src/styles/global.css`.
 
 ## License
 
-MIT, like the rest of .NET nanoFramework.
+This repository is **source-available, not open source**: you're welcome to read it, learn from it and
+contribute to it, but the website code and design can't be reused without written permission from
+.NET nanoFramework. See [LICENSE](LICENSE) for the full terms.
+
+- **Blog posts** are licensed under [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/): share
+  them unchanged with credit; adapting or translating a post needs the author's permission.
+- **Comments** are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+- **Contributions** are accepted under the terms in [CONTRIBUTING.md](CONTRIBUTING.md).
+- **Third-party components** (Astro, fonts, icons) remain under their own licenses.

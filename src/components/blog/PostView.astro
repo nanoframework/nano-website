@@ -49,6 +49,11 @@ const initials = author?.data.name.split(' ').map((n) => n[0]).slice(0, 2).join(
         <div class="prose">
           <Content />
         </div>
+        <p class="post-license">
+          © {author?.data.name ?? 'The author'}. This post is licensed under
+          <a href="https://creativecommons.org/licenses/by-nd/4.0/" rel="license">CC BY-ND 4.0</a>: you may share it unchanged,
+          with credit and a link back. To adapt or translate it, ask the author first.
+        </p>
         <footer class="post-foot">
           <a href={editUrl}>Edit this post on GitHub</a>
           <span>Tags: {post.data.tags.map((t, i) => <>{i > 0 && ', '}<a href={tagUrl(t)}>{tagLabel(t)}</a></>)}</span>
@@ -217,8 +222,13 @@ const initials = author?.data.name.split(' ').map((n) => n[0]).slice(0, 2).join(
   .aside-card--sponsor p {
     color: var(--ink-2);
   }
+  .post-license {
+    margin-top: 48px;
+    font-size: 14px;
+    color: var(--ink-3);
+  }
   .post-foot {
-    margin-top: 56px;
+    margin-top: 20px;
     padding-top: 24px;
     border-top: 1px solid var(--border);
     display: flex;

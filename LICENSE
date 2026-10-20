@@ -1,0 +1,42 @@
+Copyright (c) 2026 .NET nanoFramework. All rights reserved.
+
+This repository contains the source of the .NET nanoFramework website
+(https://nanoframework.net). It is published so that anyone can read it, learn
+from it and contribute to it. It is not open source.
+
+1. Website source and design
+   The source code, design, styles, templates, scripts and other files in this
+   repository are proprietary. Except as stated in sections 2 and 3, no
+   permission is granted to use, copy, modify, merge, publish, distribute,
+   sublicense or sell any part of them, in whole or in part, without prior
+   written permission from .NET nanoFramework.
+
+   Viewing this repository on GitHub, and forking it on GitHub for the sole
+   purpose of proposing changes back to it through pull requests, is permitted.
+
+2. Blog posts and comments
+   Blog posts in src/content/blog/ (text and the images placed next to them)
+   are licensed under the Creative Commons Attribution-NoDerivatives 4.0
+   International License (CC BY-ND 4.0), https://creativecommons.org/licenses/by-nd/4.0/,
+   unless a post states otherwise. They may be shared and republished unchanged,
+   with credit to the author and a link to the original post. Adapting, translating
+   or otherwise modifying a post requires the author's permission.
+
+   Comments posted on the website through GitHub Discussions are licensed under
+   the Creative Commons Attribution 4.0 International License (CC BY 4.0),
+   https://creativecommons.org/licenses/by/4.0/.
+
+   Comments carried over from the previous WordPress site (legacyComments) remain
+   the property of their authors and are not covered by this license.
+
+3. Names, logos and trademarks
+   ".NET nanoFramework", the nanoFramework logo and the logos of partners and
+   sponsors are not licensed under this repository. Use of the .NET
+   nanoFramework name and logo is described at
+   https://nanoframework.net/logos-and-images/.
+
+4. Third-party components
+   Third-party software, fonts and icons used by this website (including Astro,
+   Open Sans, JetBrains Mono and Lucide) remain under their own licenses.
+
+For permission requests, contact contact@nanoframework.net.
