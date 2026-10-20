@@ -1,7 +1,7 @@
-# nanoframework.net
+# nanoframework.net website
 
 Source of the [.NET nanoFramework](https://nanoframework.net) website: home page, blog and project pages.
-Built with [Astro](https://astro.build) from Markdown files – no CMS, no database.
+Built with [Astro](https://astro.build) from Markdown files.
 
 ## Run it locally
 
@@ -46,7 +46,7 @@ Most day-to-day edits (a new sponsor, a new reference target, a changed link) ar
    title: "Your post title"
    description: "One or two sentences shown in previews and search results."
    date: 2026-10-20
-   author: jose-simoes          # an id from src/data/authors.json (add yourself there)
+   author: john-doe             # an id from src/data/authors.json (add yourself there)
    tags: [releases]             # one or more of: releases, engineering, tooling, networking, hardware, community
    cover: ./cover.png           # optional, relative to the post
    coverAlt: "What the cover shows"
@@ -59,19 +59,6 @@ Most day-to-day edits (a new sponsor, a new reference target, a changed link) ar
 4. Open a pull request. The build checks the header (missing title, unknown tag or author fails the build).
 
 A post with a future `date` is published automatically on that day by the next scheduled build.
-
-## Migrating from WordPress
-
-The posts in `src/content/blog/` and the pages in `src/content/pages/` were generated from the WordPress export with:
-
-```shell
-npm run migrate:wordpress -- path/to/export.xml                    # images still served by WordPress
-npm run migrate:wordpress -- path/to/export.xml --download-images  # copy every image next to its post
-```
-
-Run it once more **with `--download-images`** (from a machine with internet access) before the old
-WordPress site is switched off – until then, post images are loaded from `nanoframework.net/wp-content/uploads`.
-Re-running overwrites the generated post folders, so do it before editing posts by hand.
 
 ## Adding a page
 
