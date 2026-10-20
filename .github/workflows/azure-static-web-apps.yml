@@ -60,7 +60,6 @@ jobs:
           output_location: ''
           api_location: ''
           skip_app_build: true
-          skip_api_build: true
 
   close_preview:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.head.repo.full_name == github.repository
