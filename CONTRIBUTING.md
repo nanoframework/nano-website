@@ -1,7 +1,8 @@
 # Contributing to the .NET nanoFramework website
 
 Thanks for helping! Fixes, improvements and blog posts are all welcome as pull requests.
-See the [README](README.md) for how to run the site locally and how to write a blog post.
+Invited to write a blog post? Start with [WRITING-A-POST.md](WRITING-A-POST.md), a friendly step-by-step guide.
+See the [README](README.md) for how to run the site locally.
 
 ## Contribution terms
 

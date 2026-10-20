@@ -37,6 +37,8 @@ Most day-to-day edits (a new sponsor, a new reference target, a changed link) ar
 
 ## Writing a blog post
 
+> New to git or to this repo? [WRITING-A-POST.md](WRITING-A-POST.md) walks you through it step by step.
+
 1. Create `src/content/blog/<slug>.md` – or `src/content/blog/<slug>/index.md` if the post has images,
    and put the images next to it. The `<slug>` becomes the URL: `https://nanoframework.net/<slug>/`.
 2. Start the file with this header:
