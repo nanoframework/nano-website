@@ -7,7 +7,7 @@ export const SITE = {
   description:
     '.NET nanoFramework is a free and open-source platform that enables writing C# code for constrained embedded devices, with Visual Studio integration and real on-device debugging.',
   url: 'https://nanoframework.net',
-  repo: 'https://github.com/nanoframework/nano-website', // TODO: confirm repo name
+  repo: 'https://github.com/nanoframework/nano-website',
   email: 'contact@nanoframework.net',
 };
 
