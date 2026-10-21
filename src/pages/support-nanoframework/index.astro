@@ -1,14 +1,14 @@
 ---
-import { Server, Cpu, Sparkles, BookOpen, GitPullRequest, MessageCircle, Megaphone } from '@lucide/astro';
+import { Server, Cpu, Rocket, BookOpen, GitPullRequest, MessageCircle, Megaphone } from '@lucide/astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Logo from '../../components/Logo.astro';
 import BrandIcon from '../../components/BrandIcon.astro';
 import { SPONSORS, PAST_SUPPORTERS, LINKS } from '../../data/site';
 
 const funds = [
+  { icon: Rocket, title: 'The road ahead', text: 'Sustained engineering on new silicon, new APIs and new capabilities, so .NET nanoFramework keeps pace with where embedded is heading.' },
   { icon: Server, title: 'Build & test infrastructure', text: 'CI pipelines, package feeds and the services every release depends on.' },
   { icon: Cpu, title: 'Test lab hardware', text: 'Real boards that run the test suites on every pull request.' },
-  { icon: Sparkles, title: 'New features', text: 'Sponsored coding of features the community needs.' },
   { icon: BookOpen, title: 'Docs & learning', text: 'Documentation, samples and learning materials.' },
 ];
 const ways = [
