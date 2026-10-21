@@ -1,4 +1,6 @@
-// Partner program listings shown on /partner-program/.
+// Partner program listings.
+// Engineering partners: /partner-program/
+// Hardware manufacturers and technology partners: /partner-program/hardware-and-technology/
 //
 // Logos: drop the file in src/assets/partners/ and set `logo` to its file name
 // (it's optimised at build time). A remote URL also works. Without a logo, the
@@ -74,5 +76,26 @@ export const TECHNOLOGY_PARTNERS: Partner[] = [
     website: 'https://www.espressif.com',
     profile: '/partner-program/partners-espressif-systems/',
     logo: 'https://avatars.githubusercontent.com/u/9460735',
+  },
+  {
+    name: 'CodeRabbit',
+    kind: 'AI code reviews',
+    blurb: 'AI-assisted pull request reviews, helping our maintainers review contributions across the project repositories.',
+    website: 'https://www.coderabbit.ai',
+    logo: 'https://github.com/coderabbitai.png',
+  },
+  {
+    name: 'Cloudsmith',
+    kind: 'Package hosting',
+    blurb: 'Hosts the .NET nanoFramework firmware packages, so every release is delivered fast and reliably.',
+    website: 'https://cloudsmith.com',
+    logo: 'https://github.com/cloudsmith-io.png',
+  },
+  {
+    name: 'SonarQube Cloud',
+    kind: 'Static analysis',
+    blurb: 'Continuous static code analysis on the .NET nanoFramework C# libraries, formerly known as SonarCloud.',
+    website: 'https://www.sonarsource.com/products/sonarcloud/',
+    logo: 'https://github.com/SonarSource.png',
   },
 ];

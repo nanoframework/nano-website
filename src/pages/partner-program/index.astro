@@ -1,21 +1,20 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PartnerCard from '../../components/PartnerCard.astro';
-import { ENGINEERING_PARTNERS, HARDWARE_MANUFACTURERS, TECHNOLOGY_PARTNERS } from '../../data/partners';
+import { ENGINEERING_PARTNERS } from '../../data/partners';
 import { LINKS } from '../../data/site';
 ---
 <BaseLayout
-  title="Partners"
-  description="Companies that offer engineering services, hardware and components for .NET nanoFramework projects."
+  title="Engineering partners"
+  description="Companies with proven .NET nanoFramework expertise offering engineering services, consulting, training and support for commercial projects."
 >
   <section class="section section--dark partners-hero">
     <div class="container">
       <p class="eyebrow">Partner program</p>
       <h1 class="section-title">Ship .NET nanoFramework products faster, with people who know it inside out.</h1>
       <p class="lead">
-        The partner program extends the core components, tools and support channels for commercial users. Partners
-        offer engineering services, tools, training, software components and hardware, helping you reduce development
-        effort and time to market.
+        Engineering partners are companies with proven .NET nanoFramework expertise. They offer engineering services,
+        consulting, training and support to commercial users, helping you reduce development effort and time to market.
       </p>
       <div class="partners-hero__ctas">
         <a class="btn btn--primary" href={LINKS.joinPartners}>Become a partner</a>
@@ -32,30 +31,10 @@ import { LINKS } from '../../data/site';
       <div class="grid partners-grid" style="--min: 300px">
         {ENGINEERING_PARTNERS.map((p) => <PartnerCard partner={p} />)}
       </div>
-    </div>
-  </section>
-
-  <section class="section section--tint">
-    <div class="container">
-      <p class="eyebrow">Hardware manufacturers</p>
-      <h2 class="section-title">Boards with .NET nanoFramework support.</h2>
-      <p class="lead">
-        Manufacturers that integrate .NET nanoFramework support into their development kits, for hobbyists and
-        commercial users alike. Supporting .NET nanoFramework opens your hardware to the C# developer community.
+      <p class="see-also">
+        Looking for boards or the technology behind the platform? See our{' '}
+        <a href={LINKS.hardwareTechPartners}>hardware and technology partners →</a>
       </p>
-      <div class="grid partners-grid" style="--min: 300px">
-        {HARDWARE_MANUFACTURERS.map((p) => <PartnerCard partner={p} />)}
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <p class="eyebrow">Technology partners</p>
-      <h2 class="section-title">The foundations we build on.</h2>
-      <div class="grid partners-grid" style="--min: 300px">
-        {TECHNOLOGY_PARTNERS.map((p) => <PartnerCard partner={p} />)}
-      </div>
     </div>
   </section>
 
@@ -91,6 +70,13 @@ import { LINKS } from '../../data/site';
   .partners-grid {
     margin-top: 40px;
     gap: 24px;
+  }
+  .see-also {
+    margin-top: 40px;
+    color: var(--ink-2);
+  }
+  .see-also a {
+    font-weight: 600;
   }
   .join {
     display: flex;

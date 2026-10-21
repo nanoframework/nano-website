@@ -34,6 +34,7 @@ export const LINKS = {
   dotnetFoundation: 'https://dotnetfoundation.org/',
   // Pages migrated from WordPress (src/content/pages), on their original URLs.
   partnerProgram: '/partner-program/',
+  hardwareTechPartners: '/partner-program/hardware-and-technology/',
   joinPartners: '/partner-program/join-the-partners-program/',
   mvc: '/most-valuable-contributors/',
   pressKit: '/logos-and-images/',

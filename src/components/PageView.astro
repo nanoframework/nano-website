@@ -7,16 +7,21 @@ interface Props { page: CollectionEntry<'pages'> }
 const { page } = Astro.props;
 
 // Parents that are hand-built Astro pages rather than Markdown.
-const DESIGNED_PAGES: Record<string, string> = { 'partner-program': 'Partners' };
+const DESIGNED_PAGES: Record<string, string> = { 'partner-program': 'Engineering partners' };
+// Pages whose URL sits under one parent but whose listing lives on another designed page.
+const PARENT_OVERRIDES: Record<string, { href: string; label: string }> = {
+  'partner-program/chibios': { href: '/partner-program/hardware-and-technology/', label: 'Hardware & technology partners' },
+  'partner-program/partners-espressif-systems': { href: '/partner-program/hardware-and-technology/', label: 'Hardware & technology partners' },
+  'partner-program/join-the-partners-program': { href: '/partner-program/', label: 'Partner program' },
+};
 const { Content } = await render(page);
 
-// Breadcrumb for nested pages, e.g. Partners › Eclo Solutions
+// Breadcrumb for nested pages, e.g. Engineering partners › CSA Engineering AG
 const segments = page.id.split('/');
-const crumbs = await Promise.all(
+const crumbs = PARENT_OVERRIDES[page.id] ? [PARENT_OVERRIDES[page.id]] : await Promise.all(
   segments.slice(0, -1).map(async (_, i) => {
     const id = segments.slice(0, i + 1).join('/');
-    const parent = await getEntry('pages', id);
-    const label = parent?.data.title ?? DESIGNED_PAGES[id];
+    const label = DESIGNED_PAGES[id] ?? (await getEntry('pages', id))?.data.title;
     return label ? { href: `/${id}/`, label } : undefined;
   }),
 );
