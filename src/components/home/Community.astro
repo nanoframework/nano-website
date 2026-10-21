@@ -1,11 +1,15 @@
 ---
+import BrandIcon from '../BrandIcon.astro';
 import { LINKS } from '../../data/site';
+import type { ComponentProps } from 'astro/types';
 
-const channels = [
-  { label: 'Discord', href: LINKS.discord },
-  { label: 'GitHub', href: LINKS.github },
-  { label: 'YouTube', href: LINKS.youtube },
-  { label: 'Hackster.io', href: LINKS.hackster },
+type Icon = ComponentProps<typeof BrandIcon>['name'];
+
+const channels: { label: string; icon: Icon; href: string }[] = [
+  { label: 'Discord', icon: 'discord', href: LINKS.discord },
+  { label: 'GitHub', icon: 'github', href: LINKS.github },
+  { label: 'YouTube', icon: 'youtube', href: LINKS.youtube },
+  { label: 'Hackster.io', icon: 'hackster', href: LINKS.hackster },
 ];
 const contribute = [
   { label: 'Good first issues', href: LINKS.goodFirstIssues },
@@ -22,7 +26,12 @@ const contribute = [
         Questions, show-and-tell, or your first pull request – the team and community hang out on Discord and GitHub.
       </p>
       <div class="grid community__channels" style="--min: 220px">
-        {channels.map((c) => <a class="community__link" href={c.href}>{c.label} <span aria-hidden="true">→</span></a>)}
+        {channels.map((c) => (
+          <a class="community__link" href={c.href}>
+            <span class="community__name"><BrandIcon name={c.icon} size={22} brand />{c.label}</span>
+            <span aria-hidden="true">→</span>
+          </a>
+        ))}
       </div>
     </div>
     <div class="community__contribute">
@@ -85,6 +94,11 @@ const contribute = [
     border: 1px solid var(--border);
     color: var(--ink);
     font-weight: 600;
+  }
+  .community__name {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
   }
   .community__link:hover {
     text-decoration: none;
