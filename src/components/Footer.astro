@@ -27,9 +27,7 @@ const columns = [
     title: 'Partners',
     links: [
       { label: 'Partner program', href: LINKS.partnerProgram },
-      { label: 'Most Valuable Contributors', href: LINKS.mvc },
       { label: 'Join the program', href: LINKS.joinPartners },
-      { label: 'Contact', href: LINKS.contact },
     ],
   },
   {
@@ -39,6 +37,7 @@ const columns = [
       { label: 'GitHub', href: LINKS.github },
       { label: 'YouTube', href: LINKS.youtube },
       { label: 'X / Twitter', href: LINKS.twitter },
+      { label: 'Most Valuable Contributors', href: LINKS.mvc },
     ],
   },
 ];
@@ -49,6 +48,7 @@ const columns = [
       <div class="site-footer__brand">
         <img src={logo.src} width="90" height="34" alt=".NET nanoFramework" />
         <p>{SITE.tagline}</p>
+        <a class="site-footer__contact" href={LINKS.contact}>Contact us →</a>
       </div>
       {columns.map((col) => (
         <nav aria-label={col.title} class="site-footer__col">
@@ -84,6 +84,11 @@ const columns = [
     margin-top: 14px;
     line-height: 1.6;
     max-width: 240px;
+  }
+  .site-footer__contact {
+    display: inline-block;
+    margin-top: 16px;
+    font-weight: 600;
   }
   .site-footer__col {
     display: flex;
