@@ -1,8 +1,8 @@
 ---
-import { Heart, Server, Cpu, Sparkles, BookOpen, GitPullRequest, MessageCircle, Megaphone } from '@lucide/astro';
+import { Server, Cpu, Sparkles, BookOpen, GitPullRequest, MessageCircle, Megaphone } from '@lucide/astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Logo from '../../components/Logo.astro';
-import GitHubMark from '../../components/GitHubMark.astro';
+import BrandIcon from '../../components/BrandIcon.astro';
 import { SPONSORS, PAST_SUPPORTERS, LINKS } from '../../data/site';
 
 const funds = [
@@ -32,8 +32,8 @@ const ways = [
         sponsor the project through GitHub Sponsors or Open Collective.
       </p>
       <div class="support-hero__ctas">
-        <a class="btn btn--primary btn--lg" href={LINKS.githubSponsors}><GitHubMark size={18} />Sponsor on GitHub</a>
-        <a class="btn btn--ghost-dark btn--lg" href={LINKS.openCollective}><Heart size={18} stroke-width={2.2} aria-hidden="true" />Sponsor on Open Collective</a>
+        <a class="btn btn--primary btn--lg" href={LINKS.githubSponsors}><BrandIcon name="githubsponsors" size={18} />Sponsor on GitHub</a>
+        <a class="btn btn--ghost-dark btn--lg" href={LINKS.openCollective}><BrandIcon name="opencollective" size={18} />Sponsor on Open Collective</a>
       </div>
       <p class="support-hero__more">Not ready to sponsor? <a href="#help">There are other ways to help</a>.</p>
     </div>
@@ -62,13 +62,13 @@ const ways = [
       <p class="lead">Every option goes straight to .NET nanoFramework. Pick whichever suits you or your company.</p>
       <div class="grid options" style="--min: 300px">
         <a class="option" href={LINKS.githubSponsors}>
-          <span class="option__icon"><GitHubMark size={30} /></span>
+          <span class="option__icon"><BrandIcon name="githubsponsors" size={28} brand /></span>
           <span class="option__title">GitHub Sponsors</span>
           <span class="option__text">Sponsor straight from your GitHub account, personally or on behalf of your organization, with GitHub handling billing. Public sponsorships show on your profile.</span>
           <span class="option__cta">Sponsor on GitHub →</span>
         </a>
         <a class="option" href={LINKS.openCollective}>
-          <span class="option__icon"><Heart size={30} stroke-width={1.8} aria-hidden="true" /></span>
+          <span class="option__icon"><BrandIcon name="opencollective" size={28} brand /></span>
           <span class="option__title">Open Collective</span>
           <span class="option__text">Contribute by card or PayPal, with invoices for companies. Fully transparent: every contribution and every expense is public.</span>
           <span class="option__cta">Sponsor on Open Collective →</span>
@@ -115,8 +115,8 @@ const ways = [
           contribution, even the smallest ones.
         </p>
         <div class="backers__ctas">
-          <a class="btn btn--indigo" href={LINKS.githubSponsors}>Back us on GitHub</a>
-          <a class="btn btn--outline" href={LINKS.openCollective}>Back us on Open Collective</a>
+          <a class="btn btn--indigo" href={LINKS.githubSponsors}><BrandIcon name="githubsponsors" size={16} />Back us on GitHub</a>
+          <a class="btn btn--outline" href={LINKS.openCollective}><BrandIcon name="opencollective" size={16} />Back us on Open Collective</a>
         </div>
       </div>
       <a class="backers__wall" href={`${LINKS.openCollective}#support`} aria-label="See all backers on Open Collective">

@@ -1,7 +1,6 @@
 ---
-import { Heart } from '@lucide/astro';
 import Logo from '../Logo.astro';
-import GitHubMark from '../GitHubMark.astro';
+import BrandIcon from '../BrandIcon.astro';
 import { SPONSORS, LINKS } from '../../data/site';
 ---
 <section id="sponsor" class="section section--dark sponsor">
@@ -17,10 +16,10 @@ import { SPONSORS, LINKS } from '../../data/site';
       </p>
       <div class="sponsor__ctas">
         <a class="btn btn--primary btn--lg" href={LINKS.githubSponsors}>
-          <GitHubMark size={18} />Sponsor on GitHub
+          <BrandIcon name="githubsponsors" size={18} />Sponsor on GitHub
         </a>
         <a class="btn btn--ghost-dark btn--lg" href={LINKS.openCollective}>
-          <Heart size={18} stroke-width={2.2} aria-hidden="true" />Sponsor on Open Collective
+          <BrandIcon name="opencollective" size={18} />Sponsor on Open Collective
         </a>
       </div>
       <p class="sponsor__note">
