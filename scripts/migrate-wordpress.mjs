@@ -301,7 +301,7 @@ const PAGES = {
 
 // Pages rewritten by hand after the migration. The converter still downloads their images,
 // but never overwrites their index.md.
-const HAND_EDITED = new Set(['/logos-and-images/']);
+const HAND_EDITED = new Set(['/logos-and-images/', '/overview-of-nanoframework/']);
 
 // Small corrections applied to converted pages on every run (typos carried over from WordPress).
 const TEXT_FIXES = {};

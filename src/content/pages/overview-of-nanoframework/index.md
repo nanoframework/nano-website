@@ -1,38 +1,56 @@
 ---
-title: "Overview of nanoFramework"
-description: ".NET nanoFramework is an open-source platform that enables the writing of managed code applications for constrained embedded devices. It is suitable for many types of projects including IoT…"
+title: "Overview of .NET nanoFramework"
+description: ".NET nanoFramework is a production-grade, open-source platform for writing C# applications for constrained embedded devices, with standard .NET APIs, NuGet packages and real on-device debugging in Visual Studio and VS Code."
 wordpressId: 511
 ---
 
 ## General overview
 
-.NET **nanoFramework** is an open-source platform that enables the writing of managed code applications for constrained embedded devices. It is suitable for many types of projects including IoT sensors, wearables, academic proof of concept, robotics, hobbyist/makers creations or even complex industrial equipment. It makes the development for such platforms easier, faster and less costly by giving embedded developers access to modern technologies and tools used by desktop application developers.
+.NET **nanoFramework** is an open-source platform for building embedded applications in C# on microcontrollers and other constrained devices. It is used in production, in commercial products and industrial equipment, as well as in IoT devices, connected sensors, robotics, research and education.
+
+It brings the productivity of modern .NET development to the embedded world: a familiar language, a rich set of class libraries, professional tooling and real hardware debugging. Teams spend their time on the application, not on reinventing infrastructure, which shortens development cycles, lowers costs and makes products easier to maintain over their lifetime.
 
 ## How does it work?
 
-It includes a reduced version of the .NET Common Language Runtime (CLR) and features a subset of the .NET base class libraries along with the most common APIs included in the Universal Windows Platform allowing code reuse from desktop applications, IoT Core applications, thousands of code examples and open source projects.
+.NET nanoFramework includes a compact implementation of the .NET Common Language Runtime (CLR), designed to run on devices with as little as a few hundred kilobytes of memory. On top of it sits a subset of the standard .NET base class libraries, following the same namespaces and APIs that .NET developers already know. That means existing skills, code and samples carry over with little or no change.
 
-Class libraries and other components are distributed as NuGet packages, making it very easy for developers to consume and keep them updated.
+Class libraries, device bindings and other components are distributed as NuGet packages, so adding a capability to a project, or keeping it up to date, works exactly as it does in any other .NET project.
 
-The IDE to code and debug a **nanoFramework** project is Microsoft Visual Studio 2022 on Windows 10. The free Community version is the minimum required. All the other editions, up to Enterprise, are supported as well.  
+Applications are written and debugged in **Visual Studio** (2019, 2022 and 2026, including the free Community edition) or in **VS Code** on Windows, macOS and Linux.
 
 ## Supported hardware
 
-  
-Currently we have reference targets ready to use for ARM Cortex-M SoC and ESP32 from Expressif. .NET **nanoFramework** code can run on any 32 bits CPU, so porting it to other vendors, or series is possible without too much work being involved.  
+.NET nanoFramework runs on a wide range of 32-bit microcontrollers, with reference targets that the core team builds, tests and publishes for:
+
+- **Espressif ESP32** family, including the S2, S3, C3, C5, C6, H2 and P4 series
+- **Raspberry Pi** RP2040 and RP2350 (Pico and Pico 2)
+- **STMicroelectronics STM32**
+- **NXP** i.MX RT
+- **Silicon Labs** Giant Gecko
+- **Texas Instruments** SimpleLink
+
+Many more boards are available as [community targets](https://github.com/nanoframework/nf-Community-Targets). The full, up-to-date list of reference targets and firmware packages is in the [Home repository](https://github.com/nanoframework/Home#firmware-for-reference-boards).
+
+Because the runtime is portable, bringing .NET nanoFramework to a new board or silicon family is a well-defined engineering task.
 
 ## Development experience
 
-  
-The development experience is as smooth as possible, and the developer doesn’t have to leave the comfortable and feature rich Visual Studio IDE.
+Developers work in the IDE they already know. Extensions for both Visual Studio and VS Code provide project templates, device discovery, deployment and a full debugging experience.
 
-Debugging happens in conjunction with real hardware. After building, the application is deployed on the target hardware and the execution happens on the CPU. Expected debug features like, single-step, step-in, step-out, conditional breakpoint, variables watch and even expression evaluation are all there.
+Debugging happens on real hardware: after building, the application is deployed to the target and runs on its CPU. Everything you expect is there, including breakpoints (conditional too), single-step, step in and step out, variable watches and expression evaluation.
 
-A debug session starts within a couple of seconds making it “just” another step without breaking the developer productivity and concentration on the task at hand.  
+A debug session starts within a couple of seconds, so it is just another step in the workflow, without breaking the developer's focus.
+
+Firmware updates are handled by [nanoff](https://github.com/nanoframework/nanoFirmwareFlasher), a cross-platform .NET tool that also fits naturally in CI pipelines and production flashing.
 
 ## Customizing the firmware
 
-  
-Cooking a new firmware image is a simple process which makes the platform very suitable for commercial use as the development time to have a MVP for a new board is quite short.
+Building a custom firmware image for a new board is a straightforward process, which makes the platform well suited to commercial use: a proof of concept on new hardware can be up and running in a short time, and the same build carries through to production.
 
-The source code and build scripts are totally open source. The build is based in CMake and the compiler toolchain used is the GNU Arm Embedded Toolchain for Cortex-M CPUs and Espressif customized GCC version.
+Behind it is a modern, solid build system based on standard, industry-proven tools that embedded developers already know:
+
+- **CMake** drives the build, with CMake presets for toolchains, SDK paths and build settings, so firmware builds the same way from the command line, Visual Studio or VS Code.
+- **Kconfig**, the configuration system used by Linux, RTOSes and vendor SDKs, defines each target. A minimal configuration file per target, options and dependencies that are explicit and validated at configure time, and features and APIs that can be included or left out to fit the device's resources.
+- **GCC** compiles it all: the Arm GNU Toolchain for Cortex-M devices and Espressif's GCC toolchains, through ESP-IDF, for ESP32 devices.
+
+The source code and build scripts are fully open source, and builds run the same way locally, in the provided development containers or in CI.
