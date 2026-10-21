@@ -145,9 +145,6 @@ export const SPONSORS: Supporter[] = [
 export const PAST_SUPPORTERS: Supporter[] = [
   { name: 'D-FENS', href: 'https://d-fens.ch/', logo: 'logo_d-fense.webp' },
   { name: 'Hive (LinkIT)', href: 'https://hive.linkit.nl/', logo: 'https://avatars.githubusercontent.com/u/17175831' },
-  { name: 'Eclo Solutions', href: 'https://www.eclo.solutions', logo: 'https://avatars.githubusercontent.com/u/12029939' },
-  { name: 'ChibiOS', href: 'https://www.chibios.org/dokuwiki/doku.php', logo: 'https://avatars.githubusercontent.com/u/2803041' },
-  { name: 'Espressif', href: 'https://espressif.com/', logo: 'https://avatars.githubusercontent.com/u/9460735' },
 ];
 
 /**
