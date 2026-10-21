@@ -5,11 +5,16 @@ const steps = [
   {
     title: 'Install the extension',
     text: 'For Visual Studio or VS Code, from the Marketplace.',
+    links: [
+      { label: 'Visual Studio extension', href: LINKS.vsExtension },
+      { label: 'VS Code extension', href: LINKS.vscodeExtension },
+    ],
   },
   {
     title: 'Flash the firmware',
     text: 'nanoff installs the right image for your board.',
     code: 'nanoff --target <YOUR_TARGET> --serialport COM3 --update',
+    links: [{ label: 'Install the nanoff .NET tool', href: LINKS.nanoff }],
   },
   {
     title: 'Deploy and debug',
@@ -33,6 +38,13 @@ const steps = [
             <h3>{s.title}</h3>
             <p>{s.text}</p>
             {s.code && <code class="start__code">{s.code}</code>}
+            {s.links && (
+              <p class="start__links">
+                {s.links.map((l) => (
+                  <a href={l.href}>{l.label} →</a>
+                ))}
+              </p>
+            )}
           </div>
         </li>
       ))}
@@ -95,6 +107,13 @@ const steps = [
   .start__steps p {
     font-size: 15px;
     color: var(--ink-2);
+  }
+  .start__links {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+    font-weight: 600;
   }
   .start__code {
     display: block;

@@ -28,6 +28,9 @@ export const LINKS = {
   nuget: 'https://www.nuget.org/profiles/nanoframework',
   openCollective: 'https://opencollective.com/nanoframework',
   githubSponsors: 'https://github.com/sponsors/nanoframework',
+  vsExtension: 'https://marketplace.visualstudio.com/items?itemName=nanoframework.nanoFramework-VS2022-Extension',
+  vscodeExtension: 'https://marketplace.visualstudio.com/items?itemName=nanoframework.vscode-nanoframework',
+  nanoff: 'https://github.com/nanoframework/nanoFirmwareFlasher#install-net-nanoframework-firmware-flasher',
   dotnetFoundation: 'https://dotnetfoundation.org/',
   // Pages migrated from WordPress (src/content/pages), on their original URLs.
   partnerProgram: '/partner-program/',
