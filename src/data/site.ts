@@ -3,7 +3,7 @@
 
 export const SITE = {
   name: '.NET nanoFramework',
-  tagline: 'Making it easy to write C# code for embedded systems.',
+  tagline: 'Bringing C# to embedded devices.',
   description:
     '.NET nanoFramework is a free and open-source platform that enables writing C# code for constrained embedded devices, with Visual Studio integration and real on-device debugging.',
   url: 'https://nanoframework.net',
