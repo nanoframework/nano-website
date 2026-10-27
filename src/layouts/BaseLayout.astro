@@ -47,6 +47,10 @@ const ogImage = image ? new URL(image, Astro.site).toString() : new URL('/icon-5
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@nanoframework" />
     <slot name="head" />
+    {/* GoatCounter page-view stats: cookieless, no personal data. Production builds only. */}
+    {import.meta.env.PROD && (
+      <script is:inline data-goatcounter={SITE.analytics} async src="https://gc.zgo.at/count.js"></script>
+    )}
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
