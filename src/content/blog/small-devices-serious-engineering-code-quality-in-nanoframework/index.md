@@ -5,7 +5,7 @@ date: 2026-10-27T14:12:43Z
 author: laurent-ellerbach
 tags: [tooling, engineering]
 cover: ./small-devices-serious-engineering.png
-coverAlt: "Illustration"
+coverAlt: "A tiny C# chip connected to code review, formatting, static analysis and tests, with human judgment supporting them all."
 ---
 
 We're kicking off a series of eight blog posts on the engineering fundamentals behind .NET nanoFramework: the practices that help small devices run software you can trust. First up: code quality, and how reviews, automation and human judgment work together.
@@ -14,9 +14,7 @@ A microcontroller is tiny. The bug that lands on it? Not always. 😅
 
 A device that silently stops reporting, drops its network connection or misreads a sensor is rarely sitting on your desk. It's in a cabinet, a field or a ceiling. Fixing it there can be a lot more painful than fixing it in an editor.
 
-![illustration](./small-devices-serious-engineering.png)
-
-That's why code quality matters long before anything ships. And it's one of the things that makes .NET nanoFramework more than "C# on a small chip". Review, automation, analysis and tests working together is a combination you don't find everywhere in the open source embedded world.
+That's why code quality matters long before anything ships. And it's one of the things that makes .NET nanoFramework more than "C# on a small chip". Review, automation, analysis and tests working together is a combination you don't find everywhere in the open-source embedded world.
 
 ## Code review is a conversation, not a gate
 
