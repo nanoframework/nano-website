@@ -2,6 +2,7 @@
 title: "Small devices, serious engineering: code quality in .NET nanoFramework"
 description: "How code reviews, automation, static analysis and tests strengthen .NET nanoFramework. Part 1 of an 8-post series on engineering fundamentals."
 author: laurent-ellerbach
+date: 2026-10-29T08:00:15Z
 tags: [tooling, engineering]
 cover: ./small-devices-serious-engineering.png
 coverAlt: "A tiny C# chip connected to code review, formatting, static analysis and tests, with human judgment supporting them all."
