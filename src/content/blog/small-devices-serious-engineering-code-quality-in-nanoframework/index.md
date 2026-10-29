@@ -1,7 +1,6 @@
 ---
 title: "Small devices, serious engineering: code quality in .NET nanoFramework"
 description: "How code reviews, automation, static analysis and tests strengthen .NET nanoFramework. Part 1 of an 8-post series on engineering fundamentals."
-date: 2026-10-27T14:12:43Z
 author: laurent-ellerbach
 tags: [tooling, engineering]
 cover: ./small-devices-serious-engineering.png
@@ -14,7 +13,7 @@ A microcontroller is tiny. The bug that lands on it? Not always. 😅
 
 A device that silently stops reporting, drops its network connection or misreads a sensor is rarely sitting on your desk. It's in a cabinet, a field or a ceiling. Fixing it there can be a lot more painful than fixing it in an editor.
 
-That's why code quality matters long before anything ships. And it's one of the things that makes .NET nanoFramework more than "C# on a small chip". Review, automation, analysis and tests working together is a combination you don't find everywhere in the open-source embedded world.
+That's why code quality matters long before anything ships. And it's one of the things that makes .NET nanoFramework more than "C# on a small chip". Together, review, automation, analysis and tests form a combination you don't find everywhere in the open-source embedded world.
 
 ## Code review is a conversation, not a gate
 
