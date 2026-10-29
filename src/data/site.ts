@@ -9,6 +9,9 @@ export const SITE = {
   url: 'https://nanoframework.net',
   repo: 'https://github.com/nanoframework/nano-website',
   email: 'contact@nanoframework.net',
+  /** GoatCounter: privacy-friendly page-view stats (no cookies, no personal data). */
+  analytics: 'https://nanoframework.goatcounter.com/count',
+  analyticsHome: 'https://goatcounter.com',
 };
 
 export const LINKS = {

@@ -61,6 +61,9 @@ const columns = [
     <div class="site-footer__bottom">
       <span>© {year} .NET nanoFramework. All rights reserved. Blog posts: <a href="https://creativecommons.org/licenses/by-nd/4.0/" rel="license">CC BY-ND 4.0</a>. Comments: <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>.</span>
       <span><a href="/rss.xml">RSS</a> · Built from Markdown on GitHub · <a href={SITE.repo}>Edit this site</a></span>
+      <span class="site-footer__privacy">
+        Privacy: page-view statistics only, by <a href={SITE.analyticsHome}>GoatCounter</a>. No cookies, no personal data.
+      </span>
     </div>
   </div>
 </footer>
@@ -117,6 +120,9 @@ const columns = [
     justify-content: space-between;
     font-size: 13px;
     color: var(--on-dark-3);
+  }
+  .site-footer__privacy {
+    flex-basis: 100%;
   }
   .site-footer__bottom a {
     color: var(--on-dark-3);

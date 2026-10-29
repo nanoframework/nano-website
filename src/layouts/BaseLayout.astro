@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE } from '../data/site';
+import clickStats from '../scripts/click-stats.js?raw';
 
 interface Props {
   title?: string;
@@ -47,6 +48,11 @@ const ogImage = image ? new URL(image, Astro.site).toString() : new URL('/icon-5
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@nanoframework" />
     <slot name="head" />
+    {/* GoatCounter page-view stats: cookieless, no personal data. Production builds only. */}
+    {import.meta.env.PROD && (
+      <script is:inline data-goatcounter={SITE.analytics} async src="https://gc.zgo.at/count.js"></script>
+      <script is:inline set:html={clickStats}></script>
+    )}
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
