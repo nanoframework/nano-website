@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title description">
+  <title id="title">Small devices. Serious engineering.</title>
+  <desc id="description">A small microcontroller connects to code review, consistent formatting, static analysis, and tests. Human judgment ties these practices together in .NET nanoFramework.</desc>
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="16" cy="16" r="1" fill="#cfcce6" opacity=".08"/>
+    </pattern>
+    <g id="pins" stroke="#4cb48c" stroke-width="7" stroke-linecap="round">
+      <path d="M-21 0H0 M-21 28H0 M-21 56H0 M-21 84H0"/>
+    </g>
+  </defs>
+  <rect width="1200" height="675" fill="#181730"/>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+  <g font-family="'Open Sans', 'Segoe UI', Arial, sans-serif">
+    <rect x="64" y="52" width="36" height="5" rx="2.5" fill="#4cb48c"/>
+    <text x="114" y="62" fill="#cfcce6" font-size="20" font-weight="600">.NET nanoFramework</text>
+    <text x="64" y="133" fill="#fff" font-size="52" font-weight="700" letter-spacing="-1">Small devices. Serious engineering.</text>
+    <text x="66" y="177" fill="#cfcce6" font-size="24">Code quality is a team effort. Even on a tiny chip.</text>
+
+    <g fill="none" stroke="#009086" stroke-width="3">
+      <path d="M380 291H438V365H489"/>
+      <path d="M380 435H438V421H489"/>
+      <path d="M820 291H762V365H711"/>
+      <path d="M820 435H762V421H711"/>
+      <path d="M600 475V516"/>
+    </g>
+    <g fill="#4cb48c">
+      <circle cx="438" cy="365" r="5"/>
+      <circle cx="438" cy="421" r="5"/>
+      <circle cx="762" cy="365" r="5"/>
+      <circle cx="762" cy="421" r="5"/>
+    </g>
+
+    <g fill="#29235c" stroke="#57517b" stroke-width="1.5">
+      <rect x="64" y="246" width="316" height="90" rx="16"/>
+      <rect x="64" y="390" width="316" height="90" rx="16"/>
+      <rect x="820" y="246" width="316" height="90" rx="16"/>
+      <rect x="820" y="390" width="316" height="90" rx="16"/>
+    </g>
+    <g fill="none" stroke="#4cb48c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M91 272H122V295H106L96 304V295H91Z"/>
+      <path d="M99 282H114 M99 288H109"/>
+      <path d="M101 420L91 430L101 440 M118 420L128 430L118 440 M113 416L107 444"/>
+      <circle cx="861" cy="284" r="12"/>
+      <path d="M870 293L881 304 M855 284H867 M861 278V290"/>
+      <rect x="847" y="415" width="30" height="34" rx="4"/>
+      <path d="M854 432L860 438L871 425"/>
+    </g>
+    <g fill="#fff" font-size="25" font-weight="600">
+      <text x="148" y="301">Code review</text>
+      <text x="148" y="445">Formatting</text>
+      <text x="900" y="301">Static analysis</text>
+      <text x="900" y="445">Tests</text>
+    </g>
+
+    <use href="#pins" transform="translate(510 337)"/>
+    <use href="#pins" transform="translate(690 337) rotate(180 0 42)"/>
+    <use href="#pins" transform="translate(642 304) rotate(90)"/>
+    <use href="#pins" transform="translate(558 454) rotate(-90)"/>
+    <rect x="510" y="304" width="180" height="150" rx="18" fill="#29235c" stroke="#4cb48c" stroke-width="3"/>
+    <rect x="526" y="320" width="148" height="118" rx="10" fill="#181730" stroke="#009086"/>
+    <text x="600" y="373" text-anchor="middle" fill="#fff" font-size="37" font-weight="700">C#</text>
+    <text x="600" y="408" text-anchor="middle" fill="#cfcce6" font-size="18">Tiny runtime</text>
+
+    <rect x="438" y="516" width="324" height="48" rx="24" fill="#29235c" stroke="#4cb48c" stroke-width="1.5"/>
+    <text x="600" y="547" text-anchor="middle" fill="#fff" font-size="22" font-weight="600">Human judgment</text>
+    <path d="M64 598H1136" stroke="#57517b"/>
+    <text x="600" y="640" text-anchor="middle" fill="#cfcce6" font-size="23">Small footprint. Not small standards.</text>
+  </g>
+</svg>
