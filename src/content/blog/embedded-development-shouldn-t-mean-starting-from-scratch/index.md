@@ -2,7 +2,7 @@
 title: "Embedded development shouldn't mean starting from scratch"
 description: "Familiar tools, reusable libraries, AI guidance and dev containers: how .NET nanoFramework improves developer experience. Part 2 of an 8-post series."
 author: laurent-ellerbach
-date: 2026-11-04T08:04:04Z
+date: 2026-11-05T14:00:00Z
 tags: [tooling, engineering]
 cover: ./embedded-development-building-blocks.png
 coverAlt: "An editor connects to a C# microcontroller above four building blocks: familiar tools, NuGet and samples, AI guidance and dev containers."
