@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title description">
+  <title id="title">Embedded development shouldn't mean starting from scratch</title>
+  <desc id="description">An editor connects to a C# microcontroller. Four reusable building blocks support development: familiar tools, NuGet and samples, AI guidance and dev containers.</desc>
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="16" cy="16" r="1" fill="#cfcce6" opacity=".08"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="675" fill="#181730"/>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+  <g font-family="'Open Sans', 'Segoe UI', Arial, sans-serif">
+    <rect x="64" y="52" width="36" height="5" rx="2.5" fill="#4cb48c"/>
+    <text x="114" y="62" fill="#cfcce6" font-size="20" font-weight="600">.NET nanoFramework</text>
+    <text x="1136" y="62" text-anchor="end" fill="#cfcce6" font-size="18">Engineering fundamentals / 02</text>
+    <g fill="#fff" font-size="46" font-weight="700" letter-spacing="-1">
+      <text x="64" y="128">Embedded development shouldn't mean</text>
+      <text x="64" y="184">starting from scratch.</text>
+    </g>
+    <text x="66" y="226" fill="#cfcce6" font-size="24">Build on familiar tools. Focus on your device.</text>
+
+    <rect x="245" y="267" width="330" height="174" rx="14" fill="#29235c" stroke="#57517b" stroke-width="1.5"/>
+    <path d="M245 302H575" stroke="#57517b"/>
+    <g fill="#4cb48c">
+      <circle cx="264" cy="285" r="4"/>
+      <circle cx="279" cy="285" r="4"/>
+      <circle cx="294" cy="285" r="4"/>
+    </g>
+    <g fill="none" stroke="#4cb48c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M310 328L292 346L310 364 M354 328L372 346L354 364 M340 324L325 368"/>
+      <path d="M402 332H529 M402 347H495 M402 362H514"/>
+    </g>
+    <text x="410" y="411" text-anchor="middle" fill="#fff" font-size="23" font-weight="600">Create. Build. Debug.</text>
+
+    <path d="M575 354H712 M699 342L712 354L699 366" fill="none" stroke="#4cb48c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <g stroke="#4cb48c" stroke-width="7" stroke-linecap="round">
+      <path d="M729 320H750 M729 343H750 M729 366H750 M729 389H750 M930 320H951 M930 343H951 M930 366H951 M930 389H951"/>
+      <path d="M805 276V297 M828 276V297 M851 276V297 M874 276V297 M805 417V438 M828 417V438 M851 417V438 M874 417V438"/>
+    </g>
+    <rect x="750" y="297" width="180" height="120" rx="16" fill="#29235c" stroke="#4cb48c" stroke-width="3"/>
+    <rect x="765" y="312" width="150" height="90" rx="8" fill="#181730" stroke="#009086"/>
+    <text x="840" y="354" text-anchor="middle" fill="#fff" font-size="35" font-weight="700">C#</text>
+    <text x="840" y="385" text-anchor="middle" fill="#cfcce6" font-size="18">Your device</text>
+
+    <path d="M64 464H1136" stroke="#009086" stroke-width="3"/>
+    <g fill="#29235c" stroke="#57517b" stroke-width="1.5">
+      <rect x="64" y="483" width="250" height="90" rx="14"/>
+      <rect x="338" y="483" width="250" height="90" rx="14"/>
+      <rect x="612" y="483" width="250" height="90" rx="14"/>
+      <rect x="886" y="483" width="250" height="90" rx="14"/>
+    </g>
+    <g text-anchor="middle">
+      <g fill="#fff" font-size="23" font-weight="600">
+        <text x="189" y="519">Familiar tools</text>
+        <text x="463" y="519">NuGet + samples</text>
+        <text x="737" y="519">AI guidance</text>
+        <text x="1011" y="519">Dev containers</text>
+      </g>
+      <g fill="#cfcce6" font-size="18">
+        <text x="189" y="550">Visual Studio / VS Code</text>
+        <text x="463" y="550">Reuse building blocks</text>
+        <text x="737" y="550">Platform-aware advice</text>
+        <text x="1011" y="550">Native toolchains</text>
+      </g>
+    </g>
+    <path d="M64 598H1136" stroke="#57517b"/>
+    <text x="600" y="640" text-anchor="middle" fill="#cfcce6" font-size="23">Less setup. Shorter feedback loops. More building.</text>
+  </g>
+</svg>
