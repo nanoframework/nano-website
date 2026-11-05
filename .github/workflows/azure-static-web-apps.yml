@@ -17,6 +17,7 @@ on:
       - '*.md'            # README, CONTRIBUTING, WRITING-A-POST… (root only; blog posts still build)
       - 'LICENSE'
       - '.gitignore'
+      - '.coderabbit.yaml'
       - '.vscode/**'
       - '.github/**'      # workflow edits: use "Run workflow" to test them
       - 'scripts/**'      # migration / logo tools, not part of the build

@@ -1,0 +1,140 @@
+# yaml-language-server: $schema=https://storage.googleapis.com/coderabbit_public_assets/schema.v2.json
+language: en-US
+inheritance: false
+tone_instructions: >-
+  Be concise, welcoming and practical, especially with first-time authors.
+  Explain actionable fixes. Prioritize correctness and reader experience over
+  stylistic preferences. Preserve the author's voice and avoid speculative claims.
+
+reviews:
+  profile: chill
+  high_level_summary: true
+  high_level_summary_in_walkthrough: true
+  poem: false
+  in_progress_fortune: false
+  sequence_diagrams: false
+  auto_approvals:
+    enabled: false
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+    drafts: false
+
+  suggested_labels: true
+  auto_apply_labels: true
+  labeling_instructions:
+    - label: "Type: Blog"
+      instructions: >-
+        Apply when the PR adds a genuinely new blog post under src/content/blog/
+        as <slug>.md or <slug>/index.md. Check the actual diff, not just the PR
+        checkbox. Include draft and scheduled new posts, and mixed content/code
+        PRs. Do not apply solely for edits to existing posts, renamed or moved
+        existing posts, image-only changes, author entries, pages or website code.
+        Leave other labels to the existing repository labeling automation.
+
+  path_filters:
+    - "!.astro/**"
+    - "!dist/**"
+    - "!node_modules/**"
+
+  pre_merge_checks:
+    docstrings:
+      mode: "off"
+
+  path_instructions:
+    - path: "**/*"
+      instructions: |
+        This is a static Astro website using TypeScript, JavaScript, CSS and
+        Markdown, not a C# or C library. Review only problems introduced or
+        affected by this PR; do not request unrelated cleanup or new tooling.
+        Use README.md, CONTRIBUTING.md and WRITING-A-POST.md as repository guidance.
+        Use .github/PULL_REQUEST_TEMPLATE.md for the PR description. Preserve
+        its existing change-type wording and unchecked options. Do not request
+        Motivation, Testing, Screenshots or separate content/maintenance sections.
+        If an applicable checklist item is missing, explain it briefly; do not
+        require code-change verification for a content-only contribution.
+        Do not claim builds, links or visual checks passed without evidence.
+        npm run check and npm run build are the documented validation commands;
+        CI and a rendered preview complement review, not the other way around.
+        Fork PRs do not get an Azure preview. Local review is an acceptable option.
+
+    - path: "src/content/blog/**"
+      instructions: |
+        Review new and changed posts against WRITING-A-POST.md, README.md and
+        src/content.config.ts, using the current schema as the source of truth.
+        Check title, valid date, existing author reference, and at least one
+        supported tag from src/data/site.ts. Recommend a useful description for
+        new posts, but distinguish recommendations from schema requirements.
+        Check optional updated dates for consistency with the publication date.
+        Accept <slug>.md and <slug>/index.md. For new posts, check a short,
+        lowercase, hyphenated slug and collisions with other posts, pages,
+        explicit routes and redirects: posts are served at /<slug>/, not /blog/<slug>/.
+        Check publication intent: drafts and future-dated posts are excluded
+        from production until eligible and rebuilt. Development shows them.
+        A future date is not itself an error; flag contradictions with stated intent.
+        Check local image paths and linked files, broken internal links and
+        anchors, descriptive image alt text, and coverAlt when a cover is used.
+        Check newly added images against the roughly 2 MB contributor guidance;
+        do not invent dimensions or size results for assets you cannot inspect.
+        Check heading hierarchy (the template supplies h1), Markdown rendering,
+        fenced-code language identifiers, placeholders and leftover WordPress markup.
+        Check technical examples and setup steps for obvious errors and missing
+        prerequisites; C# examples target nanoFramework, not necessarily desktop .NET.
+        Preserve the author's voice; suggest clear typo/grammar fixes, not rewrites.
+        Flag exposed credentials or personal data in prose, examples or screenshots
+        when observable. Flag evident attribution/licensing conflicts against
+        CONTRIBUTING.md; do not demand a separate license header or proof of ownership.
+        Do not require covers, migration-only wordpressId/legacyComments fields,
+        unit tests, or unrelated code changes for a new post.
+        Preserve existing published URLs; changed URLs need appropriate redirects.
+
+    - path: "src/content/pages/**"
+      instructions: |
+        Check the page schema in src/content.config.ts, folder-derived URL,
+        route collisions, headings, links, images and alt text. Preserve existing
+        URLs or add redirects. Check clarity and factual claims without imposing
+        blog-only author, date, tag or cover requirements.
+
+    - path: "src/data/**"
+      instructions: |
+        Check author IDs are unique and resolve blog references; preserve existing
+        authors and credit. Check optional GitHub handles and LinkedIn URLs against
+        the schema without requiring optional profiles.
+        Check site links, navigation, tag keys and referenced assets for consistency.
+        For redirects, preserve WordPress permalinks, avoid loops and chains, and
+        check destinations do not shadow or conflict with active routes.
+
+    - path: "src/**/*.{astro,ts,js,mjs,css}"
+      instructions: |
+        Follow existing Astro and TypeScript patterns and static-build constraints.
+        Check content-schema changes against existing posts and authors.
+        Preserve shared draft/future-date filtering across routes, lists, tags,
+        pagination, RSS and related publishing surfaces.
+        Review affected layouts for responsive behavior, semantic markup,
+        keyboard access, focus visibility, contrast and image alternatives.
+        Check canonical URLs, metadata, social images, structured data, sitemap
+        and RSS where affected. Preserve trailing slashes and existing permalinks.
+        Check client scripts for runtime errors and unnecessary client-side work.
+        Review raw HTML rendering and external scripts for injection risks;
+        preserve existing security and privacy behavior, including analytics,
+        tracking-link handling and comments. Do not introduce a framework migration.
+
+    - path: "{astro.config.mjs,tsconfig.json,package.json,package-lock.json,src/integrations/**,public/**,scripts/**,.github/workflows/**}"
+      instructions: |
+        Check compatibility with the Node.js engine in package.json and Astro.
+        Dependency updates should include the corresponding package-lock.json
+        changes; inspect the lockfile diff if needed even if omitted from review.
+        Check build/deployment changes against README.md and the Azure workflow.
+        Preserve production/preview separation, fork-safe secret handling, preview
+        cleanup, scheduled publishing, redirects, caching and security headers.
+        Do not expose deployment tokens, broaden workflow permissions unnecessarily,
+        or execute untrusted fork code with privileged credentials.
+        Workflow-only and scripts-only changes can be skipped by current CI path
+        filters; do not treat absent checks as success. Ask for relevant verification
+        evidence, not an invented test command or a new test framework.
+        Check migration and image-processing scripts for unintended overwrites,
+        content loss and changes to existing assets. Update related documentation
+        when contributor commands or deployment behavior change.
+
+chat:
+  auto_reply: true
