@@ -82,7 +82,7 @@ export const TARGETS: Target[] = [
     vendor: 'STMicroelectronics',
     family: 'STM32',
     blurb: 'Nucleo, Discovery and IoT kits.',
-    boards: ['F091RC', 'F429I', 'F769I', 'L475E', 'AZ3166'],
+    boards: ['F091RC', 'F429I', 'F769I', 'H735G', 'L475E', 'AZ3166'],
     href: LINKS.referenceTargets,
   },
   {
