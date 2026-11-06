@@ -24,7 +24,7 @@ Applications are written and debugged in **Visual Studio** (2019, 2022 and 2026,
 
 - **Espressif ESP32** family, including the S2, S3, C3, C5, C6, H2 and P4 series
 - **Raspberry Pi** RP2040 and RP2350 (Pico and Pico 2)
-- **STMicroelectronics STM32**
+- **STMicroelectronics STM32**, including the F0, F4, F7, H7 and L4 series
 - **NXP** i.MX RT
 - **Silicon Labs** Giant Gecko
 - **Texas Instruments** SimpleLink
