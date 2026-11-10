@@ -1,0 +1,144 @@
+---
+import { Wrench, GraduationCap, LifeBuoy } from '@lucide/astro';
+import Logo from '../Logo.astro';
+import { ENGINEERING_PARTNERS } from '../../data/partners';
+import { LINKS } from '../../data/site';
+
+const offers = [
+  { icon: Wrench, title: 'Engineering services', text: 'Hardware, firmware and cloud, built by teams who ship .NET nanoFramework products.' },
+  { icon: GraduationCap, title: 'Consulting & training', text: 'Architecture reviews, workshops and onboarding for your own developers.' },
+  { icon: LifeBuoy, title: 'Support', text: 'Help for commercial projects, from first prototype to production.' },
+];
+---
+<section id="partners" class="section section--tint partners">
+  <div class="container partners__inner">
+    <div class="partners__pitch">
+      <p class="eyebrow">Engineering partners</p>
+      <h2 class="section-title">Need a hand shipping your product?</h2>
+      <p class="lead">
+        Our engineering partners are companies with proven .NET nanoFramework expertise. They take on commercial
+        projects so you can cut development effort and time to market.
+      </p>
+      <ul class="partners__offers">
+        {offers.map(({ icon: Icon, title, text }) => (
+          <li>
+            <Icon size={22} stroke-width={1.8} aria-hidden="true" />
+            <div><strong>{title}</strong><span>{text}</span></div>
+          </li>
+        ))}
+      </ul>
+      <div class="partners__ctas">
+        <a class="btn btn--indigo btn--lg" href={LINKS.partnerProgram} data-track="home-partners/find-partner">Find an engineering partner</a>
+        <a class="btn btn--outline btn--lg" href={LINKS.joinPartners} data-track="home-partners/become-partner">Become a partner</a>
+      </div>
+    </div>
+
+    <div class="partners__list">
+      <h3 class="partners__label">Partners in the program</h3>
+      <div class="partners__grid">
+        {ENGINEERING_PARTNERS.map((p) => (
+          <a class="partners__logo" href={p.profile ?? p.website} aria-label={p.name} data-track="home-partners/partner-logo">
+            <Logo logo={p.logo} name={p.name} class="partners__img" />
+          </a>
+        ))}
+      </div>
+      <a class="partners__more" href={LINKS.hardwareTechPartners} data-track="home-partners/hardware-partners">
+        Looking for boards? See hardware &amp; technology partners →
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .partners__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 56px;
+    align-items: flex-start;
+  }
+  .partners__pitch {
+    flex: 1.2 1 480px;
+    min-width: 0;
+  }
+  .partners__offers {
+    list-style: none;
+    margin: 32px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 18px;
+  }
+  .partners__offers li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .partners__offers :global(svg) {
+    flex: none;
+    margin-top: 2px;
+    color: var(--nf-teal-text);
+  }
+  .partners__offers strong {
+    display: block;
+    font-size: 16px;
+  }
+  .partners__offers span {
+    color: var(--ink-2);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .partners__ctas {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .partners__list {
+    flex: 1 1 360px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .partners__label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  .partners__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+    gap: 14px;
+  }
+  .partners__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 132px;
+    padding: 18px 22px;
+    border-radius: var(--radius);
+    background: #fff;
+    border: 1px solid var(--border);
+    color: var(--nf-navy);
+    font-size: 20px;
+    font-weight: 700;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .partners__logo:hover {
+    text-decoration: none;
+    border-color: var(--nf-teal);
+    box-shadow: 0 10px 30px rgba(24, 23, 48, 0.08);
+    transform: translateY(-2px);
+  }
+  .partners__logo :global(.partners__img) {
+    width: 100%;
+    height: 100%;
+    max-height: 92px;
+    object-fit: contain;
+  }
+  .partners__more {
+    font-weight: 600;
+  }
+</style>

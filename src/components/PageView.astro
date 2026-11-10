@@ -27,7 +27,11 @@ const crumbs = PARENT_OVERRIDES[page.id] ? [PARENT_OVERRIDES[page.id]] : await P
 );
 const editUrl = page.filePath ? `${SITE.repo}/edit/main/${page.filePath}` : SITE.repo;
 ---
-<BaseLayout title={page.data.title} description={page.data.description}>
+<BaseLayout
+  title={page.data.title}
+  description={page.data.description}
+  current={page.id.startsWith('partner-program/') ? 'Partners' : undefined}
+>
   <article>
     <header class="page-hero">
       <div class="container">

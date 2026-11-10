@@ -46,6 +46,9 @@ while (true)
         <a class="btn btn--primary" href="#start">Get started <ArrowRight size={18} aria-hidden="true" /></a>
         <a class="btn btn--ghost-dark" href={LINKS.github}>Star on GitHub</a>
       </div>
+      <p class="hero__partner">
+        Building a product? <a href={LINKS.partnerProgram}>Talk to an engineering partner <span aria-hidden="true">→</span></a>
+      </p>
       <div class="hero__install">
         <span class="hero__prompt" aria-hidden="true">$</span>
         <code>dotnet tool install -g nanoff</code>
@@ -112,8 +115,22 @@ while (true)
     flex-wrap: wrap;
     gap: 12px;
   }
+  .hero__partner {
+    margin-top: 20px;
+    font-size: 15px;
+    color: var(--on-dark-2);
+  }
+  .hero__partner a {
+    color: var(--nf-green);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .hero__partner a:hover {
+    color: #fff;
+  }
   .hero__install {
-    margin-top: 32px;
+    margin-top: 24px;
     display: inline-flex;
     align-items: center;
     gap: 12px;
