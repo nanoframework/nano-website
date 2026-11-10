@@ -50,6 +50,7 @@ export const NAV = [
   { label: 'Docs', href: LINKS.docs },
   { label: 'Hardware', href: '/#hardware' },
   { label: 'Blog', href: '/blog/' },
+  { label: 'Partners', href: LINKS.partnerProgram },
   { label: 'Community', href: '/#community' },
 ];
 
