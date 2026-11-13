@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title description">
+  <title id="title">From it builds on my machine to a repeatable release</title>
+  <desc id="description">A shared pipeline connects restore, version checks, build and test, and publish stages. Dependency updates loop back for review. Checks vary by repository; real hardware validation and fleet rollout remain separate responsibilities.</desc>
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="16" cy="16" r="1" fill="#cfcce6" opacity=".08"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="675" fill="#181730"/>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+  <g font-family="'Open Sans', 'Segoe UI', Arial, sans-serif">
+    <rect x="64" y="52" width="36" height="5" rx="2.5" fill="#4cb48c"/>
+    <text x="114" y="62" fill="#cfcce6" font-size="20" font-weight="600">.NET nanoFramework</text>
+    <text x="1136" y="62" text-anchor="end" fill="#cfcce6" font-size="18">Engineering fundamentals / 03</text>
+    <g fill="#fff" font-size="48" font-weight="700" letter-spacing="-1">
+      <text x="64" y="130">From "it builds on my machine"</text>
+      <text x="64" y="188">to a repeatable release.</text>
+    </g>
+    <text x="66" y="232" fill="#cfcce6" font-size="24">One shared recipe. Fewer repetitive chores.</text>
+
+    <rect x="64" y="275" width="1072" height="56" rx="12" fill="#29235c" stroke="#009086" stroke-width="1.5"/>
+    <text x="600" y="311" text-anchor="middle" fill="#fff" font-size="23" font-weight="600">Shared pipeline templates / nf-tools</text>
+    <g fill="none" stroke="#4cb48c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M189 331V357 M463 331V357 M737 331V357 M1011 331V357"/>
+      <path d="M314 403H338 M328 393L338 403L328 413"/>
+      <path d="M588 403H612 M602 393L612 403L602 413"/>
+      <path d="M862 403H886 M876 393L886 403L876 413"/>
+      <path d="M1011 449V512H189V449 M179 459L189 449L199 459"/>
+    </g>
+    <g fill="#29235c" stroke="#57517b" stroke-width="1.5">
+      <rect x="64" y="357" width="250" height="92" rx="14"/>
+      <rect x="338" y="357" width="250" height="92" rx="14"/>
+      <rect x="612" y="357" width="250" height="92" rx="14"/>
+      <rect x="886" y="357" width="250" height="92" rx="14"/>
+    </g>
+    <g text-anchor="middle">
+      <g fill="#fff" font-size="24" font-weight="600">
+        <text x="189" y="394">Restore</text>
+        <text x="463" y="394">Version checks</text>
+        <text x="737" y="394">Build + test</text>
+        <text x="1011" y="394">Publish</text>
+      </g>
+      <g fill="#cfcce6" font-size="18">
+        <text x="189" y="426">NuGet packages</text>
+        <text x="463" y="426">nanovc</text>
+        <text x="737" y="426">Checks per repository</text>
+        <text x="1011" y="426">New package version</text>
+      </g>
+    </g>
+    <rect x="370" y="488" width="460" height="48" rx="24" fill="#29235c" stroke="#4cb48c" stroke-width="1.5"/>
+    <text x="600" y="519" text-anchor="middle" fill="#fff" font-size="22" font-weight="600">Dependency updates + human review</text>
+    <text x="600" y="574" text-anchor="middle" fill="#cfcce6" font-size="20">Package publication is not fleet deployment.</text>
+    <path d="M64 598H1136" stroke="#57517b"/>
+    <text x="600" y="640" text-anchor="middle" fill="#cfcce6" font-size="23">Inspect. Repeat. Improve.</text>
+  </g>
+</svg>
