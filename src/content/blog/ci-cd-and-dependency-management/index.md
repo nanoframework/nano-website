@@ -76,13 +76,13 @@ There's one more classic trap in a package ecosystem. A project references one v
 
 That's the job of **nanovc**, a small .NET tool from the [nf-tools](https://github.com/nanoframework/nf-tools) toolbox. Its [NuGet page](https://www.nuget.org/packages/nanovc) describes it as a tool to check for version mismatches in nanoFramework builds, meant for the CI/CD pipelines. In practice, it checks that the `.nuspec` files and the NuGet packages stay aligned and up to date, so a mismatch fails the build instead of reaching your users.
 
-You don't have to wire it up by hand. The shared [versions-check template](https://github.com/nanoframework/nf-tools/blob/main/azure-pipelines-templates/versions-check.yml) installs it with `dotnet tool install -g nanovc` and runs it against the solution. On PR builds it adds the `--analyse-nuspec` option, so the nuspec dependencies get analysed too. And since the [class-library build template](https://github.com/nanoframework/nf-tools/blob/main/azure-pipelines-templates/class-lib-build-only.yml) includes that step after the NuGet restore and before the build, repositories using it get the check automatically. That's the shared-recipe idea again.
+You don't have to wire it up by hand. The shared [versions-check template](https://github.com/nanoframework/nf-tools/blob/main/azure-pipelines-templates/versions-check.yml) installs it with `dotnet tool install -g nanovc` and runs it against the solution, provided the preceding steps succeeded. It skips installation and checking for release-candidate builds (`StartReleaseCandidate` is true) and version-tag builds (the source ref starts with `refs/tags/v`). On PR builds it adds the `--analyse-nuspec` option, so the nuspec dependencies get analysed too. And since the [class-library build template](https://github.com/nanoframework/nf-tools/blob/main/azure-pipelines-templates/class-lib-build-only.yml) includes that step after the NuGet restore and before the build, repositories using it get the check automatically when those conditions allow it. That's the shared-recipe idea again.
 
 It pairs nicely with the dependency updates above: the updates bring versions forward, and nanovc makes sure nothing got left behind. It's still a version check, not a compatibility test. The build and tests remain the judges of whether things actually work together.
 
 ## Even the dev environment gets tested
 
-Here's a detail worth a smile. A [dev container smoke-test workflow](https://github.com/nanoframework/nf-interpreter/blob/main/.github/workflows/devcontainer-smoketest.yaml) builds selected firmware targets whenever the container or workflow files change.
+Here's a detail worth a smile. A [dev container smoke-test workflow](https://github.com/nanoframework/nf-interpreter/blob/main/.github/workflows/devcontainer-smoketest.yaml) builds selected firmware targets for pull requests that change files under `.devcontainer/` or `.github/workflows/`. Direct pushes do not trigger this workflow.
 
 Why bother? Because a broken toolchain blocks contributors just as effectively as broken code. Testing the environment is a small thing that says a lot.
 
