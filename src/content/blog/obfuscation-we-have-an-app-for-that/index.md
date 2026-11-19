@@ -19,17 +19,7 @@ Why is this a concern? Well, if you are a company and own IP that you don’t wh
 
 The main purpose of an obfuscator is precisely… obfuscating… the code so that it makes unreadable or at least very hard to understand. There are several techniques on how to accomplish this and some are more effective than others.  
 Just to name a few: symbols renaming, overloaded renaming, cross assembly renaming, inline value and array encryption, control flow obfuscation, resource encryption. But that’s enough as these details are beyond the subject of this blog post. Check the pictures bellow so you can have an idea on how this looks.  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
 
 |     |     |
 | --- | --- |
@@ -37,6 +27,6 @@ Just to name a few: symbols renaming, overloaded renaming, cross assembly renami
 | ![obfuscation\_before](./renaming1.png) | ![obfuscation\_after](./renaming2.png) |
 
   
-We've worked together with the good folks of [babelfor.NET](http://www.babelfor.net) to add support for **nanoFramework** on their .NET obfuscation product: [Babel Obfuscator](http://www.babelfor.net/products/obfuscator). Early this week v9.0 of this tool was released being the first (and only!) obfuscation tool supporting **nanoFramework**.
+We've worked together with the good folks of [babelfor.NET](https://babelfor.net) to add support for .NET **nanoFramework** on their .NET obfuscation product: [Babel Obfuscator](https://babelfor.net/obfuscator). Early this week v9.0 of this tool was released being the first (and only!) obfuscation tool supporting **nanoFramework**.
 
 So, if you have a commercial interest in **nanoFramework** and sharing your IP was preventing you from moving forward, you don't have an excuse any more!
