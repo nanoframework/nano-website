@@ -21,7 +21,7 @@ So security belongs in the platform conversation from day one. .NET nanoFramewor
 Developing with security in mind also means looking at how changes reach the platform, not just which APIs it exposes. nanoFramework uses review and automated checks to help catch defects before they reach your device:
 
 - **Pull-request review:** the [contribution workflow](https://docs.nanoframework.net/content/contributing/contributing-workflow.html) states that one or more nanoFramework team members review every PR before it is merged. It also asks contributors to add relevant tests and make sure they pass.
-- **Static code analysis:** the [shared class-library build pipeline](https://github.com/nanoframework/nf-tools/blob/main/azure-pipelines-templates/class-lib-build-only.yml) integrates SonarCloud analysis and publishes its quality-gate result. [CoreLibrary's public analysis dashboard](https://sonarcloud.io/dashboard?id=nanoframework_lib-CoreLibrary) makes those results inspectable.
+- **Static code analysis:** the [shared class-library build pipeline](https://github.com/nanoframework/nf-tools/blob/main/azure-pipelines-templates/class-lib-build-only.yml) integrates SonarCloud analysis and publishes its quality-gate result. Each library has its own public analysis dashboard, updated on each PR, so you can inspect the results for the library you use. For example, [CoreLibrary's dashboard](https://sonarcloud.io/dashboard?id=nanoframework_lib-CoreLibrary) shows the analysis for mscorlib.
 - **Automated tests:** the [CoreLibrary CI configuration](https://github.com/nanoframework/CoreLibrary/blob/main/azure-pipelines.yml) enables unit tests through that shared pipeline, unless explicitly skipped by a PR label. On the native side, the [POSIX nanoCLR workflow](https://github.com/nanoframework/nf-interpreter/blob/main/.github/workflows/posix-nanoclr.yml) builds multiple platform variants and runs a smoke test when the runner can execute the target binary.
 
 These are practical layers of defence against bugs, including bugs that could affect security. They are not proof that every vulnerability has been eliminated, nor a substitute for validating your own product.
@@ -29,6 +29,8 @@ These are practical layers of defence against bugs, including bugs that could af
 ## Encryption and identity go together
 
 TLS protects traffic. But encryption alone is not enough if your device never checked who it's talking to.
+
+And we're not talking about yesterday's protocols: nanoFramework firmware supports **TLS 1.2 and TLS 1.3**, as covered in our [TLS 1.3 announcement](/net-nanoframework-tls-1-3-available-security-first/). Modern transport security, even on a tiny device. 😉
 
 nanoFramework exposes [SslStream](https://docs.nanoframework.net/api/System.Net.Security.SslStream.html) and certificate APIs, and the [TLS sample pack](https://docs.nanoframework.net/samplesdetails/SSL/README.html) shows client and server scenarios for network-connected devices. The API also exposes [certificate verification options](https://docs.nanoframework.net/api/System.Net.Security.SslVerification.html). That flexibility is useful, and it comes with a responsibility: pick the right verification, and don't treat a successful handshake as proof of trust.
 
