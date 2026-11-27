@@ -26,13 +26,13 @@ And one more thing, the unit tests also works in pipelines and on all arm64 and 
 
 ## Same family as the .NET tests you know 🤝
 
-The test platform wasn't invented in a corner. The [project documentation](https://docs.nanoframework.net/content/unit-test/index.html) goes more into details ans it has all the benefits you're used to with the Microsoft test platform for .NET, or xUnit. In practice, you decorate classes and methods with `[TestClass]` and `[TestMethod]`, you use `Assert` functions, and the tests show up in the usual test explorer. Under the hood, the Visual Studio integration is a test adapter for the Visual Studio Test platform. [The story of how it was built](https://devblogs.microsoft.com/dotnet/show-dotnet-build-your-own-unit-test-platform-the-true-story-of-net-nanoframework/) on the Microsoft .NET blog explains that part, and it's the same machinery a pipeline uses to run the tests from the command line.
+The test platform wasn't invented in a corner. The [project documentation](https://docs.nanoframework.net/content/unit-test/index.html) goes more into details and it has all the benefits you're used to with the Microsoft test platform for .NET, or xUnit. In practice, you decorate classes and methods with `[TestClass]` and `[TestMethod]`, you use `Assert` functions, and the tests show up in the usual test explorer. Under the hood, the Visual Studio integration is a test adapter for the Visual Studio Test platform. [The story of how it was built](https://devblogs.microsoft.com/dotnet/show-dotnet-build-your-own-unit-test-platform-the-true-story-of-net-nanoframework/) on the Microsoft .NET blog explains that part, and it's the same machinery a pipeline uses to run the tests from the command line.
 
 The payoff is practical. When some code is shared between nanoFramework and regular .NET, a protocol parser or a sensor calculation for example, the tests for that shared code can be shared too. Write them once, run them in both worlds. Expect a little conditional compilation here and there, since the two assertion APIs don't have identical names (nanoFramework has `Assert.Equal` and `Assert.True`, MSTest has `Assert.AreEqual` and `Assert.IsTrue`), but the idea is the same, and so is the way of thinking.
 
 ## One bug, one test, never again 📈
 
-The test framework arrived in 2021, and the [article about building it](https://devblogs.microsoft.com/dotnet/show-dotnet-build-your-own-unit-test-platform-the-true-story-of-net-nanoframework/). It changed how the platform's own code gets maintained.
+The test framework arrived in 2021, and the [article about building it](https://devblogs.microsoft.com/dotnet/show-dotnet-build-your-own-unit-test-platform-the-true-story-of-net-nanoframework/) explains what is behind. It changed how the platform's own code gets maintained.
 
 The habit is simple. When a bug is found, it's fixed and it gets a new unit test. Even a very tiny edge case gets its own test. Once that test exists, the same bug can't quietly come back, because the pipeline would catch it. Do that for years and the quality only goes one way: up ☝🏻. Each fixed problem becomes a permanent guard.
 
