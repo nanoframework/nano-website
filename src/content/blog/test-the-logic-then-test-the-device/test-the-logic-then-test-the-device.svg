@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title description">
+  <title id="title">Test the logic, then test the device</title>
+  <desc id="description">Logic tests check inputs, boundaries and regressions. A C# microcontroller connected to a sensor checks peripherals, timing and integration. Emulator and device runs provide different evidence; running a unit test on hardware does not make it an integration test.</desc>
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="16" cy="16" r="1" fill="#cfcce6" opacity=".08"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="675" fill="#181730"/>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+  <g font-family="'Open Sans', 'Segoe UI', Arial, sans-serif">
+    <rect x="64" y="52" width="36" height="5" rx="2.5" fill="#4cb48c"/>
+    <text x="114" y="62" fill="#cfcce6" font-size="20" font-weight="600">.NET nanoFramework</text>
+    <text x="1136" y="62" text-anchor="end" fill="#cfcce6" font-size="18">Engineering fundamentals / 05</text>
+    <g fill="#fff" font-size="48" font-weight="700" letter-spacing="-1">
+      <text x="64" y="130">Test the logic,</text>
+      <text x="64" y="188">then test the device.</text>
+    </g>
+    <text x="66" y="232" fill="#cfcce6" font-size="24">Different tests. Different questions. More confidence.</text>
+
+    <g fill="#29235c" stroke="#57517b" stroke-width="1.5">
+      <rect x="64" y="272" width="508" height="274" rx="16"/>
+      <rect x="628" y="272" width="508" height="274" rx="16"/>
+    </g>
+    <g fill="#fff" font-size="27" font-weight="600" text-anchor="middle">
+      <text x="318" y="315">Check the logic</text>
+      <text x="882" y="315">Check the real device</text>
+    </g>
+    <rect x="171" y="340" width="294" height="119" rx="10" fill="#181730" stroke="#009086"/>
+    <g fill="none" stroke="#4cb48c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M192 366L198 372L210 359 M192 400L198 406L210 393 M192 434L198 440L210 427"/>
+    </g>
+    <g fill="#cfcce6" font-size="20">
+      <text x="228" y="372">Valid + invalid inputs</text>
+      <text x="228" y="406">Boundary values</text>
+      <text x="228" y="440">Regression cases</text>
+    </g>
+
+    <g stroke="#4cb48c" stroke-width="5" stroke-linecap="round">
+      <path d="M710 365H729 M710 387H729 M710 409H729 M859 365H878 M859 387H878 M859 409H878"/>
+      <path d="M761 326V345 M783 326V345 M805 326V345 M827 326V345 M761 431V450 M783 431V450 M805 431V450 M827 431V450"/>
+    </g>
+    <rect x="729" y="345" width="130" height="86" rx="12" fill="#181730" stroke="#4cb48c" stroke-width="2"/>
+    <text x="794" y="400" text-anchor="middle" fill="#fff" font-size="34" font-weight="700">C#</text>
+    <path d="M878 387H906V369H934" fill="none" stroke="#009086" stroke-width="3"/>
+    <rect x="934" y="342" width="148" height="91" rx="10" fill="#181730" stroke="#009086"/>
+    <circle cx="1008" cy="367" r="10" fill="none" stroke="#4cb48c" stroke-width="3"/>
+    <text x="1008" y="408" text-anchor="middle" fill="#cfcce6" font-size="20">Sensor</text>
+
+    <g text-anchor="middle" fill="#cfcce6" font-size="20">
+      <text x="318" y="490">Fast feedback on suitable tests</text>
+      <text x="318" y="522">Emulator or device</text>
+      <text x="882" y="490">Peripherals, timing, integration</text>
+      <text x="882" y="522">Validate on your target hardware</text>
+    </g>
+    <text x="600" y="579" text-anchor="middle" fill="#cfcce6" font-size="20">A unit test on hardware is still a unit test.</text>
+    <path d="M64 598H1136" stroke="#57517b"/>
+    <text x="600" y="640" text-anchor="middle" fill="#cfcce6" font-size="23">Repeatable evidence. Not a guarantee of no bugs.</text>
+  </g>
+</svg>
